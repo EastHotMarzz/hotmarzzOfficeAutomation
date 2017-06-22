@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hotmarzz.oa.dao.EmpDao">
+	
+	<sql id="empCol">
+		empid,empname,username,userpwd,phone,hiredate,schoolid,deptid,roleid,
+		stationid,assowechat,createuser,createdate,updateuser,updatedate
+	</sql>
+	
+	<select id="getListPage" parameterType="baseQuery" resultType="emp">
+		select 
+		<include refid="com.hotmarzz.oa.dao.EmpDao.empCol"/>
+		 from o_emp
+		<include refid="com.hotmarzz.basic.dao.BaseDao.queryByConditions"/>
+		<include refid="com.hotmarzz.basic.dao.BaseDao.queryByOrders"/>
+	</select>
+	
+	<select id="getCount"  parameterType="baseQuery" resultType="int">
+		<include refid="com.hotmarzz.basic.dao.BaseDao.count"/> o_emp 
+		<include refid="com.hotmarzz.basic.dao.BaseDao.queryByConditions"/>
+	</select>
+	
+	<insert id="insert">
+		<selectKey keyProperty="empId" order="BEFORE" resultType="long">
+			select o_emp_seq.nextval from dual
+		</selectKey>
+		insert into o_emp(
+		<include refid="com.hotmarzz.oa.dao.EmpDao.empCol"/>
+		) values(
+			#{empId,jdbcType=NUMERIC},
+			#{empName,jdbcType=VARCHAR},
+			#{userName,jdbcType=VARCHAR},
+			#{userPwd,jdbcType=VARCHAR},
+			#{phone,jdbcType=VARCHAR},
+			#{hiredate,jdbcType=DATE},
+			<if test="schoolDistrict !=null">
+				#{schoolDistrict.schoolId,jdbcType=NUMERIC},
+			</if>
+			<if test="schoolDistrict ==null">
+				null,
+			</if>
+			<if test="dept !=null">
+				#{dept.deptId,jdbcType=NUMERIC},
+			</if>
+			<if test="dept ==null">
+				null,
+			</if>
+			<if test="role !=null">
+				#{role.roleId,jdbcType=NUMERIC},
+			</if>
+			<if test="role ==null">
+				null,
+			</if>
+			<if test="station !=null">
+				#{station.stationId,jdbcType=NUMERIC},
+			</if>
+			<if test="station ==null">
+				null,
+			</if>
+			#{assoWeChat,jdbcType=NUMERIC},
+			#{createUser,jdbcType=VARCHAR},
+			#{createDate,jdbcType=TIMESTAMP },
+			#{updateUser,jdbcType=VARCHAR},
+			#{updateDate,jdbcType=TIMESTAMP}
+		)
+	</insert>
+</mapper>
