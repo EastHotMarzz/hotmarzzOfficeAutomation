@@ -328,6 +328,7 @@ var tableToExcel = (function () {
         return s.replace(/{(\w+)}/g,
         function (m, p) { return c[p]; })
     }
+    
     return function (table, name) {
         if (!table.nodeType) table = document.getElementById(table)
         p = $(table).parents().prev("#headTitle")[0];
