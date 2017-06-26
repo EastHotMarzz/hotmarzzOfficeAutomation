@@ -390,7 +390,8 @@
 							var id = row['empId'];
 							var str = "<a class='update blue' href='emp/"+id+".do' data-toggle='modal'>修改</a>"
 									+ "&nbsp;"
-									+ "<a class='dele blue' href='emp/"+id+".do' data-toggle='modal'>删除</a>";
+									+ "<a class='dele red' href='emp/"+id+".do' data-toggle='modal'>删除</a>";
+							
 							return str;
 						}
 					} ];
@@ -457,55 +458,49 @@
 										$("#main").load(updateUrl,initMain);										
 									});
 	
-									$(".dele")
-											.on(
-													"click",
-													function(e) {
-														e.preventDefault();
-														var del = window
-																.confirm("你真的要删除吗？");
-														if (del) {
-															var url = $(this)
-																	.prop(
-																			"href");
-															var user_id = $(this).closest("tr").children("td").first().html();
-															console.log(url);
-															$
-																	.ajax({
-																		"url" : url,
-																		"method" : "delete",
-																		"dataType" : "json",
-																		"contentType" : "application/json;charset=UTF-8",
-																		"success" : function(
-																				result) {
-																			if (result.msg === 'success') {
-																				var href = "userManage.do";
-																				$("#main").load(href,function(){
-																					initMain();
-																					var alertDiv = $("#alertDiv");
-																					alertDiv.removeClass("hidden");
-																					alertDiv.removeClass("alert-warning");
-																					alertDiv.removeClass("alert-danger");
-																					alertDiv.addClass("alert-info");
-																					alertDiv.find("button").next("span").remove();
-																					alertDiv.find("button").after("<span>删除成功,删除用户的为id:"+user_id+" <i class='ace-icon glyphicon glyphicon-ok'></i></span>");
-																				});
-																			}
-																			if (result.msg === 'error'){
-																				var alertDiv = $("#alertDiv");
-																				alertDiv.removeClass("hidden");
-																				if(result.errorCode == '503'){
-																					alertDiv.removeClass("alert-warning");
-																					alertDiv.removeClass("alert-info");
-																					alertDiv.addClass("alert-danger");
-																				}
-																				alertDiv.find("button").next("span").remove();
-																				alertDiv.find("button").after("<span>"+result.errorMsg+"</span>");
-																			}
+									$(".dele").on("click",
+											function(e) {
+												e.preventDefault();
+												var del = window
+														.confirm("你真的要删除吗？");
+												if (del) {
+													var url = $(this).prop("href");
+													var user_id = $(this).closest("tr").children("td").first().html();
+													console.log(url);
+													$.ajax({
+																"url" : url,
+																"method" : "delete",
+																"dataType" : "json",
+																"contentType" : "application/json;charset=UTF-8",
+																"success" : function(result) {
+																	if (result.msg === 'success') {
+																		var href = "emps.do";
+																		$("#main").load(href,function(){
+																			initMain();
+																			var alertDiv = $("#alertDiv");
+																			alertDiv.removeClass("hidden");
+																			alertDiv.removeClass("alert-warning");
+																			alertDiv.removeClass("alert-danger");
+																			alertDiv.addClass("alert-info");
+																			alertDiv.find("button").next("span").remove();
+																			alertDiv.find("button").after("<span>删除成功,删除用户的为id:"+user_id+" <i class='ace-icon glyphicon glyphicon-ok'></i></span>");
+																		});
+																	}
+																	if (result.msg === 'error'){
+																		var alertDiv = $("#alertDiv");
+																		alertDiv.removeClass("hidden");
+																		if(result.errorCode == '503'){
+																			alertDiv.removeClass("alert-warning");
+																			alertDiv.removeClass("alert-info");
+																			alertDiv.addClass("alert-danger");
 																		}
-																	})
-														}
-													});
+																		alertDiv.find("button").next("span").remove();
+																		alertDiv.find("button").after("<span>"+result.errorMsg+"</span>");
+																	}
+																}
+															})
+												}
+											});
 									
 									
 									$(".pagination .paginate_button")

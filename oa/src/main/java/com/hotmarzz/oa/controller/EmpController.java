@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.apache.ibatis.annotations.Delete;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -107,6 +109,19 @@ public class EmpController {
 		empBuzz.add(emp);
 		result.put("flag", true);
 		result.put("msg", "添加成功");
+		return JsonUtils.bean2Json(result);
+	}
+	
+	/*
+	 * 删除员工
+	 */
+	@RequestMapping(value="emp/{id}.do",method=RequestMethod.DELETE)
+	@ResponseBody
+	public String deleteEmp(@PathVariable("id") Integer id){
+		Map<String,Object> result = new HashMap<String,Object>();
+		result.put("flag", true);
+		result.put("msg", "success");
+		
 		return JsonUtils.bean2Json(result);
 	}
 }
