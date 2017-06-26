@@ -451,13 +451,13 @@
 								},
 								//监听datatables buttons事件
 								"drawCallback" : function(settings, json) {
-									
+									//修改
 									$(".update").on("click", function(e) {
 										e.preventDefault();
 										var updateUrl = $(this).prop("href");
 										$("#main").load(updateUrl,initMain);										
 									});
-	
+									//删除
 									$(".dele").on("click",
 											function(e) {
 												e.preventDefault();
@@ -511,12 +511,9 @@
 														if(cp==null||cp==undefined){
 															return;
 														}
-														var currentPage = cp
-																.val();
+														var currentPage = cp.val();
 														var firstPage = 1;
-														var total_page = $(
-																":input[name='pag.total_page']")
-																.val();
+														var total_page = $(":input[name='pag.total_page']").val();
 														var pageInfo = '';
 														if ($(this).hasClass(
 																"first")) {

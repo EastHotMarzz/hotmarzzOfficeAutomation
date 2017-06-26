@@ -66,22 +66,24 @@
 			<div class="main-content-inner">
 				<div class="breadcrumbs ace-save-state" id="breadcrumbs">
 					<ul class="breadcrumb">
-						<li><i class="ace-icon fa fa-home home-icon"></i> <a href="#">东方黑玛oa系统</a>
+						<li><i class="ace-icon fa fa-home home-icon"></i> <a href="main.do">东方黑玛oa系统</a>
 						</li>
 
-						<li><c:if
-								test="${empForm.empId == null || empForm.empId == ''}">
+						<li><c:if test="${empForm.empId == null || empForm.empId == ''}">
 								<a id="fillingManageLink" href="emps.do">员工管理</a>
-							</c:if> <c:if test="${!(empForm.empId == null || empForm.empId == '')}">
+							</c:if> 
+							<c:if test="${!(empForm.empId == null || empForm.empId == '')}">
 								<a id="fillingManageLink" href="../emps.do">员工管理</a>
 							</c:if></li>
-						<li class="active"><c:if
+						<li class="active">
+							<c:if
 								test="${empForm.empId == null || empForm.empId == ''}">
 												员工添加
-											</c:if> <c:if
+							</c:if> 
+							<c:if
 								test="${!(empForm.empId == null || empForm.empId == '')}">
 												员工修改
-											</c:if>
+							</c:if>
 					</ul>
 					<!-- /.breadcrumb -->
 				</div>
@@ -378,12 +380,10 @@
 					var addOrUpdateUrl = "emp.do";
 
 					$("#submitBtn")
-							.on(
-									"click",
+							.on("click",
 									function(e) {
 										console.log($("#fillForm").serialize());
-										console.log(JSON.stringify($(
-												"#fillForm").serializeJSON()));
+										console.log(JSON.stringify($("#fillForm").serializeJSON()));
 										var update = $("#fillForm input[name='empId'][type='hidden']").length > 0;
 										var method = "post";
 										if (update) {
@@ -392,22 +392,17 @@
 													+ addOrUpdateUrl;
 											listUrl = "../" + listUrl;
 										}
-										var param = $("#fillForm")
-												.serializeJSON();
-										$
-												.ajax({
+										var param = $("#fillForm").serializeJSON();
+										$.ajax({
 													"url" : addOrUpdateUrl,
 													"method" : method,
-													"data" : JSON
-															.stringify(param),
+													"data" : JSON.stringify(param),
 													"dataType" : "json",
 													"contentType" : "application/json;charset=UTF-8",
 													"success" : function(result) {
 														debugger
 														if (result.flag === true) {
-															$("#main")
-																	.load(
-																			listUrl,
+															$("#main").load(listUrl,
 																			function() {
 																				initMain();
 																				var alertDiv = $("#alertDiv");
@@ -435,20 +430,20 @@
 																			});
 														}
 														if (result.flag === 'validation') {
-															$
-																	.each(
-																			result.validationMsg,
+															$.each(result.validationMsg,
 																			function(
 																					key,
 																					value) {
 																				var ele = "#"
 																						+ key;
-																				$(
-																						ele)
-																						.after(
-																								"<div class='help-block col-xs-12 col-sm-reset inline'>"
-																										+ value
-																										+ "</div>");
+																				//修复了校验的重复提示问题。
+																				if($("#ok_"+key).html()!=null){
+																					$("#ok_"+key).html(value)
+																				}else{
+																					$(ele).after("<div id='ok_"+key+"' class='help-block col-xs-12 col-sm-reset inline'>"
+																											+ value
+																											+ "</div>");
+																				}
 																			})
 														}
 														if (result.flag === false) {

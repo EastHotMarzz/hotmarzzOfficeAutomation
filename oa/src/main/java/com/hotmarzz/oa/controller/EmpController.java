@@ -91,21 +91,21 @@ public class EmpController {
 	/*
 	 * 添加员工
 	 */
-	@RequestMapping(value="emp.do",method=RequestMethod.POST)
-	public @ResponseBody String add(@RequestBody @Valid @ModelAttribute("empForm") Emp emp, BindingResult results) throws Exception{
+	@RequestMapping(value="emp.do",produces="application/json;charset=UTF-8",method=RequestMethod.POST)
+	public @ResponseBody String add(@RequestBody @Valid Emp emp, BindingResult results) throws Exception{
 		Map<String,Object> result = new HashMap<String,Object>();
-		//此判断暂时有点问题
-//		if (results.hasErrors()) {
-//			result.put("flag", "validation");
-//			Map<String,Object> validationMsg = new HashMap<String,Object>();
-//			for (FieldError e : results.getFieldErrors()) {
-//				logger.error("object:" + e.getObjectName() + ";field: " + e.getField() + ";message:"
-//						+ e.getDefaultMessage());
-//				validationMsg.put(e.getField(), e.getDefaultMessage());
-//			}
-//			result.put("validationMsg", validationMsg);
-//			return JsonUtils.bean2Json(result);
-//		}
+		//数据校验
+		if (results.hasErrors()) {
+			result.put("flag", "validation");
+			Map<String,Object> validationMsg = new HashMap<String,Object>();
+			for (FieldError e : results.getFieldErrors()) {
+				logger.error("object:" + e.getObjectName() + ";field: " + e.getField() + ";message:"
+						+ e.getDefaultMessage());
+				validationMsg.put(e.getField(), e.getDefaultMessage());
+			}
+			result.put("validationMsg", validationMsg);
+			return JsonUtils.bean2Json(result);
+		}
 		empBuzz.add(emp);
 		result.put("flag", true);
 		result.put("msg", "添加成功");
@@ -119,6 +119,11 @@ public class EmpController {
 	@ResponseBody
 	public String deleteEmp(@PathVariable("id") Integer id){
 		Map<String,Object> result = new HashMap<String,Object>();
+		
+//		empBuzz
+		
+		
+		
 		result.put("flag", true);
 		result.put("msg", "success");
 		
