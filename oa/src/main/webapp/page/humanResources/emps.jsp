@@ -65,11 +65,9 @@
 				<ul class="breadcrumb">
 					<li><i class="ace-icon fa fa-home home-icon"></i> <a href="#">东方黑玛oa系统</a>
 					</li>
-
 					<li><a href="#">人力资源管理</a></li>
 					<li class="active">公司员工管理</li>
 				</ul>
-				<!-- /.breadcrumb -->
 			</div>
 
 			<div class="page-content">

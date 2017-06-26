@@ -41,17 +41,26 @@ public class EmpController {
 		this.empBuzz = empBuzz;
 	}
 
+	/*
+	 * 登陆成功页面
+	 * (现阶段版本没有登陆页面，有待开发登陆之后再使用)
+	 */
 	@RequestMapping("main.do")
 	public String getMainPage() throws Exception{
 		return "main";
 	}
 	
+	/*
+	 * 跳转到员工页面
+	 */
 	@RequestMapping(value="emps.do")
 	public String getEmpPage(Model model,BaseQuery bq){
 		model.addAttribute("bq", bq);
 		return "humanResources/emps";
 	}
-	
+	/*
+	 * 查询员工
+	 */
 	@RequestMapping(value="getEmpList.do",produces="application/json;charset=utf-8")
 	public @ResponseBody String getEmpList(@RequestBody BaseQuery bq) throws Exception{
 		Map<String,Object> queryParams = bq.getQueryParams();
@@ -68,26 +77,33 @@ public class EmpController {
 		return JsonUtils.bean2Json(bqResult);
 	}
 	
+	/*
+	 * 跳转添加员工页面
+	 */
 	@RequestMapping(value="emp.do",method=RequestMethod.GET)
 	public String addFilling(Model model){
 		model.addAttribute("empForm", new Emp());
 		return "humanResources/emp";
 	}
 	
+	/*
+	 * 添加员工
+	 */
 	@RequestMapping(value="emp.do",method=RequestMethod.POST)
 	public @ResponseBody String add(@RequestBody @Valid @ModelAttribute("empForm") Emp emp, BindingResult results) throws Exception{
 		Map<String,Object> result = new HashMap<String,Object>();
-		if (results.hasErrors()) {
-			result.put("flag", "validation");
-			Map<String,Object> validationMsg = new HashMap<String,Object>();
-			for (FieldError e : results.getFieldErrors()) {
-				logger.error("object:" + e.getObjectName() + ";field: " + e.getField() + ";message:"
-						+ e.getDefaultMessage());
-				validationMsg.put(e.getField(), e.getDefaultMessage());
-			}
-			result.put("validationMsg", validationMsg);
-			return JsonUtils.bean2Json(result);
-		}
+		//此判断暂时有点问题
+//		if (results.hasErrors()) {
+//			result.put("flag", "validation");
+//			Map<String,Object> validationMsg = new HashMap<String,Object>();
+//			for (FieldError e : results.getFieldErrors()) {
+//				logger.error("object:" + e.getObjectName() + ";field: " + e.getField() + ";message:"
+//						+ e.getDefaultMessage());
+//				validationMsg.put(e.getField(), e.getDefaultMessage());
+//			}
+//			result.put("validationMsg", validationMsg);
+//			return JsonUtils.bean2Json(result);
+//		}
 		empBuzz.add(emp);
 		result.put("flag", true);
 		result.put("msg", "添加成功");

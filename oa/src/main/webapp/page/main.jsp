@@ -67,7 +67,7 @@
 			<div class="navbar-header pull-left">
 				<a href="index.html" class="navbar-brand">
 					<small>
-						<i class="fa fa-cloud"></i> 东方黑玛OA系统
+						<i class="fa fa-cloud"></i>东方黑玛OA系统
 					</small>
 				</a>
 			</div>
@@ -274,14 +274,14 @@
 						<a data-toggle="dropdown" href="#" class="dropdown-toggle">
 							<img class="nav-user-photo" src="assets/images/avatars/user.jpg"/>
 							<span class="user-info">
-								<small>欢迎,</small>${loginUser.name}
+								<small>欢迎,</small>${loginUser.name}金民
 							</span>
 							<i class="ace-icon fa fa-caret-down"></i>
 						</a>
 
 						<ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
 							<li>
-								<a href="profile.html">
+								<a href="个人信息.html">
 									<i class="ace-icon fa fa-user"></i> 个人信息
 								</a>
 							</li>
@@ -289,7 +289,7 @@
 							<li class="divider"></li>
 
 							<li>
-								<a href="userLogout.do">
+								<a href="退出.do">
 									<i class="ace-icon fa fa-power-off"></i>
 									退出
 								</a>
@@ -335,25 +335,12 @@
 							<b class="arrow fa fa-angle-down"></b>
 						</a>
 						<b class="arrow"></b>
-						
 							<ul class="submenu">
 									<li class="">
 										<a href="emps.do">
 											<i class="menu-icon fa fa-caret-right"></i>
 											公司员工管理
 										</a>
-										<!-- 
-										<b class="arrow"></b>
-											<ul class="submenu">
-												<li class="">
-													<a href="#" >
-														<i class="menu-icon fa fa-caret-right"></i>
-														三级菜单名
-													</a>
-													<b class="arrow"></b>
-												</li>
-											</ul>
-										 -->
 									</li>
 									
 									<li class="">
