@@ -30,5 +30,5 @@ public interface EmpBuzz {
 	 * @param empId 
 	 * @throws Exception
 	 */
-	void deleteEmp(Long empId) throws Exception;
+	void delete(Long empId) throws Exception;
 }

@@ -41,7 +41,7 @@ public class EmpBuzzImpl implements EmpBuzz {
 	 * 删除员工信息
 	 */
 	@Override
-	public void deleteEmp(Long empId) throws Exception {
+	public void delete(Long empId) throws Exception {
 		empDao.delete(empId);
 	}
 	/**
