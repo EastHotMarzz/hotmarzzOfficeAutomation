@@ -45,6 +45,11 @@ public class EmpController {
 	public String getMainPage() throws Exception{
 		return "main";
 	}
+	@RequestMapping(value = "login.do",method=RequestMethod.GET)
+	public String getLoginPage(Model model) throws Exception{
+		model.addAttribute("loginUser", new Emp());
+		return "login";
+	}
 	
 	@RequestMapping(value="emps.do")
 	public String getEmpPage(Model model,BaseQuery bq){

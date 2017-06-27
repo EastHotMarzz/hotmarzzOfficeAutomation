@@ -223,7 +223,7 @@ Target Server Type    : ORACLE
 Target Server Version : 110200
 File Encoding         : 65001
 
-Date: 2017-06-22 17:44:06
+Date: 2017-06-28 00:06:30
 */
 
 
@@ -233,7 +233,16 @@ Date: 2017-06-22 17:44:06
 DROP TABLE "HOTMARZZ"."O_SCHOOLDISTRICT";
 CREATE TABLE "HOTMARZZ"."O_SCHOOLDISTRICT" (
 "SCHOOLID" NUMBER NOT NULL ,
-"SCHOOLNAME" VARCHAR2(50 BYTE) NULL 
+"SCHOOLNAME" VARCHAR2(50 BYTE) NULL ,
+"PROVINCE" VARCHAR2(255 BYTE) NULL ,
+"TEACHERQUANTITY" NUMBER NULL ,
+"CURRENTCLASSQUANTITY" NUMBER NULL ,
+"CURRENTSTUQUANTITY" NUMBER NULL ,
+"TOTALSTUQUANTITY" NUMBER NULL ,
+"CREATEUSER" VARCHAR2(50 BYTE) NULL ,
+"CREATEDATE" DATE NULL ,
+"UPDATEUSER" VARCHAR2(50 BYTE) NULL ,
+"UPDATEDATE" DATE NULL 
 )
 LOGGING
 NOCOMPRESS
@@ -242,11 +251,20 @@ NOCACHE
 ;
 COMMENT ON COLUMN "HOTMARZZ"."O_SCHOOLDISTRICT"."SCHOOLID" IS '校区id';
 COMMENT ON COLUMN "HOTMARZZ"."O_SCHOOLDISTRICT"."SCHOOLNAME" IS '校区名称';
+COMMENT ON COLUMN "HOTMARZZ"."O_SCHOOLDISTRICT"."PROVINCE" IS '所属省份';
+COMMENT ON COLUMN "HOTMARZZ"."O_SCHOOLDISTRICT"."TEACHERQUANTITY" IS '教师数量';
+COMMENT ON COLUMN "HOTMARZZ"."O_SCHOOLDISTRICT"."CURRENTCLASSQUANTITY" IS '当前开班数';
+COMMENT ON COLUMN "HOTMARZZ"."O_SCHOOLDISTRICT"."CURRENTSTUQUANTITY" IS '当前学员数';
+COMMENT ON COLUMN "HOTMARZZ"."O_SCHOOLDISTRICT"."TOTALSTUQUANTITY" IS '学生总数';
+COMMENT ON COLUMN "HOTMARZZ"."O_SCHOOLDISTRICT"."CREATEUSER" IS '创建人';
+COMMENT ON COLUMN "HOTMARZZ"."O_SCHOOLDISTRICT"."CREATEDATE" IS '创建时间';
+COMMENT ON COLUMN "HOTMARZZ"."O_SCHOOLDISTRICT"."UPDATEUSER" IS '修改人';
+COMMENT ON COLUMN "HOTMARZZ"."O_SCHOOLDISTRICT"."UPDATEDATE" IS '修改时间';
 
 -- ----------------------------
 -- Records of O_SCHOOLDISTRICT
 -- ----------------------------
-INSERT INTO "HOTMARZZ"."O_SCHOOLDISTRICT" VALUES ('1', '南京校区');
+INSERT INTO "HOTMARZZ"."O_SCHOOLDISTRICT" VALUES ('1', '南京校区', null, null, null, null, null, null, null, null, null);
 
 -- ----------------------------
 -- Indexes structure for table O_SCHOOLDISTRICT
@@ -316,4 +334,394 @@ ALTER TABLE "HOTMARZZ"."O_STATION" ADD CHECK ("STATIONID" IS NOT NULL);
 -- Primary Key structure for table O_STATION
 -- ----------------------------
 ALTER TABLE "HOTMARZZ"."O_STATION" ADD PRIMARY KEY ("STATIONID");
+
+/*
+Navicat Oracle Data Transfer
+Oracle Client Version : 11.2.0.1.0
+
+Source Server         : hotMarzz_OA
+Source Server Version : 110200
+Source Host           : localhost:1521
+Source Schema         : HOTMARZZ
+
+Target Server Type    : ORACLE
+Target Server Version : 110200
+File Encoding         : 65001
+
+Date: 2017-06-28 00:05:52
+*/
+
+
+-- ----------------------------
+-- Table structure for O_CASH
+-- ----------------------------
+DROP TABLE "HOTMARZZ"."O_CASH";
+CREATE TABLE "HOTMARZZ"."O_CASH" (
+"PAYID" NUMBER NOT NULL ,
+"PAYTYPE" VARCHAR2(50 BYTE) NULL ,
+"TUITION" NUMBER NULL ,
+"TOTALPERIOD" NUMBER NULL ,
+"PAIDPERIOD" NUMBER NULL ,
+"PAIDAMOUNT" NUMBER NULL ,
+"ARREARAMOUNT" NUMBER NULL ,
+"REMARKS" VARCHAR2(255 BYTE) NULL ,
+"CREATEUSER" VARCHAR2(50 BYTE) NULL ,
+"CREATEDATE" DATE NULL ,
+"UPDATEUSER" VARCHAR2(50 BYTE) NULL ,
+"UPDATEDATE" DATE NULL 
+)
+LOGGING
+NOCOMPRESS
+NOCACHE
+
+;
+COMMENT ON COLUMN "HOTMARZZ"."O_CASH"."PAYID" IS '现金ID';
+COMMENT ON COLUMN "HOTMARZZ"."O_CASH"."PAYTYPE" IS '缴费类型';
+COMMENT ON COLUMN "HOTMARZZ"."O_CASH"."TUITION" IS '学费';
+COMMENT ON COLUMN "HOTMARZZ"."O_CASH"."TOTALPERIOD" IS '总期数';
+COMMENT ON COLUMN "HOTMARZZ"."O_CASH"."PAIDPERIOD" IS '已缴期数';
+COMMENT ON COLUMN "HOTMARZZ"."O_CASH"."PAIDAMOUNT" IS '已缴金额';
+COMMENT ON COLUMN "HOTMARZZ"."O_CASH"."ARREARAMOUNT" IS '欠款金额';
+COMMENT ON COLUMN "HOTMARZZ"."O_CASH"."REMARKS" IS '备注';
+COMMENT ON COLUMN "HOTMARZZ"."O_CASH"."CREATEUSER" IS '创建人';
+COMMENT ON COLUMN "HOTMARZZ"."O_CASH"."CREATEDATE" IS '创建时间';
+COMMENT ON COLUMN "HOTMARZZ"."O_CASH"."UPDATEUSER" IS '修改人';
+COMMENT ON COLUMN "HOTMARZZ"."O_CASH"."UPDATEDATE" IS '修改人';
+
+-- ----------------------------
+-- Records of O_CASH
+-- ----------------------------
+
+-- ----------------------------
+-- Indexes structure for table O_CASH
+-- ----------------------------
+
+-- ----------------------------
+-- Checks structure for table O_CASH
+-- ----------------------------
+ALTER TABLE "HOTMARZZ"."O_CASH" ADD CHECK ("PAYID" IS NOT NULL);
+
+-- ----------------------------
+-- Primary Key structure for table O_CASH
+-- ----------------------------
+ALTER TABLE "HOTMARZZ"."O_CASH" ADD PRIMARY KEY ("PAYID");
+
+/*
+Navicat Oracle Data Transfer
+Oracle Client Version : 11.2.0.1.0
+
+Source Server         : hotMarzz_OA
+Source Server Version : 110200
+Source Host           : localhost:1521
+Source Schema         : HOTMARZZ
+
+Target Server Type    : ORACLE
+Target Server Version : 110200
+File Encoding         : 65001
+
+Date: 2017-06-28 00:06:06
+*/
+
+
+-- ----------------------------
+-- Table structure for O_CLASS
+-- ----------------------------
+DROP TABLE "HOTMARZZ"."O_CLASS";
+CREATE TABLE "HOTMARZZ"."O_CLASS" (
+"CLASSID" NUMBER NOT NULL ,
+"CLASSNAME" VARCHAR2(255 BYTE) NULL ,
+"PREDIRECTION" VARCHAR2(255 BYTE) NULL ,
+"CLASTATUS" VARCHAR2(255 BYTE) NULL ,
+"OPENTIME" DATE NULL ,
+"ENDTIME" DATE NULL ,
+"LECTOR" VARCHAR2(50 BYTE) NULL ,
+"TUTOR" VARCHAR2(50 BYTE) NULL ,
+"ORIGINALSTUS" NUMBER NULL ,
+"CURRENTSTUS" NUMBER NULL ,
+"CREATEUSER" VARCHAR2(50 BYTE) NULL ,
+"CREATEDATE" DATE NULL ,
+"UPDATEUSER" VARCHAR2(50 BYTE) NULL ,
+"UPDATEDATE" DATE NULL ,
+"SCHOOLID" NUMBER NULL 
+)
+LOGGING
+NOCOMPRESS
+NOCACHE
+
+;
+COMMENT ON COLUMN "HOTMARZZ"."O_CLASS"."CLASSID" IS '班级ID';
+COMMENT ON COLUMN "HOTMARZZ"."O_CLASS"."CLASSNAME" IS '班级名称';
+COMMENT ON COLUMN "HOTMARZZ"."O_CLASS"."PREDIRECTION" IS '专业方向';
+COMMENT ON COLUMN "HOTMARZZ"."O_CLASS"."CLASTATUS" IS '班级状态';
+COMMENT ON COLUMN "HOTMARZZ"."O_CLASS"."OPENTIME" IS '开班时间';
+COMMENT ON COLUMN "HOTMARZZ"."O_CLASS"."ENDTIME" IS '结束时间';
+COMMENT ON COLUMN "HOTMARZZ"."O_CLASS"."LECTOR" IS '讲师姓名';
+COMMENT ON COLUMN "HOTMARZZ"."O_CLASS"."TUTOR" IS '助教姓名';
+COMMENT ON COLUMN "HOTMARZZ"."O_CLASS"."ORIGINALSTUS" IS '之前班级学生人数';
+COMMENT ON COLUMN "HOTMARZZ"."O_CLASS"."CURRENTSTUS" IS '现有班级学生人数';
+COMMENT ON COLUMN "HOTMARZZ"."O_CLASS"."CREATEUSER" IS '创建人';
+COMMENT ON COLUMN "HOTMARZZ"."O_CLASS"."CREATEDATE" IS '创建时间';
+COMMENT ON COLUMN "HOTMARZZ"."O_CLASS"."UPDATEUSER" IS '修改人';
+COMMENT ON COLUMN "HOTMARZZ"."O_CLASS"."UPDATEDATE" IS '修改时间';
+COMMENT ON COLUMN "HOTMARZZ"."O_CLASS"."SCHOOLID" IS '所属校区ID';
+
+-- ----------------------------
+-- Records of O_CLASS
+-- ----------------------------
+
+-- ----------------------------
+-- Indexes structure for table O_CLASS
+-- ----------------------------
+
+-- ----------------------------
+-- Checks structure for table O_CLASS
+-- ----------------------------
+ALTER TABLE "HOTMARZZ"."O_CLASS" ADD CHECK ("CLASSID" IS NOT NULL);
+
+-- ----------------------------
+-- Primary Key structure for table O_CLASS
+-- ----------------------------
+ALTER TABLE "HOTMARZZ"."O_CLASS" ADD PRIMARY KEY ("CLASSID");
+
+/*
+Navicat Oracle Data Transfer
+Oracle Client Version : 11.2.0.1.0
+
+Source Server         : hotMarzz_OA
+Source Server Version : 110200
+Source Host           : localhost:1521
+Source Schema         : HOTMARZZ
+
+Target Server Type    : ORACLE
+Target Server Version : 110200
+File Encoding         : 65001
+
+Date: 2017-06-28 00:32:02
+*/
+
+
+-- ----------------------------
+-- Table structure for O_LOAN
+-- ----------------------------
+DROP TABLE "HOTMARZZ"."O_LOAN";
+CREATE TABLE "HOTMARZZ"."O_LOAN" (
+"PAYID" NUMBER NOT NULL ,
+"CARDNUM" VARCHAR2(255 BYTE) NULL ,
+"PAYTYPE" VARCHAR2(50 BYTE) NULL ,
+"DEPOSITBANK" VARCHAR2(255 BYTE) NULL ,
+"LOANSTATUS" VARCHAR2(50 BYTE) NULL ,
+"LOANUNIT" VARCHAR2(255 BYTE) NULL ,
+"LOANPLAN" VARCHAR2(50 BYTE) NULL ,
+"LOANTIME" DATE NULL ,
+"LOANAMOUNT" NUMBER NULL ,
+"REPAYMENTTIME" DATE NULL ,
+"REMARKS" VARCHAR2(255 BYTE) NULL ,
+"CREATEUSER" VARCHAR2(50 BYTE) NULL ,
+"CREATEDATE" DATE NULL ,
+"UPDATEUSER" VARCHAR2(50 BYTE) NULL ,
+"UPDATEDATE" DATE NULL ,
+"TUITION" NUMBER NULL 
+)
+LOGGING
+NOCOMPRESS
+NOCACHE
+
+;
+COMMENT ON COLUMN "HOTMARZZ"."O_LOAN"."PAYID" IS '贷款ID';
+COMMENT ON COLUMN "HOTMARZZ"."O_LOAN"."CARDNUM" IS '贷款卡号';
+COMMENT ON COLUMN "HOTMARZZ"."O_LOAN"."PAYTYPE" IS '缴费类型';
+COMMENT ON COLUMN "HOTMARZZ"."O_LOAN"."DEPOSITBANK" IS '开户行';
+COMMENT ON COLUMN "HOTMARZZ"."O_LOAN"."LOANSTATUS" IS '贷款状态';
+COMMENT ON COLUMN "HOTMARZZ"."O_LOAN"."LOANUNIT" IS '贷款单位';
+COMMENT ON COLUMN "HOTMARZZ"."O_LOAN"."LOANPLAN" IS '贷款方案';
+COMMENT ON COLUMN "HOTMARZZ"."O_LOAN"."LOANTIME" IS '放款时间';
+COMMENT ON COLUMN "HOTMARZZ"."O_LOAN"."LOANAMOUNT" IS '放款金额';
+COMMENT ON COLUMN "HOTMARZZ"."O_LOAN"."REPAYMENTTIME" IS '还款时间';
+COMMENT ON COLUMN "HOTMARZZ"."O_LOAN"."REMARKS" IS '备注';
+COMMENT ON COLUMN "HOTMARZZ"."O_LOAN"."CREATEUSER" IS '创建人';
+COMMENT ON COLUMN "HOTMARZZ"."O_LOAN"."CREATEDATE" IS '创建时间';
+COMMENT ON COLUMN "HOTMARZZ"."O_LOAN"."UPDATEUSER" IS '修改人';
+COMMENT ON COLUMN "HOTMARZZ"."O_LOAN"."UPDATEDATE" IS '修改时间';
+COMMENT ON COLUMN "HOTMARZZ"."O_LOAN"."TUITION" IS '学费';
+
+-- ----------------------------
+-- Records of O_LOAN
+-- ----------------------------
+
+-- ----------------------------
+-- Indexes structure for table O_LOAN
+-- ----------------------------
+
+-- ----------------------------
+-- Checks structure for table O_LOAN
+-- ----------------------------
+ALTER TABLE "HOTMARZZ"."O_LOAN" ADD CHECK ("PAYID" IS NOT NULL);
+
+-- ----------------------------
+-- Primary Key structure for table O_LOAN
+-- ----------------------------
+ALTER TABLE "HOTMARZZ"."O_LOAN" ADD PRIMARY KEY ("PAYID");
+
+
+/*
+Navicat Oracle Data Transfer
+Oracle Client Version : 11.2.0.1.0
+
+Source Server         : hotMarzz_OA
+Source Server Version : 110200
+Source Host           : localhost:1521
+Source Schema         : HOTMARZZ
+
+Target Server Type    : ORACLE
+Target Server Version : 110200
+File Encoding         : 65001
+
+Date: 2017-06-28 00:06:22
+*/
+
+
+-- ----------------------------
+-- Table structure for O_PAY
+-- ----------------------------
+DROP TABLE "HOTMARZZ"."O_PAY";
+CREATE TABLE "HOTMARZZ"."O_PAY" (
+"PAYID" NUMBER NOT NULL ,
+"PAYTYPE" NUMBER NULL ,
+"CREATEUSER" VARCHAR2(50 BYTE) NULL ,
+"CREATEDATE" DATE NULL ,
+"UPDATEUSER" VARCHAR2(50 BYTE) NULL ,
+"UPDATEDATE" DATE NULL ,
+"TUITION" NUMBER NULL 
+)
+LOGGING
+NOCOMPRESS
+NOCACHE
+
+;
+COMMENT ON COLUMN "HOTMARZZ"."O_PAY"."PAYID" IS '付款ID';
+COMMENT ON COLUMN "HOTMARZZ"."O_PAY"."PAYTYPE" IS '付款类型';
+COMMENT ON COLUMN "HOTMARZZ"."O_PAY"."CREATEUSER" IS '创建人';
+COMMENT ON COLUMN "HOTMARZZ"."O_PAY"."CREATEDATE" IS '创建时间';
+COMMENT ON COLUMN "HOTMARZZ"."O_PAY"."UPDATEUSER" IS '修改人';
+COMMENT ON COLUMN "HOTMARZZ"."O_PAY"."UPDATEDATE" IS '修改时间';
+COMMENT ON COLUMN "HOTMARZZ"."O_PAY"."TUITION" IS '学费';
+
+-- ----------------------------
+-- Records of O_PAY
+-- ----------------------------
+
+-- ----------------------------
+-- Indexes structure for table O_PAY
+-- ----------------------------
+
+-- ----------------------------
+-- Checks structure for table O_PAY
+-- ----------------------------
+ALTER TABLE "HOTMARZZ"."O_PAY" ADD CHECK ("PAYID" IS NOT NULL);
+
+-- ----------------------------
+-- Primary Key structure for table O_PAY
+-- ----------------------------
+ALTER TABLE "HOTMARZZ"."O_PAY" ADD PRIMARY KEY ("PAYID");
+
+/*
+Navicat Oracle Data Transfer
+Oracle Client Version : 11.2.0.1.0
+
+Source Server         : hotMarzz_OA
+Source Server Version : 110200
+Source Host           : localhost:1521
+Source Schema         : HOTMARZZ
+
+Target Server Type    : ORACLE
+Target Server Version : 110200
+File Encoding         : 65001
+
+Date: 2017-06-28 00:06:38
+*/
+
+
+-- ----------------------------
+-- Table structure for O_STU
+-- ----------------------------
+DROP TABLE "HOTMARZZ"."O_STU";
+CREATE TABLE "HOTMARZZ"."O_STU" (
+"STUID" NUMBER NOT NULL ,
+"PHONE" VARCHAR2(50 BYTE) NOT NULL ,
+"STUNAME" VARCHAR2(50 BYTE) NOT NULL ,
+"IDNUMBER" VARCHAR2(100 BYTE) NULL ,
+"SEX" NUMBER(1) NULL ,
+"ENTRANCETIME" DATE NULL ,
+"FIRSTCLASSID" NUMBER NULL ,
+"CURRENTCLASSID" NUMBER NULL ,
+"STUSTATUS" VARCHAR2(50 BYTE) NULL ,
+"GRADUATION" DATE NULL ,
+"GRASCHOOL" VARCHAR2(100 BYTE) NULL ,
+"EDUCATION" VARCHAR2(50 BYTE) NULL ,
+"PROFESSION" VARCHAR2(100 BYTE) NULL ,
+"WSKLEVEL" VARCHAR2(50 BYTE) NULL ,
+"COMPUTERSKILL" VARCHAR2(50 BYTE) NULL ,
+"QQ" VARCHAR2(100 BYTE) NULL ,
+"EMAIL" VARCHAR2(255 BYTE) NULL ,
+"CONTACTPERSON" VARCHAR2(255 BYTE) NULL ,
+"REMARKS" VARCHAR2(255 BYTE) NULL ,
+"LOCKED" NUMBER(1) NULL ,
+"LOCKUSER" VARCHAR2(100 BYTE) NULL ,
+"CREATEUSER" VARCHAR2(50 BYTE) NULL ,
+"CREATEDATE" DATE NULL ,
+"UPDATEUSER" VARCHAR2(50 BYTE) NULL ,
+"UPDATEDATE" DATE NULL ,
+"PAYID" NUMBER NULL 
+)
+LOGGING
+NOCOMPRESS
+NOCACHE
+
+;
+COMMENT ON COLUMN "HOTMARZZ"."O_STU"."STUID" IS '学生ID';
+COMMENT ON COLUMN "HOTMARZZ"."O_STU"."PHONE" IS '联系电话';
+COMMENT ON COLUMN "HOTMARZZ"."O_STU"."STUNAME" IS '学生姓名';
+COMMENT ON COLUMN "HOTMARZZ"."O_STU"."IDNUMBER" IS '学生身份证号';
+COMMENT ON COLUMN "HOTMARZZ"."O_STU"."SEX" IS '性别，0代表男，1代表1';
+COMMENT ON COLUMN "HOTMARZZ"."O_STU"."ENTRANCETIME" IS '入校时间';
+COMMENT ON COLUMN "HOTMARZZ"."O_STU"."FIRSTCLASSID" IS '首次分班ID';
+COMMENT ON COLUMN "HOTMARZZ"."O_STU"."CURRENTCLASSID" IS '当前班级ID';
+COMMENT ON COLUMN "HOTMARZZ"."O_STU"."STUSTATUS" IS '学生状态';
+COMMENT ON COLUMN "HOTMARZZ"."O_STU"."GRADUATION" IS '毕业时间';
+COMMENT ON COLUMN "HOTMARZZ"."O_STU"."GRASCHOOL" IS '毕业院校';
+COMMENT ON COLUMN "HOTMARZZ"."O_STU"."EDUCATION" IS '学历';
+COMMENT ON COLUMN "HOTMARZZ"."O_STU"."PROFESSION" IS '专业';
+COMMENT ON COLUMN "HOTMARZZ"."O_STU"."WSKLEVEL" IS '外语水平';
+COMMENT ON COLUMN "HOTMARZZ"."O_STU"."COMPUTERSKILL" IS '计算机技能';
+COMMENT ON COLUMN "HOTMARZZ"."O_STU"."QQ" IS 'QQ号';
+COMMENT ON COLUMN "HOTMARZZ"."O_STU"."EMAIL" IS '邮箱';
+COMMENT ON COLUMN "HOTMARZZ"."O_STU"."CONTACTPERSON" IS '紧急联系人信息';
+COMMENT ON COLUMN "HOTMARZZ"."O_STU"."REMARKS" IS '备注';
+COMMENT ON COLUMN "HOTMARZZ"."O_STU"."LOCKED" IS '是否锁定，0代表锁定，1代表未锁定';
+COMMENT ON COLUMN "HOTMARZZ"."O_STU"."LOCKUSER" IS '锁定人姓名';
+COMMENT ON COLUMN "HOTMARZZ"."O_STU"."CREATEUSER" IS '创建人';
+COMMENT ON COLUMN "HOTMARZZ"."O_STU"."CREATEDATE" IS '创建时间';
+COMMENT ON COLUMN "HOTMARZZ"."O_STU"."UPDATEUSER" IS '修改人';
+COMMENT ON COLUMN "HOTMARZZ"."O_STU"."UPDATEDATE" IS '修改时间';
+COMMENT ON COLUMN "HOTMARZZ"."O_STU"."PAYID" IS '付款信息ID';
+
+-- ----------------------------
+-- Records of O_STU
+-- ----------------------------
+
+-- ----------------------------
+-- Indexes structure for table O_STU
+-- ----------------------------
+
+-- ----------------------------
+-- Checks structure for table O_STU
+-- ----------------------------
+ALTER TABLE "HOTMARZZ"."O_STU" ADD CHECK ("STUID" IS NOT NULL);
+ALTER TABLE "HOTMARZZ"."O_STU" ADD CHECK ("PHONE" IS NOT NULL);
+ALTER TABLE "HOTMARZZ"."O_STU" ADD CHECK ("STUNAME" IS NOT NULL);
+
+-- ----------------------------
+-- Primary Key structure for table O_STU
+-- ----------------------------
+ALTER TABLE "HOTMARZZ"."O_STU" ADD PRIMARY KEY ("STUID");
 
