@@ -24,11 +24,14 @@
 
 <!-- page specific plugin styles -->
 <link rel="stylesheet" href="<%=path%>/assets/css/colorbox.min.css" />
-<link rel="stylesheet" href="<%=path%>/assets/css/bootstrap-datepicker3.min.css" />
-<link rel="stylesheet" href="<%=path%>/assets/css/jquery.gritter.min.css" />
+<link rel="stylesheet"
+	href="<%=path%>/assets/css/bootstrap-datepicker3.min.css" />
+<link rel="stylesheet"
+	href="<%=path%>/assets/css/jquery.gritter.min.css" />
 
 <!-- text fonts -->
-<link rel="stylesheet" href="<%=path%>/assets/css/fonts.googleapis.com.css" />
+<link rel="stylesheet"
+	href="<%=path%>/assets/css/fonts.googleapis.com.css" />
 
 <!-- ace styles -->
 <link rel="stylesheet" href="<%=path%>/assets/css/ace.min.css"
@@ -63,24 +66,24 @@
 			<div class="main-content-inner">
 				<div class="breadcrumbs ace-save-state" id="breadcrumbs">
 					<ul class="breadcrumb">
-						<li><i class="ace-icon fa fa-home home-icon"></i> <a href="#">东方黑玛oa系统</a>
+						<li><i class="ace-icon fa fa-home home-icon"></i> <a href="main.do">东方黑玛oa系统</a>
 						</li>
 
-						<li>
-							<c:if test="${empForm.empId == null || empForm.empId == ''}">
-												<a id="fillingManageLink" href="emps.do">员工管理</a>
-											</c:if>
-										<c:if test="${!(empForm.empId == null || empForm.empId == '')}">
-												<a id="fillingManageLink" href="../emps.do">员工管理</a>
-											</c:if>
-						</li>
+						<li><c:if test="${empForm.empId == null || empForm.empId == ''}">
+								<a id="fillingManageLink" href="emps.do">员工管理</a>
+							</c:if> 
+							<c:if test="${!(empForm.empId == null || empForm.empId == '')}">
+								<a id="fillingManageLink" href="emps.do">员工管理</a>
+							</c:if></li>
 						<li class="active">
-								<c:if test="${empForm.empId == null || empForm.empId == ''}">
+							<c:if
+								test="${empForm.empId == null || empForm.empId == ''}">
 												员工添加
-											</c:if>
-										<c:if test="${!(empForm.empId == null || empForm.empId == '')}">
+							</c:if> 
+							<c:if
+								test="${!(empForm.empId == null || empForm.empId == '')}">
 												员工修改
-											</c:if>
+							</c:if>
 					</ul>
 					<!-- /.breadcrumb -->
 				</div>
@@ -91,8 +94,8 @@
 							员工管理 <small> <i class="ace-icon fa fa-angle-double-right"></i>
 								<c:if test="${empForm.empId == null || empForm.empId == ''}">
 												员工添加
-											</c:if>
-										<c:if test="${!(empForm.empId == null || empForm.empId == '')}">
+											</c:if> <c:if
+									test="${!(empForm.empId == null || empForm.empId == '')}">
 												员工修改
 											</c:if>
 							</small>
@@ -100,9 +103,9 @@
 					</div>
 					<!-- /.page-header -->
 					<div id="alertDiv" class="alert hidden">
-									<button class="close" data-dismiss="alert">
-										<i class="ace-icon fa fa-times"></i>
-									</button>
+						<button class="close" data-dismiss="alert">
+							<i class="ace-icon fa fa-times"></i>
+						</button>
 					</div>
 
 					<div class="row">
@@ -114,11 +117,12 @@
 							<div class="widget-box">
 								<div class="widget-header widget-header-blue widget-header-flat">
 									<h4 class="widget-title lighter">
-										
+
 										<c:if test="${empForm.empId == null || empForm.empId == ''}">
 												员工添加
 											</c:if>
-										<c:if test="${!(empForm.empId == null || empForm.empId == '')}">
+										<c:if
+											test="${!(empForm.empId == null || empForm.empId == '')}">
 												员工修改
 											</c:if>
 									</h4>
@@ -133,21 +137,24 @@
 												<div class="step-pane active" data-step="1">
 													<form:form cssClass="form-horizontal" id="fillForm"
 														modelAttribute="empForm">
-														
-														<c:if test="${!(empForm.empId == null || empForm.empId == '')}">
-																<form:hidden path="empId"	cssClass="col-xs-12 col-sm-6" />
+
+														<c:if
+															test="${!(empForm.empId == null || empForm.empId == '')}">
+															<form:hidden path="empId" cssClass="col-xs-12 col-sm-6" />
 														</c:if>
 
 														<div class="form-group">
-															<form:label path="empName"	cssClass="control-label col-xs-12 col-sm-3 no-padding-right">员工姓名:</form:label>
+															<form:label path="empName"
+																cssClass="control-label col-xs-12 col-sm-3 no-padding-right">员工姓名:</form:label>
 															<div class="col-xs-12 col-sm-9">
 																<div class="clearfix">
-																	<form:input path="empName" cssClass="col-xs-12 col-sm-6" />
+																	<form:input path="empName"
+																		cssClass="col-xs-12 col-sm-6" />
 																	<form:errors path="empName" />
 																</div>
 															</div>
 														</div>
-														
+
 														<div class="space-2"></div>
 
 														<div class="form-group">
@@ -155,12 +162,13 @@
 																cssClass="control-label col-xs-12 col-sm-3 no-padding-right">用户名:</form:label>
 															<div class="col-xs-12 col-sm-9">
 																<div class="clearfix">
-																	<form:input path="userName" cssClass="col-xs-12 col-sm-6" />
+																	<form:input path="userName"
+																		cssClass="col-xs-12 col-sm-6" />
 																	<form:errors path="userName" />
 																</div>
 															</div>
 														</div>
-														
+
 														<div class="space-2"></div>
 
 														<div class="form-group">
@@ -195,9 +203,10 @@
 																cssClass="control-label col-xs-12 col-sm-3 no-padding-right">是否关联微信:</form:label>
 															<div class="col-xs-12 col-sm-9">
 																<div class="clearfix">
-																	<form:radiobutton path="assoWeChat" value="0"/>
+																	<form:radiobutton path="assoWeChat" value="0" />
 																	是
-																	<form:radiobutton path="assoWeChat" value="1" checked="checked" />
+																	<form:radiobutton path="assoWeChat" value="1"
+																		checked="checked" />
 																	否
 																	<form:errors path="assoWeChat" />
 																</div>
@@ -209,14 +218,16 @@
 																cssClass="control-label col-xs-12 col-sm-3 no-padding-right">所属部门:</form:label>
 															<div class="col-xs-12 col-sm-9">
 																<div class="clearfix">
-																	<form:select path="dept.deptId" cssClass="col-xs-12 col-sm-6">
-																		<form:options items="${depts}" itemLabel="deptName" itemValue="deptId"/>
+																	<form:select path="dept.deptId"
+																		cssClass="col-xs-12 col-sm-6">
+																		<form:options items="${depts}" itemLabel="deptName"
+																			itemValue="deptId" />
 																	</form:select>
 																	<form:errors path="dept.deptId" />
 																</div>
 															</div>
 														</div>
-														
+
 													</form:form>
 												</div>
 
@@ -224,10 +235,12 @@
 												<div class="wizard-actions">
 													<button class="btn btn-success btn-next" id="submitBtn"
 														data-last="Finish">
-														<c:if test="${empForm.empId == null || empForm.empId == ''}">
+														<c:if
+															test="${empForm.empId == null || empForm.empId == ''}">
 															添加
 														</c:if>
-														<c:if test="${!(empForm.empId == null || empForm.empId == '')}">
+														<c:if
+															test="${!(empForm.empId == null || empForm.empId == '')}">
 															修改
 														</c:if>
 														<i class="ace-icon fa fa-arrow-right icon-on-right"></i>
@@ -320,8 +333,9 @@
 <script src="<%=path%>/assets/js/jquery-1.11.3.min.js"></script>
 <![endif]-->
 			<script type="text/javascript">
-			if('ontouchstart' in document.documentElement) document.write("<script src='<%=path%>/assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
-		</script>
+			if('ontouchstart' in document.documentElement) document.write("<script src='<%=path%>/assets/js/jquery.mobile.custom.min.js'>"
+									+ "<"+"/script>");
+			</script>
 			<script src="<%=path%>/assets/js/bootstrap.min.js"></script>
 
 			<!-- page specific plugin scripts -->
@@ -354,88 +368,134 @@
 			<!-- ace scripts -->
 			<script src="<%=path%>/assets/js/ace-elements.min.js"></script>
 			<script src="<%=path%>/assets/js/ace.min.js"></script>
-			
+
 			<!-- serializeJSON -->
 			<script src="<%=path%>/assets/js/tools/jquery.serializejson.min.js"></script>
 			<script src="<%=path%>/assets/js/custom/array-utils.js"></script>
 			<!-- inline scripts related to this page -->
 			<script type="text/javascript">
+				jQuery(function($) {
 
-			jQuery(function($) {
+					var listUrl = "emps.do";
+					var addOrUpdateUrl = "emp.do";
 
-				var listUrl = "emps.do";
-				var addOrUpdateUrl = "emp.do";
-				
-				$("#submitBtn").on("click",function(e){
-					console.log($("#fillForm").serialize());
-					console.log(JSON.stringify($("#fillForm").serializeJSON()));
-					var update = $("#fillForm input[name='empId'][type='hidden']").length>0;
-					var method = "post";
-					if(update){
-						method = "put";
-						addOrUpdateUrl = "../"+addOrUpdateUrl;
-						listUrl = "../"+listUrl;
-					}
-					var param = $("#fillForm").serializeJSON();
-					$.ajax({
-						"url":addOrUpdateUrl,
-						"method":method,
-						"data":JSON.stringify(param),
-						"dataType":"json",
-						"contentType" : "application/json;charset=UTF-8",
-						"success":function(result){
-							debugger
-							if(result.flag===true){
-								$("#main").load(listUrl,function(){
-									initMain();
-									var alertDiv = $("#alertDiv");
-									alertDiv.removeClass("hidden");
-									alertDiv.removeClass("alert-warning");
-									alertDiv.removeClass("alert-danger");
-									alertDiv.addClass("alert-info");
-									alertDiv.find("button").next("span").remove();
-									alertDiv.find("button").after("<span>"+result.msg+"<i class='ace-icon glyphicon glyphicon-ok'></i></span>");
-								});
-							}
-							if(result.flag==='validation'){
-								$.each(result.validationMsg,function(key,value){
-									var ele = "#"+key;
-									$(ele).after("<div class='help-block col-xs-12 col-sm-reset inline'>"+ value+ "</div>");
-								})
-							}
-							if(result.flag===false){
-								var alertDiv = $("#alertDiv");
-								alertDiv.removeClass("hidden");
-								if(result.errorCode == '503'){
-									alertDiv.removeClass("alert-warning");
-									alertDiv.removeClass("alert-info");
-									alertDiv.addClass("alert-danger");
-								}
-								alertDiv.find("button").next("span").remove();
-								alertDiv.find("button").after("<span>"+result.msg+"</span>");
-							}
-						}
+					$("#submitBtn")
+							.on("click",
+									function(e) {
+										console.log($("#fillForm").serialize());
+										console.log(JSON.stringify($("#fillForm").serializeJSON()));
+										var update = $("#fillForm input[name='empId'][type='hidden']").length > 0;
+										var method = "post";
+										if (update) {
+											method = "put";
+// 											addOrUpdateUrl = "../"
+// 													+ addOrUpdateUrl;
+// 											listUrl = "../" + listUrl;
+// 											alert(addOrUpdateUrl)
+// 											alert(listUrl)
+										}
+										var param = $("#fillForm").serializeJSON();
+										$.ajax({
+													"url" : addOrUpdateUrl,
+													"method" : method,
+													"data" : JSON.stringify(param),
+													"dataType" : "json",
+													"contentType" : "application/json;charset=UTF-8",
+													"success" : function(result) {
+														debugger
+														if (result.flag === true) {
+															$("#main").load(listUrl,
+																			function() {
+																				initMain();
+																				var alertDiv = $("#alertDiv");
+																				alertDiv
+																						.removeClass("hidden");
+																				alertDiv
+																						.removeClass("alert-warning");
+																				alertDiv
+																						.removeClass("alert-danger");
+																				alertDiv
+																						.addClass("alert-info");
+																				alertDiv
+																						.find(
+																								"button")
+																						.next(
+																								"span")
+																						.remove();
+																				alertDiv
+																						.find(
+																								"button")
+																						.after(
+																								"<span>"
+																										+ result.msg
+																										+ "<i class='ace-icon glyphicon glyphicon-ok'></i></span>");
+																			});
+														}
+														if (result.flag === 'validation') {
+															$.each(result.validationMsg,
+																			function(
+																					key,
+																					value) {
+																				var ele = "#"
+																						+ key;
+																				//修复了校验的重复提示问题。
+																				if($("#ok_"+key).html()!=null){
+																					$("#ok_"+key).html(value)
+																				}else{
+																					$(ele).after("<div id='ok_"+key+"' class='help-block col-xs-12 col-sm-reset inline'>"
+																											+ value
+																											+ "</div>");
+																				}
+																			})
+														}
+														if (result.flag === false) {
+															var alertDiv = $("#alertDiv");
+															alertDiv
+																	.removeClass("hidden");
+															if (result.errorCode == '503') {
+																alertDiv
+																		.removeClass("alert-warning");
+																alertDiv
+																		.removeClass("alert-info");
+																alertDiv
+																		.addClass("alert-danger");
+															}
+															alertDiv
+																	.find(
+																			"button")
+																	.next(
+																			"span")
+																	.remove();
+															alertDiv
+																	.find(
+																			"button")
+																	.after(
+																			"<span>"
+																					+ result.msg
+																					+ "</span>");
+														}
+													}
+												})
+									});
+
+					$('.datepicker').datepicker({
+						autoclose : true,
+						todayHighlight : true,
+						todayBtn : true,
+						format : "yyyy-mm-dd"
 					})
-				});
-				
-				$('.datepicker').datepicker({
-					autoclose: true,
-					todayHighlight: true,
-					todayBtn : true,
-					format : "yyyy-mm-dd"
+					//show datepicker when clicking on the icon
+					.next().on(ace.click_event, function() {
+						$(this).prev().focus();
+					});
+
+					$("#fillingManageLink").on("click", function(e) {
+						e.preventDefault();
+						var href = $(this).attr("href");
+						$("#main").load(listUrl);
+					})
+
 				})
-				//show datepicker when clicking on the icon
-				.next().on(ace.click_event, function(){
-					$(this).prev().focus();
-				});
-				
-				$("#fillingManageLink").on("click",function(e){
-					e.preventDefault();
-					var href = $(this).attr("href");
-					$("#main").load(listUrl);
-				})
-			
-			})
-		</script>
+			</script>
 </body>
 </html>

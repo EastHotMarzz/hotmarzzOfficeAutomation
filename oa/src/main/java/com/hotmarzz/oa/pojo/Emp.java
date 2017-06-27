@@ -12,8 +12,9 @@ public class Emp {
 	@NotEmpty(message="用户名不能为空")
 	private String userName;
 	private String userPwd;
+	@NotEmpty(message="电话不能为空")
 	private String phone;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")  
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date hiredate;
 	private SchoolDistrict schoolDistrict;
 	private Dept dept;

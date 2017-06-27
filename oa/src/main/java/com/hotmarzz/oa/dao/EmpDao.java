@@ -9,11 +9,34 @@ import com.hotmarzz.oa.pojo.Emp;
 
 @Repository
 public interface EmpDao {
+	/**
+	 * 添加员工
+	 * @param emp
+	 * @throws Exception
+	 */
 	void insert(Emp emp) throws Exception;
+	/**
+	 * 修改员工
+	 * @param emp
+	 * @throws Exception
+	 */
 	void update(Emp emp) throws Exception;
-	void delete(String empId) throws Exception;
-	Emp getById(String empId) throws Exception;
+	/**
+	 * 删除员工信息
+	 */
+	void delete(Long empId) throws Exception;
+	/**
+	 * 根据ID获取员工
+	 * @param empId
+	 * @return
+	 * @throws Exception
+	 */
+	Emp getById(Long empId) throws Exception;
+
 	Emp chkLogin(Emp emp) throws Exception;
+
 	List<Emp> getListPage(BaseQuery bq);
+
 	int getCount(BaseQuery bq);
+
 }

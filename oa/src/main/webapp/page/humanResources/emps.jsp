@@ -5,6 +5,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<style type="text/css">
+	
+</style>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta charset="utf-8" />
 <title>员工管理 - 东方黑玛oa系统</title>
@@ -65,11 +68,9 @@
 				<ul class="breadcrumb">
 					<li><i class="ace-icon fa fa-home home-icon"></i> <a href="#">东方黑玛oa系统</a>
 					</li>
-
 					<li><a href="#">人力资源管理</a></li>
 					<li class="active">公司员工管理</li>
 				</ul>
-				<!-- /.breadcrumb -->
 			</div>
 
 			<div class="page-content">
@@ -391,8 +392,9 @@
 						data : function( row, type, val, meta ) {
 							var id = row['empId'];
 							var str = "<a class='update blue' href='emp/"+id+".do' data-toggle='modal'>修改</a>"
-									+ "&nbsp;"
-									+ "<a class='dele blue' href='emp/"+id+".do' data-toggle='modal'>删除</a>";
+									+ "&nbsp;&nbsp;"
+									+ "<a class='dele red' href='emp/"+id+".do' data-toggle='modal'>删除</a>";
+							
 							return str;
 						}
 					} ];
@@ -452,62 +454,57 @@
 								},
 								//监听datatables buttons事件
 								"drawCallback" : function(settings, json) {
-									
+									//修改
 									$(".update").on("click", function(e) {
 										e.preventDefault();
 										var updateUrl = $(this).prop("href");
+										//在当前页面刷新新的页面
 										$("#main").load(updateUrl,initMain);										
 									});
-	
-									$(".dele")
-											.on(
-													"click",
-													function(e) {
-														e.preventDefault();
-														var del = window
-																.confirm("你真的要删除吗？");
-														if (del) {
-															var url = $(this)
-																	.prop(
-																			"href");
-															var user_id = $(this).closest("tr").children("td").first().html();
-															console.log(url);
-															$
-																	.ajax({
-																		"url" : url,
-																		"method" : "delete",
-																		"dataType" : "json",
-																		"contentType" : "application/json;charset=UTF-8",
-																		"success" : function(
-																				result) {
-																			if (result.msg === 'success') {
-																				var href = "userManage.do";
-																				$("#main").load(href,function(){
-																					initMain();
-																					var alertDiv = $("#alertDiv");
-																					alertDiv.removeClass("hidden");
-																					alertDiv.removeClass("alert-warning");
-																					alertDiv.removeClass("alert-danger");
-																					alertDiv.addClass("alert-info");
-																					alertDiv.find("button").next("span").remove();
-																					alertDiv.find("button").after("<span>删除成功,删除用户的为id:"+user_id+" <i class='ace-icon glyphicon glyphicon-ok'></i></span>");
-																				});
-																			}
-																			if (result.msg === 'error'){
-																				var alertDiv = $("#alertDiv");
-																				alertDiv.removeClass("hidden");
-																				if(result.errorCode == '503'){
-																					alertDiv.removeClass("alert-warning");
-																					alertDiv.removeClass("alert-info");
-																					alertDiv.addClass("alert-danger");
-																				}
-																				alertDiv.find("button").next("span").remove();
-																				alertDiv.find("button").after("<span>"+result.errorMsg+"</span>");
-																			}
+									//删除
+									$(".dele").on("click",
+											function(e) {
+												e.preventDefault();
+												var del = window
+														.confirm("你真的要删除吗？");
+												if (del) {
+													var url = $(this).prop("href");
+													var user_id = $(this).closest("tr").children("td").first().html();
+													console.log(url);
+													$.ajax({
+																"url" : url,
+																"method" : "delete",
+																"dataType" : "json",
+																"contentType" : "application/json;charset=UTF-8",
+																"success" : function(result) {
+																	if (result.msg === 'success') {
+																		var href = "emps.do";
+																		$("#main").load(href,function(){
+																			initMain();
+																			var alertDiv = $("#alertDiv");
+																			alertDiv.removeClass("hidden");
+																			alertDiv.removeClass("alert-warning");
+																			alertDiv.removeClass("alert-danger");
+																			alertDiv.addClass("alert-info");
+																			alertDiv.find("button").next("span").remove();
+																			alertDiv.find("button").after("<span>删除成功,删除用户的为id:"+user_id+" <i class='ace-icon glyphicon glyphicon-ok'></i></span>");
+																		});
+																	}
+																	if (result.msg === 'error'){
+																		var alertDiv = $("#alertDiv");
+																		alertDiv.removeClass("hidden");
+																		if(result.errorCode == '503'){
+																			alertDiv.removeClass("alert-warning");
+																			alertDiv.removeClass("alert-info");
+																			alertDiv.addClass("alert-danger");
 																		}
-																	})
-														}
-													});
+																		alertDiv.find("button").next("span").remove();
+																		alertDiv.find("button").after("<span>"+result.errorMsg+"</span>");
+																	}
+																}
+															})
+												}
+											});
 									
 									
 									$(".pagination .paginate_button")
@@ -518,12 +515,9 @@
 														if(cp==null||cp==undefined){
 															return;
 														}
-														var currentPage = cp
-																.val();
+														var currentPage = cp.val();
 														var firstPage = 1;
-														var total_page = $(
-																":input[name='pag.total_page']")
-																.val();
+														var total_page = $(":input[name='pag.total_page']").val();
 														var pageInfo = '';
 														if ($(this).hasClass(
 																"first")) {

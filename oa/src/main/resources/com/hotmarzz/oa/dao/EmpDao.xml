@@ -16,7 +16,15 @@
 		<include refid="com.hotmarzz.basic.dao.BaseDao.queryByOrders"/>
 	</select>
 	
-	<select id="getCount"  parameterType="baseQuery" resultType="int">
+	<select id="getById" parameterType="baseQuery" resultType="emp">
+		select 
+		<include refid="com.hotmarzz.oa.dao.EmpDao.empCol"/>
+		from o_emp
+		where empid=#{emp.empId,jdbcType=NUMERIC}
+	</select>
+	
+	
+	<select id="getCount" parameterType="baseQuery" resultType="int">
 		<include refid="com.hotmarzz.basic.dao.BaseDao.count"/> o_emp 
 		<include refid="com.hotmarzz.basic.dao.BaseDao.queryByConditions"/>
 	</select>
@@ -65,4 +73,14 @@
 			#{updateDate,jdbcType=TIMESTAMP}
 		)
 	</insert>
+	
+	<!-- 删除员工信息 -->
+	<delete id="delete" parameterType="java.lang.Long">
+		delete from o_emp where empid=#{empId,jdbcType=NUMERIC}
+	</delete>
+	
+	<update id="update" parameterType="emp">
+		update o_emp set empname=#{empName,jdbcType=VARCHAR},username=#{userName,jdbcType=VARCHAR},
+		phone=#{phone,jdbcType=VARCHAR},hiredate=#{hiredate,jdbcType=DATE} where empid=#{empId,jdbcType=NUMERIC}
+	</update>
 </mapper>
