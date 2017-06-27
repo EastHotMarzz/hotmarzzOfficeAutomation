@@ -29,7 +29,6 @@ public class EmpBuzzImpl implements EmpBuzz {
 		emp.setUserPwd(Constants.DEFAULT_EMP_PWD);
 		empDao.insert(emp);
 	}
-	
 	@Override
 	public BaseQuery getList(BaseQuery bq) throws Exception {
 		List<Emp> us =  empDao.getListPage(bq);
@@ -37,6 +36,27 @@ public class EmpBuzzImpl implements EmpBuzz {
 		bq.getPag().setTotal_count(total_count);
 		bq.getPag().setPageList(us);
 		return bq;
+	}
+	/**
+	 * 删除员工信息
+	 */
+	@Override
+	public void deleteEmp(Long empId) throws Exception {
+		empDao.delete(empId);
+	}
+	/**
+	 * 修改员工信息
+	 */
+	@Override
+	public void update(Emp emp) throws Exception {
+		empDao.update(emp);
+	}
+	/**
+	 * 根据ID获取员工信息
+	 */
+	@Override
+	public Emp getById(Long id) throws Exception {
+		return empDao.getById(id);
 	}
 
 }

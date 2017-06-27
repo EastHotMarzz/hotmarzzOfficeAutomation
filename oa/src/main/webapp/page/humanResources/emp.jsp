@@ -73,7 +73,7 @@
 								<a id="fillingManageLink" href="emps.do">员工管理</a>
 							</c:if> 
 							<c:if test="${!(empForm.empId == null || empForm.empId == '')}">
-								<a id="fillingManageLink" href="../emps.do">员工管理</a>
+								<a id="fillingManageLink" href="emps.do">员工管理</a>
 							</c:if></li>
 						<li class="active">
 							<c:if
@@ -388,9 +388,11 @@
 										var method = "post";
 										if (update) {
 											method = "put";
-											addOrUpdateUrl = "../"
-													+ addOrUpdateUrl;
-											listUrl = "../" + listUrl;
+// 											addOrUpdateUrl = "../"
+// 													+ addOrUpdateUrl;
+// 											listUrl = "../" + listUrl;
+// 											alert(addOrUpdateUrl)
+// 											alert(listUrl)
 										}
 										var param = $("#fillForm").serializeJSON();
 										$.ajax({

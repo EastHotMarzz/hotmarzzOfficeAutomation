@@ -5,6 +5,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<style type="text/css">
+	
+</style>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta charset="utf-8" />
 <title>员工管理 - 东方黑玛oa系统</title>
@@ -389,7 +392,7 @@
 						data : function( row, type, val, meta ) {
 							var id = row['empId'];
 							var str = "<a class='update blue' href='emp/"+id+".do' data-toggle='modal'>修改</a>"
-									+ "&nbsp;"
+									+ "&nbsp;&nbsp;"
 									+ "<a class='dele red' href='emp/"+id+".do' data-toggle='modal'>删除</a>";
 							
 							return str;
@@ -455,6 +458,7 @@
 									$(".update").on("click", function(e) {
 										e.preventDefault();
 										var updateUrl = $(this).prop("href");
+										//在当前页面刷新新的页面
 										$("#main").load(updateUrl,initMain);										
 									});
 									//删除
