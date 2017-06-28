@@ -23,7 +23,7 @@ Target Server Type    : ORACLE
 Target Server Version : 110200
 File Encoding         : 65001
 
-Date: 2017-06-22 17:43:40
+Date: 2017-06-28 15:38:50
 */
 
 
@@ -46,7 +46,8 @@ CREATE TABLE "HOTMARZZ"."O_EMP" (
 "CREATEUSER" VARCHAR2(50 BYTE) NULL ,
 "CREATEDATE" DATE NULL ,
 "UPDATEUSER" VARCHAR2(50 BYTE) NULL ,
-"UPDATEDATE" DATE NULL 
+"UPDATEDATE" DATE NULL ,
+"SEX" NUMBER(1) NULL 
 )
 LOGGING
 NOCOMPRESS
@@ -68,22 +69,22 @@ COMMENT ON COLUMN "HOTMARZZ"."O_EMP"."CREATEUSER" IS '创建人';
 COMMENT ON COLUMN "HOTMARZZ"."O_EMP"."CREATEDATE" IS '创建时间';
 COMMENT ON COLUMN "HOTMARZZ"."O_EMP"."UPDATEUSER" IS '更新人';
 COMMENT ON COLUMN "HOTMARZZ"."O_EMP"."UPDATEDATE" IS '更新时间';
+COMMENT ON COLUMN "HOTMARZZ"."O_EMP"."SEX" IS '员工性别，0代表男，1代表女';
 
 -- ----------------------------
 -- Records of O_EMP
 -- ----------------------------
--- 初始密码为123456
-INSERT INTO "HOTMARZZ"."O_EMP" VALUES ('10', '张三2', 'dfhm001', 'E10ADC3949BA59ABBE56E057F20F883E', '1596661234', TO_DATE('2017-06-20 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), '1', '1', '1', '1', '1', null, null, null, null);
-INSERT INTO "HOTMARZZ"."O_EMP" VALUES ('13', '赵六', 'zl001', 'E10ADC3949BA59ABBE56E057F20F883E', '13997877432', TO_DATE('2017-06-23 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), null, null, null, null, '1', null, null, null, null);
-INSERT INTO "HOTMARZZ"."O_EMP" VALUES ('14', '马云', 'mayun001', 'E10ADC3949BA59ABBE56E057F20F883E', '13997111665', TO_DATE('2017-06-22 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), null, null, null, null, '1', null, null, null, null);
-INSERT INTO "HOTMARZZ"."O_EMP" VALUES ('15', '刘伯温', 'liubowen001', 'E10ADC3949BA59ABBE56E057F20F883E', '12345678901', TO_DATE('2017-06-19 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), null, null, null, null, '1', null, null, null, null);
-INSERT INTO "HOTMARZZ"."O_EMP" VALUES ('16', '刘伯温', 'liubowen001', 'E10ADC3949BA59ABBE56E057F20F883E', '12345678901', TO_DATE('2017-06-19 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), null, null, null, null, '1', null, null, null, null);
-INSERT INTO "HOTMARZZ"."O_EMP" VALUES ('12', '王五', 'ww001', 'E10ADC3949BA59ABBE56E057F20F883E', '13997877665', TO_DATE('2017-06-22 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), null, null, null, null, '1', null, null, null, null);
-INSERT INTO "HOTMARZZ"."O_EMP" VALUES ('17', '刘伯温', 'liubowen001', 'E10ADC3949BA59ABBE56E057F20F883E', '12345678901', TO_DATE('2017-06-19 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), null, null, null, null, '1', null, null, null, null);
-INSERT INTO "HOTMARZZ"."O_EMP" VALUES ('18', '卡斯特罗', 'kasi001', 'E10ADC3949BA59ABBE56E057F20F883E', '09876543211', TO_DATE('2017-06-09 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), null, null, null, null, '1', null, null, null, null);
-INSERT INTO "HOTMARZZ"."O_EMP" VALUES ('20', '郭德纲', 'gdg', 'E10ADC3949BA59ABBE56E057F20F883E', '16859403213', TO_DATE('2017-06-26 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), null, null, null, null, '1', null, null, null, null);
-INSERT INTO "HOTMARZZ"."O_EMP" VALUES ('19', '郭德纲', 'gdg', 'E10ADC3949BA59ABBE56E057F20F883E', '16859403213', TO_DATE('2017-06-26 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), null, null, null, null, '1', null, null, null, null);
-INSERT INTO "HOTMARZZ"."O_EMP" VALUES ('9', '张三', 'dfhm001', 'E10ADC3949BA59ABBE56E057F20F883E', '1596661234', TO_DATE('2017-06-22 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), '1', '1', '1', '1', '1', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_EMP" VALUES ('10', '张三2', 'dfhm001', 'E10ADC3949BA59ABBE56E057F20F883E', '1596661234', TO_DATE('2017-06-20 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), '1', '1', '1', '1', '1', null, null, null, null, '0');
+INSERT INTO "HOTMARZZ"."O_EMP" VALUES ('13', '赵六', 'zl001', '123456', '13997877432', TO_DATE('2017-06-23 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), null, null, null, null, '1', null, null, null, null, '1');
+INSERT INTO "HOTMARZZ"."O_EMP" VALUES ('14', '马云', 'mayun001', '123456', '13997111665', TO_DATE('2017-06-22 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), null, null, null, null, '1', null, null, null, null, '1');
+INSERT INTO "HOTMARZZ"."O_EMP" VALUES ('15', '刘伯温', 'liubowen001', '123456', '12345678901', TO_DATE('2017-06-19 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), null, null, null, null, '1', null, null, null, null, '0');
+INSERT INTO "HOTMARZZ"."O_EMP" VALUES ('16', '刘伯温', 'liubowen001', '123456', '12345678901', TO_DATE('2017-06-19 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), null, null, null, null, '1', null, null, null, null, '1');
+INSERT INTO "HOTMARZZ"."O_EMP" VALUES ('12', '王五', 'ww001', '123456', '13997877665', TO_DATE('2017-06-22 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), null, null, null, null, '1', null, null, null, null, '1');
+INSERT INTO "HOTMARZZ"."O_EMP" VALUES ('17', '刘伯温', 'liubowen001', '123456', '12345678901', TO_DATE('2017-06-19 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), null, null, null, null, '1', null, null, null, null, '0');
+INSERT INTO "HOTMARZZ"."O_EMP" VALUES ('18', '卡斯特罗', 'kasi001', '123456', '09876543211', TO_DATE('2017-06-09 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), null, null, null, null, '1', null, null, null, null, '0');
+INSERT INTO "HOTMARZZ"."O_EMP" VALUES ('20', '郭德纲', 'gdg', '123456', '16859403213', TO_DATE('2017-06-26 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), null, null, null, null, '1', null, null, null, null, '0');
+INSERT INTO "HOTMARZZ"."O_EMP" VALUES ('19', '郭德纲', 'gdg', '123456', '16859403213', TO_DATE('2017-06-26 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), null, null, null, null, '1', null, null, null, null, '0');
+INSERT INTO "HOTMARZZ"."O_EMP" VALUES ('9', '张三', 'dfhm001', 'E10ADC3949BA59ABBE56E057F20F883E', '1596661234', TO_DATE('2017-06-22 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), '1', '1', '1', '1', '1', null, null, null, null, '0');
 
 -- ----------------------------
 -- Indexes structure for table O_EMP
@@ -103,6 +104,7 @@ ALTER TABLE "HOTMARZZ"."O_EMP" ADD CHECK ("HIREDATE" IS NOT NULL);
 -- Primary Key structure for table O_EMP
 -- ----------------------------
 ALTER TABLE "HOTMARZZ"."O_EMP" ADD PRIMARY KEY ("EMPID");
+
 
 /*
 Navicat Oracle Data Transfer
@@ -638,7 +640,7 @@ Target Server Type    : ORACLE
 Target Server Version : 110200
 File Encoding         : 65001
 
-Date: 2017-06-28 00:06:38
+Date: 2017-06-28 15:33:18
 */
 
 
@@ -672,7 +674,8 @@ CREATE TABLE "HOTMARZZ"."O_STU" (
 "CREATEDATE" DATE NULL ,
 "UPDATEUSER" VARCHAR2(50 BYTE) NULL ,
 "UPDATEDATE" DATE NULL ,
-"PAYID" NUMBER NULL 
+"PAYID" NUMBER NULL ,
+"STUAGE" NUMBER NULL 
 )
 LOGGING
 NOCOMPRESS
@@ -705,6 +708,7 @@ COMMENT ON COLUMN "HOTMARZZ"."O_STU"."CREATEDATE" IS '创建时间';
 COMMENT ON COLUMN "HOTMARZZ"."O_STU"."UPDATEUSER" IS '修改人';
 COMMENT ON COLUMN "HOTMARZZ"."O_STU"."UPDATEDATE" IS '修改时间';
 COMMENT ON COLUMN "HOTMARZZ"."O_STU"."PAYID" IS '付款信息ID';
+COMMENT ON COLUMN "HOTMARZZ"."O_STU"."STUAGE" IS '学生年龄';
 
 -- ----------------------------
 -- Records of O_STU
@@ -725,5 +729,6 @@ ALTER TABLE "HOTMARZZ"."O_STU" ADD CHECK ("STUNAME" IS NOT NULL);
 -- Primary Key structure for table O_STU
 -- ----------------------------
 ALTER TABLE "HOTMARZZ"."O_STU" ADD PRIMARY KEY ("STUID");
+
 
 
