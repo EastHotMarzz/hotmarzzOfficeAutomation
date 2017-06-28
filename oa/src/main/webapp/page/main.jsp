@@ -274,7 +274,7 @@
 						<a data-toggle="dropdown" href="#" class="dropdown-toggle">
 							<img class="nav-user-photo" src="assets/images/avatars/user.jpg"/>
 							<span class="user-info">
-								<small>欢迎,</small>${loginUser.name}金民
+								<small>欢迎,</small>${loginEmp.empName}
 							</span>
 							<i class="ace-icon fa fa-caret-down"></i>
 						</a>
