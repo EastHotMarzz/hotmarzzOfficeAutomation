@@ -5,6 +5,12 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html lang="en">
+<%
+	String errMsg=(String)request.getAttribute("errMsg");
+	if(errMsg==null){
+		errMsg="";
+	}
+%>
 	<head>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		<meta charset="utf-8" />
@@ -72,8 +78,8 @@
 											</h4>
 
 											<div class="space-6"></div>
-
-											<form:form commandName="loginUser" method="post" action="#">
+											<span style="color:red;font-weight: bold;"><%=errMsg %><span>
+											<form:form commandName="emp" method="post" action="login.do">
 												<fieldset>
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
@@ -94,7 +100,7 @@
 													<div class="clearfix">
 														<label class="inline">
 															<input type="checkbox" class="ace" />
-															<span class="lbl"> 记住我</span>
+															<span class="lbl" style="color:black"> 记住我</span>
 														</label>
 
 														<button type="submit" class="width-35 pull-right btn btn-sm btn-primary" >

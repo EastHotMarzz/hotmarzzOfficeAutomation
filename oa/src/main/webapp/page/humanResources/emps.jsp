@@ -6,7 +6,6 @@
 <html lang="en">
 <head>
 <style type="text/css">
-	
 </style>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta charset="utf-8" />
@@ -61,7 +60,7 @@
 </head>
 
 <body class="skin-1">
-	
+
 	<div class="main-content">
 		<div class="main-content-inner">
 			<div class="breadcrumbs ace-save-state" id="breadcrumbs">
@@ -80,16 +79,16 @@
 
 				<div class="page-header">
 					<h1>
-						人力资源管理 <small> <i class="ace-icon fa fa-angle-double-right"></i>
-							公司员工管理
+						人力资源管理 <small> <i
+							class="ace-icon fa fa-angle-double-right"></i> 公司员工管理
 						</small>
 					</h1>
 				</div>
-				
+
 				<div id="alertDiv" class="alert alert-warning hidden">
-									<button class="close" data-dismiss="alert">
-										<i class="ace-icon fa fa-times"></i>
-									</button>
+					<button class="close" data-dismiss="alert">
+						<i class="ace-icon fa fa-times"></i>
+					</button>
 				</div>
 				<!-- /.page-header -->
 
@@ -121,9 +120,8 @@
 
 							<div class="widget-body">
 								<div class="widget-main">
-									<form:form id="searchForm"
-										modelAttribute="bq" method="post" cssClass="form-horizontal"
-										role="form">
+									<form:form id="searchForm" modelAttribute="bq" method="post"
+										cssClass="form-horizontal" role="form">
 										<div class="form-group">
 											<form:label path="queryParams[empName]"
 												cssClass="col-sm-1 control-label no-padding-right">员工姓名</form:label>
@@ -132,7 +130,7 @@
 												<form:input id="form-field-1" path="queryParams[empName]"
 													placeholder="员工姓名" cssClass="col-xs-10 col-sm-5" />
 											</div>
-											
+
 											<form:label path="queryParams[userName]"
 												cssClass="col-sm-1 control-label no-padding-right">用户名</form:label>
 
@@ -148,7 +146,7 @@
 												<form:input id="form-field-2" path="queryParams[hiredate]"
 													placeholder="入职时间早于" cssClass="datepicker" />
 											</div>
-											
+
 											<form:hidden id="current_page" path="pag.current_page" />
 											<form:hidden id="total_page" path="pag.total_page" />
 										</div>
@@ -290,16 +288,20 @@
 					bq.pag.current_page = current_page;
 				}
 				bq.pag.page_size = $("select[name='main-table_length']").val();
-				if($(":input[name='queryParams[empName]']")!=null&&$(":input[name='queryParams[empName]']")!=undefined){
-					bq.queryParams.empName = $(":input[name='queryParams[empName]']").val();
+				if ($(":input[name='queryParams[empName]']") != null
+						&& $(":input[name='queryParams[empName]']") != undefined) {
+					bq.queryParams.empName = $(
+							":input[name='queryParams[empName]']").val();
 				}
-				if($(":input[name='queryParams[userName]']")!=null&&$(":input[name='queryParams[userName]']")!=undefined){
+				if ($(":input[name='queryParams[userName]']") != null
+						&& $(":input[name='queryParams[userName]']") != undefined) {
 					bq.queryParams.userName = $(
-					":input[name='queryParams[userName]']").val();
+							":input[name='queryParams[userName]']").val();
 				}
-				if($(":input[name='queryParams[hiredate]']")!=null&&$(":input[name='queryParams[hiredate]']")!=undefined){
+				if ($(":input[name='queryParams[hiredate]']") != null
+						&& $(":input[name='queryParams[hiredate]']") != undefined) {
 					bq.queryParams.hiredate = $(
-					":input[name='queryParams[hiredate]']").val();
+							":input[name='queryParams[hiredate]']").val();
 				}
 				return JSON.stringify(bq);
 			}
@@ -340,7 +342,7 @@
 						data : "schoolDistrict",
 						title : "所属校区",
 						render : function(data, type, full, meta) {
-							if(data!=null){
+							if (data != null) {
 								return data.schoolName;
 							}
 							return '';
@@ -350,7 +352,7 @@
 						data : "dept",
 						title : "所属部门",
 						render : function(data, type, full, meta) {
-							if(data!=null){
+							if (data != null) {
 								return data.deptName;
 							}
 							return '';
@@ -360,7 +362,7 @@
 						data : "role",
 						title : "所属角色",
 						render : function(data, type, full, meta) {
-							if(data!=null){
+							if (data != null) {
 								return data.roleName;
 							}
 							return '';
@@ -370,7 +372,7 @@
 						data : "station",
 						title : "所属岗位",
 						render : function(data, type, full, meta) {
-							if(data!=null){
+							if (data != null) {
 								return data.stationName;
 							}
 							return '';
@@ -389,12 +391,12 @@
 					},
 					{
 						title : "操作",
-						data : function( row, type, val, meta ) {
+						data : function(row, type, val, meta) {
 							var id = row['empId'];
 							var str = "<a class='update blue' href='emp/"+id+".do' data-toggle='modal'>修改</a>"
 									+ "&nbsp;&nbsp;"
 									+ "<a class='dele red' href='emp/"+id+".do' data-toggle='modal'>删除</a>";
-							
+
 							return str;
 						}
 					} ];
@@ -459,65 +461,117 @@
 										e.preventDefault();
 										var updateUrl = $(this).prop("href");
 										//在当前页面刷新新的页面
-										$("#main").load(updateUrl,initMain);										
+										$("#main").load(updateUrl, initMain);
 									});
 									//删除
-									$(".dele").on("click",
-											function(e) {
-												e.preventDefault();
-												var del = window
-														.confirm("你真的要删除吗？");
-												if (del) {
-													var url = $(this).prop("href");
-													var user_id = $(this).closest("tr").children("td").first().html();
-													console.log(url);
-													$.ajax({
-																"url" : url,
-																"method" : "delete",
-																"dataType" : "json",
-																"contentType" : "application/json;charset=UTF-8",
-																"success" : function(result) {
-																	if (result.msg === 'success') {
-																		var href = "emps.do";
-																		$("#main").load(href,function(){
-																			initMain();
-																			var alertDiv = $("#alertDiv");
-																			alertDiv.removeClass("hidden");
-																			alertDiv.removeClass("alert-warning");
-																			alertDiv.removeClass("alert-danger");
-																			alertDiv.addClass("alert-info");
-																			alertDiv.find("button").next("span").remove();
-																			alertDiv.find("button").after("<span>删除成功,删除用户的为id:"+user_id+" <i class='ace-icon glyphicon glyphicon-ok'></i></span>");
-																		});
-																	}
-																	if (result.msg === 'error'){
-																		var alertDiv = $("#alertDiv");
-																		alertDiv.removeClass("hidden");
-																		if(result.errorCode == '503'){
-																			alertDiv.removeClass("alert-warning");
-																			alertDiv.removeClass("alert-info");
-																			alertDiv.addClass("alert-danger");
+									$(".dele")
+											.on(
+													"click",
+													function(e) {
+														e.preventDefault();
+														var del = window
+																.confirm("你真的要删除吗？");
+														if (del) {
+															var url = $(this)
+																	.prop(
+																			"href");
+															var user_id = $(
+																	this)
+																	.closest(
+																			"tr")
+																	.children(
+																			"td")
+																	.first()
+																	.html();
+															console.log(url);
+															$
+																	.ajax({
+																		"url" : url,
+																		"method" : "delete",
+																		"dataType" : "json",
+																		"contentType" : "application/json;charset=UTF-8",
+																		"success" : function(
+																				result) {
+																			if (result.msg === 'success') {
+																				var href = "emps.do";
+																				$(
+																						"#main")
+																						.load(
+																								href,
+																								function() {
+																									initMain();
+																									var alertDiv = $("#alertDiv");
+																									alertDiv
+																											.removeClass("hidden");
+																									alertDiv
+																											.removeClass("alert-warning");
+																									alertDiv
+																											.removeClass("alert-danger");
+																									alertDiv
+																											.addClass("alert-info");
+																									alertDiv
+																											.find(
+																													"button")
+																											.next(
+																													"span")
+																											.remove();
+																									alertDiv
+																											.find(
+																													"button")
+																											.after(
+																													"<span>删除成功,删除用户的为id:"
+																															+ user_id
+																															+ " <i class='ace-icon glyphicon glyphicon-ok'></i></span>");
+																								});
+																			}
+																			if (result.msg === 'error') {
+																				var alertDiv = $("#alertDiv");
+																				alertDiv
+																						.removeClass("hidden");
+																				if (result.errorCode == '503') {
+																					alertDiv
+																							.removeClass("alert-warning");
+																					alertDiv
+																							.removeClass("alert-info");
+																					alertDiv
+																							.addClass("alert-danger");
+																				}
+																				alertDiv
+																						.find(
+																								"button")
+																						.next(
+																								"span")
+																						.remove();
+																				alertDiv
+																						.find(
+																								"button")
+																						.after(
+																								"<span>"
+																										+ result.errorMsg
+																										+ "</span>");
+																			}
 																		}
-																		alertDiv.find("button").next("span").remove();
-																		alertDiv.find("button").after("<span>"+result.errorMsg+"</span>");
-																	}
-																}
-															})
-												}
-											});
-									
-									
+																	})
+														}
+													});
+
 									$(".pagination .paginate_button")
 											.on(
 													"click",
 													function(e) {
 														var cp = $(":input[name='pag.current_page']");
-														if(cp==null||cp==undefined){
+														if (cp == null
+																|| cp == undefined) {
 															return;
 														}
-														var currentPage = cp.val();
+														//当前页
+														var currentPage = cp
+																.val();
 														var firstPage = 1;
-														var total_page = $(":input[name='pag.total_page']").val();
+														//总页数
+														var total_page = $(
+																":input[name='pag.total_page']")
+																.val();
 														var pageInfo = '';
 														if ($(this).hasClass(
 																"first")) {
@@ -557,6 +611,7 @@
 								columns : tableColumn
 							});
 
+			//重新调整按钮是否可用的样式
 			function redraw() {
 				var currentPage = $(":input[name='pag.current_page']").val();
 				var totalPage = $(":input[name='pag.total_page']").val();
@@ -573,16 +628,16 @@
 				}
 				if (currentPage == totalPage) {
 					$(".pagination .paginate_button").filter(".last,.next")
-							.addClass("disabled");
+					s.addClass("disabled");
 				}
 			}
 
 			$("#searchButton").on("click", function() {
 				mainTable.fnDraw();
 			})
-			
-			$("#clearButton").on("click",function(){
-				$("#searchForm input").each(function(){
+
+			$("#clearButton").on("click", function() {
+				$("#searchForm input").each(function() {
 					$(this).val("");
 				})
 			})
@@ -596,7 +651,7 @@
 
 			$("#addButton").on("click", function() {
 				var addUrl = $(this).val();
-				$("#main").load(addUrl,initMain);
+				$("#main").load(addUrl, initMain);
 			});
 
 		})

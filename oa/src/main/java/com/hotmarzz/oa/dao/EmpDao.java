@@ -33,10 +33,10 @@ public interface EmpDao {
 	 */
 	Emp getById(Long empId) throws Exception;
 
-	Emp chkLogin(Emp emp) throws Exception;
-
 	List<Emp> getListPage(BaseQuery bq);
 
 	int getCount(BaseQuery bq);
 
+	Emp login(Emp emp) throws Exception;
+	
 }

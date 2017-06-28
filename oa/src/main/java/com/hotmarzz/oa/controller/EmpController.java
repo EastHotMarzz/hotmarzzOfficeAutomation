@@ -3,6 +3,7 @@ package com.hotmarzz.oa.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -10,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.hotmarzz.basic.dao.BaseQuery;
 import com.hotmarzz.basic.dao.Expression;
@@ -47,6 +50,24 @@ public class EmpController {
 	 */
 	@RequestMapping("main.do")
 	public String getMainPage() throws Exception {
+		return "main";
+	}
+	/*
+	 * 登陆页面
+	 */
+	@RequestMapping(value="login.do",method=RequestMethod.POST)
+	public String login(Model model,HttpSession session,Emp emp) throws Exception{
+		if(emp.getUserName()==null||"".equals(emp.getUserName())
+				||emp.getUserPwd()==null||"".equals(emp.getUserPwd())){
+			model.addAttribute("errMsg","账号或密码不能为空");
+			return "login";
+		}
+		Emp loginEmp=empBuzz.login(emp);
+		if(loginEmp==null){
+			model.addAttribute("errMsg","账号或密码有误");
+			return "login";
+		}
+		session.setAttribute("loginEmp", loginEmp);
 		return "main";
 	}
 
@@ -183,10 +204,12 @@ public class EmpController {
 		return JsonUtils.bean2Json(result);
 	}
 	
-	
+	/*
+	 * 跳转登陆页面（必须通过controller跳转）
+	 */
 	@RequestMapping(value = "login.do",method=RequestMethod.GET)
 	public String getLoginPage(Model model) throws Exception{
-		model.addAttribute("loginUser", new Emp());
+		model.addAttribute("emp", new Emp());
 		return "login";
 	}
 }

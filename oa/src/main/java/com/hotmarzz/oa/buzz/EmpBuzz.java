@@ -31,4 +31,11 @@ public interface EmpBuzz {
 	 * @throws Exception
 	 */
 	void delete(Long empId) throws Exception;
+	/**
+	 * 登陆
+	 * @param emp
+	 * @return
+	 * @throws Exception
+	 */
+	Emp login(Emp emp) throws Exception;
 }

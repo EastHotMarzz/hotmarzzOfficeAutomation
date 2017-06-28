@@ -6,7 +6,7 @@
   <display-name>hotmarzz oa</display-name>
   
   <welcome-file-list>
-  	<welcome-file>login.jsp</welcome-file>
+  	<welcome-file>page/login.jsp</welcome-file>
   </welcome-file-list>
   
   <context-param>

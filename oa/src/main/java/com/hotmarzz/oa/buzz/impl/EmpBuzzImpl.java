@@ -58,5 +58,12 @@ public class EmpBuzzImpl implements EmpBuzz {
 	public Emp getById(Long id) throws Exception {
 		return empDao.getById(id);
 	}
+	/**
+	 * 登陆
+	 */
+	@Override
+	public Emp login(Emp emp) throws Exception {
+		return empDao.login(emp);
+	}
 
 }
