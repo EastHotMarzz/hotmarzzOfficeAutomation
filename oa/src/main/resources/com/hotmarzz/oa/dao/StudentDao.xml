@@ -143,4 +143,26 @@
 	<delete id="delete" parameterType="java.lang.Long">
 		delete from o_stu where stuid=#{stuId,jdbcType=NUMERIC}
 	</delete>
+	
+	<select id="getById" parameterType="baseQuery" resultType="student">
+		select 
+		<include refid="com.hotmarzz.oa.dao.StudentDao.stuCol"/>
+		from o_stu
+		where stuid=#{stuId,jdbcType=NUMERIC}
+	</select>
+	
+	<update id="update" parameterType="student">
+		update o_stu set 
+		stuname=#{stuName,jdbcType=VARCHAR},
+		sex=#{sex,jdbcType=NUMERIC},
+		stuage=#{stuAge,jdbcType=NUMERIC},
+		phone=#{phone,jdbcType=VARCHAR},
+		entrancetime=#{entranceTime,jdbcType=DATE},
+		education=#{education,jdbcType=VARCHAR},
+		graschool=#{graSchool,jdbcType=VARCHAR},
+		qq=#{qq,jdbcType=VARCHAR},
+		email=#{email,jdbcType=VARCHAR},
+		idnumber=#{idNumber,jdbcType=VARCHAR}
+		where stuid=#{stuId,jdbcType=NUMERIC}
+	</update>
 </mapper>

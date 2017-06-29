@@ -446,7 +446,6 @@
 // 											alert(listUrl)
 										}
 										var param = $("#fillForm").serializeJSON();
-										alert(JSON.stringify(param))
 										$.ajax({
 													"url" : addOrUpdateUrl,
 													"method" : method,

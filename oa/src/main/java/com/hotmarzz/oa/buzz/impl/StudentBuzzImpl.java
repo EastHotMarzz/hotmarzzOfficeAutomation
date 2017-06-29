@@ -35,16 +35,20 @@ public class StudentBuzzImpl implements StudentBuzz {
 
 	@Override
 	public void update(Student stu) throws Exception {
-		// TODO Auto-generated method stub
-
+		stuDao.update(stu);
 	}
 
+	/**
+	 * 根据ID获取学员信息
+	 */
 	@Override
 	public Student getById(Long id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return stuDao.getById(id);
 	}
 
+	/**
+	 * 获取学生信息集合
+	 */
 	@Override
 	public BaseQuery getList(BaseQuery bq) throws Exception {
 		List<Student> us =  stuDao.getListPage(bq);
