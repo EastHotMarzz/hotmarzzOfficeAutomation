@@ -27,6 +27,7 @@ public class EmpBuzzImpl implements EmpBuzz {
 	@Override
 	public void add(Emp emp) throws Exception {
 		emp.setUserPwd(Constants.DEFAULT_EMP_PWD);
+		emp.setSex(Constants.DEFAULT_EMP_SEX);
 		empDao.insert(emp);
 	}
 	@Override

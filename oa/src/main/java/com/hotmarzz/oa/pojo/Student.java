@@ -29,6 +29,14 @@ public class Student {
 	private Date createDate;
 	private String updateUser;
 	private Date updateDate;
+	private Integer stuAge;
+	
+	public Integer getStuAge() {
+		return stuAge;
+	}
+	public void setStuAge(Integer stuAge) {
+		this.stuAge = stuAge;
+	}
 	private enum StuStatus{
 		//试听
 		audition,
@@ -201,5 +209,24 @@ public class Student {
 	public void setPayment(Payment payment) {
 		this.payment = payment;
 	}
+	@Override
+	public String toString() {
+		return "Student [stuId=" + stuId + ", phone=" + phone + ", stuName="
+				+ stuName + ", idNumber=" + idNumber + ", sex=" + sex
+				+ ", entranceTime=" + entranceTime + ", firstClasses="
+				+ firstClasses + ", currentClasses=" + currentClasses
+				+ ", stuStatus=" + stuStatus + ", graduation=" + graduation
+				+ ", graSchool=" + graSchool + ", education=" + education
+				+ ", proFession=" + proFession + ", wskLevel=" + wskLevel
+				+ ", computerSkill=" + computerSkill + ", qq=" + qq
+				+ ", email=" + email + ", contactPerson=" + contactPerson
+				+ ", remarks=" + remarks + ", locked=" + locked + ", lockUser="
+				+ lockUser + ", payment=" + payment + ", createUser="
+				+ createUser + ", createDate=" + createDate + ", updateUser="
+				+ updateUser + ", updateDate=" + updateDate + ", stuAge="
+				+ stuAge + "]";
+	}
+	
+	
 }
 

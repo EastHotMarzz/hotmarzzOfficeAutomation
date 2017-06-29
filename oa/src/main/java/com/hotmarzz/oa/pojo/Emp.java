@@ -25,6 +25,16 @@ public class Emp {
 	private Date createDate;
 	private String updateUser;
 	private Date updateDate;
+	
+	private Integer sex;
+	
+	
+	public Integer getSex() {
+		return sex;
+	}
+	public void setSex(Integer sex) {
+		this.sex = sex;
+	}
 	public Long getEmpId() {
 		return empId;
 	}
@@ -117,10 +127,14 @@ public class Emp {
 	}
 	@Override
 	public String toString() {
-		return "Emp [empId=" + empId + ", empName=" + empName + ", userName=" + userName + ", userPwd=" + userPwd
-				+ ", phone=" + phone + ", hiredate=" + hiredate + ", schoolDistrict=" + schoolDistrict + ", dept="
-				+ dept + ", role=" + role + ", station=" + station + ", assoWeChat=" + assoWeChat + ", createUser="
-				+ createUser + ", createDate=" + createDate + ", updateUser=" + updateUser + ", updateDate="
-				+ updateDate + "]";
+		return "Emp [empId=" + empId + ", empName=" + empName + ", userName="
+				+ userName + ", userPwd=" + userPwd + ", phone=" + phone
+				+ ", hiredate=" + hiredate + ", schoolDistrict="
+				+ schoolDistrict + ", dept=" + dept + ", role=" + role
+				+ ", station=" + station + ", assoWeChat=" + assoWeChat
+				+ ", createUser=" + createUser + ", createDate=" + createDate
+				+ ", updateUser=" + updateUser + ", updateDate=" + updateDate
+				+ ", sex=" + sex + "]";
 	}
+	
 }

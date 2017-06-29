@@ -68,8 +68,8 @@
 				<ul class="breadcrumb">
 					<li><i class="ace-icon fa fa-home home-icon"></i> <a href="#">东方黑玛oa系统</a>
 					</li>
-					<li><a href="#">人力资源管理</a></li>
-					<li class="active">公司员工管理</li>
+					<li><a href="#">学员管理</a></li>
+					<li class="active">基本信息管理</li>
 				</ul>
 			</div>
 
@@ -80,8 +80,8 @@
 
 				<div class="page-header">
 					<h1>
-						人力资源管理 <small> <i class="ace-icon fa fa-angle-double-right"></i>
-							公司员工管理
+						学员管理 <small> <i class="ace-icon fa fa-angle-double-right"></i>
+							基本信息管理
 						</small>
 					</h1>
 				</div>
@@ -98,7 +98,7 @@
 						<div class="widget-box">
 							<div class="widget-header widget-header-flat widget-header-small">
 								<h5 class="widget-title">
-									<i class="ace-icon fa fa-search"></i> 公司员工管理
+									<i class="ace-icon fa fa-search"></i> 学员管理
 								</h5>
 
 								<div class="widget-toolbar no-border">
@@ -125,29 +125,14 @@
 										modelAttribute="bq" method="post" cssClass="form-horizontal"
 										role="form">
 										<div class="form-group">
-											<form:label path="queryParams[empName]"
-												cssClass="col-sm-1 control-label no-padding-right">员工姓名</form:label>
+											<form:label path="queryParams[stuName]"
+												cssClass="col-sm-1 control-label no-padding-right">学员姓名</form:label>
 
 											<div class="col-sm-3">
-												<form:input id="form-field-1" path="queryParams[empName]"
-													placeholder="员工姓名" cssClass="col-xs-10 col-sm-5" />
+												<form:input id="form-field-1" path="queryParams[stuName]"
+													placeholder="学员姓名" cssClass="col-xs-10 col-sm-5" />
 											</div>
 											
-											<form:label path="queryParams[userName]"
-												cssClass="col-sm-1 control-label no-padding-right">用户名</form:label>
-
-											<div class="col-sm-3">
-												<form:input id="form-field-1" path="queryParams[userName]"
-													placeholder="用户名" cssClass="col-xs-10 col-sm-5" />
-											</div>
-
-											<form:label path="queryParams[hiredate]"
-												cssClass="col-sm-1 control-label no-padding-right">入职时间早于</form:label>
-
-											<div class="col-sm-3">
-												<form:input id="form-field-2" path="queryParams[hiredate]"
-													placeholder="入职时间早于" cssClass="datepicker" />
-											</div>
 											
 											<form:hidden id="current_page" path="pag.current_page" />
 											<form:hidden id="total_page" path="pag.total_page" />
@@ -169,7 +154,7 @@
 						<div class="widget-box">
 							<div class="widget-header widget-header-flat widget-header-small">
 								<h5 class="widget-title">
-									<i class="ace-icon fa fa-database"></i> 员工管理
+									<i class="ace-icon fa fa-database"></i> 学员管理
 
 								</h5>
 
@@ -178,8 +163,8 @@
 										<div class="btn-group">
 											<button id="addButton"
 												class="btn btn-sm btn-success btn-white btn-round"
-												value="emp.do">
-												<i class="ace-icon fa fa-plus bigger-110 green"></i> 员工添加
+												value="stu.do">
+												<i class="ace-icon fa fa-plus bigger-110 green"></i> 学员添加
 											</button>
 											<div class="tableTools-container"></div>
 										</div>
@@ -260,12 +245,12 @@
 				"sLengthMenu" : "每页 _MENU_ 项",
 				"sZeroRecords" : "没有匹配结果",
 				"sInfo" : "当前显示第 _START_ 至 _END_ 项，共 _TOTAL_ 项。",
-				"sInfoEmpty" : "当前显示第 0 至 0 项，共 0 项",
+				"sInfostuty" : "当前显示第 0 至 0 项，共 0 项",
 				"sInfoFiltered" : "(由 _MAX_ 项结果过滤)",
 				"sInfoPostFix" : "",
 				"sSearch" : "搜索:",
 				"sUrl" : "",
-				"sEmptyTable" : "表中数据为空",
+				"sstutyTable" : "表中数据为空",
 				"sLoadingRecords" : "载入中...",
 				"sInfoThousands" : ",",
 				"oPaginate" : {
@@ -290,114 +275,83 @@
 					bq.pag.current_page = current_page;
 				}
 				bq.pag.page_size = $("select[name='main-table_length']").val();
-				if($(":input[name='queryParams[empName]']")!=null&&$(":input[name='queryParams[empName]']")!=undefined){
-					bq.queryParams.empName = $(":input[name='queryParams[empName]']").val();
-				}
-				if($(":input[name='queryParams[userName]']")!=null&&$(":input[name='queryParams[userName]']")!=undefined){
-					bq.queryParams.userName = $(
-					":input[name='queryParams[userName]']").val();
-				}
-				if($(":input[name='queryParams[hiredate]']")!=null&&$(":input[name='queryParams[hiredate]']")!=undefined){
-					bq.queryParams.hiredate = $(
-					":input[name='queryParams[hiredate]']").val();
+				if($(":input[name='queryParams[stuName]']")!=null&&$(":input[name='queryParams[stuName]']")!=undefined){
+					bq.queryParams.stuName = $(":input[name='queryParams[stuName]']").val();
 				}
 				return JSON.stringify(bq);
 			}
 
 			var writeParams = function(result) {
-				$(":input[name='queryParams[userName]']").val(
-						result.queryParams.userName);
-				$(":input[name='queryParams[empName]']").val(
-						result.queryParams.empName);
-				$(":input[name='queryParams[hiredate]']").val(
-						result.queryParams.hiredate);
+				$(":input[name='queryParams[stuName]']").val(
+						result.queryParams.stuName);
 				$(":input[name='pag.current_page']").val(
 						result.pag.current_page);
 				$(":input[name='pag.total_page']").val(result.pag.total_page);
 			}
 
 			var tableColumn = [
-					{
-						data : "empName",
-						title : "员工姓名"
-					},
-					{
-						data : "userName",
-						title : "用户名"
-					},
-					{
-						data : "phone",
-						title : "手机号"
-					},
-					{
-						data : "hiredate",
-						title : "入职时间",
-						render : function(data, type, full, meta) {
-							return (new Date(data)).Format("yyyy-MM-dd");
-						}
-					},
-					{
-						data : "schoolDistrict",
-						title : "所属校区",
-						render : function(data, type, full, meta) {
-							if(data!=null){
-								return data.schoolName;
-							}
-							return '';
-						}
-					},
-					{
-						data : "dept",
-						title : "所属部门",
-						render : function(data, type, full, meta) {
-							if(data!=null){
-								return data.deptName;
-							}
-							return '';
-						}
-					},
-					{
-						data : "role",
-						title : "所属角色",
-						render : function(data, type, full, meta) {
-							if(data!=null){
-								return data.roleName;
-							}
-							return '';
-						}
-					},
-					{
-						data : "station",
-						title : "所属岗位",
-						render : function(data, type, full, meta) {
-							if(data!=null){
-								return data.stationName;
-							}
-							return '';
-						}
-					},
-					{
-						data : "assoWeChat",
-						title : "是否关联微信",
-						render : function(data, type, full, meta) {
-							if ("0" === data) {
-								return "是";
-							} else {
-								return "否";
-							}
-						}
-					},
-					{
-						title : "操作",
-						data : function( row, type, val, meta ) {
-							var id = row['empId'];
-							var str = "<a class='update blue' href='emp/"+id+".do' data-toggle='modal'>修改</a>"
-									+ "&nbsp;&nbsp;"
-									+ "<a class='dele red' href='emp/"+id+".do' data-toggle='modal'>删除</a>";
-							
-							return str;
-						}
-					} ];
+								{
+									data : "stuName",
+									title : "学员姓名"
+								},
+								{
+									data : "sex",
+									title : "性别",
+									render : function(data, type, full, meta) {
+										if ("0" == data) {
+											return "男";
+										} else {
+											return "女";
+										}
+									}
+								},
+								{
+									data : "stuAge",
+									title : "年龄",
+								},
+								{
+									data : "phone",
+									title : "手机号"
+								},
+								{
+									data : "entranceTime",
+									title : "入学时间",
+									render : function(data, type, full, meta) {
+										return (new Date(data)).Format("yyyy-MM-dd");
+									}
+								},
+								{
+									data : "stuStatus",
+									title : "状态",
+									render : function(data, type, full, meta) {
+										if ("audition" == data) {
+											return "试听";
+										} else if ("signUp" == data) {
+											return "报名";
+										} else if ("attend" == data) {
+											return "就读";
+										} else if ("obtain" == data) {
+											return "就业";
+										} else if ("wastage" == data) {
+											return "流失";
+										} else if ("leave" == data) {
+											return "离校";
+										} else {
+											return "wtf"
+										}
+									}
+								},
+								{
+									title : "操作",
+									data : function(row, type, val, meta) {
+										var id = row['stuId'];
+										var str = "<a class='update blue' href='stu/"+id+".do' data-toggle='modal'>修改</a>"
+												+ "&nbsp;&nbsp;"
+												+ "<a class='dele red' href='stu/"+id+".do' data-toggle='modal'>删除</a>";
+
+										return str;
+									}
+								} ];
 
 			var mainTable = $("#main-table")
 					.dataTable(
@@ -415,7 +369,7 @@
 								//必须加这句话，fnDraw()时才会重新加载数据
 								"bServerSide" : true,
 								ajax : {
-									"url" : "getEmpList.do",
+									"url" : "getStuList.do",
 									"type" : "post",
 									"contentType" : "application/json;charset=UTF-8",
 									"cache" : false,
@@ -429,15 +383,6 @@
 										}
 									},
 									"dataType" : "json",
-									//处理相应结果
-									// "dataSrc" : function(result) {
-									//	if (typeof (writeParams) != "undefined"
-									//			&& writeParams
-									//			&& typeof (writeParams) == "function") {
-									//		writeParams(result.queryParams);
-									//	}
-									//	return result.pag.pageList;
-									//}, 
 									//改成datatables期望的格式
 									"dataFilter" : function(result, settings) {
 										var json = jQuery.parseJSON(result);
@@ -478,7 +423,7 @@
 																"contentType" : "application/json;charset=UTF-8",
 																"success" : function(result) {
 																	if (result.msg === 'success') {
-																		var href = "emps.do";
+																		var href = "stus.do";
 																		$("#main").load(href,function(){
 																			initMain();
 																			var alertDiv = $("#alertDiv");

@@ -5,7 +5,7 @@
 	
 	<sql id="empCol">
 		empid,empname,username,userpwd,phone,hiredate,schoolid,deptid,roleid,
-		stationid,assowechat,createuser,createdate,updateuser,updatedate
+		stationid,assowechat,createuser,createdate,updateuser,updatedate,sex
 	</sql>
 	
 	<select id="getListPage" parameterType="baseQuery" resultType="emp">
@@ -77,7 +77,8 @@
 			#{createUser,jdbcType=VARCHAR},
 			#{createDate,jdbcType=TIMESTAMP },
 			#{updateUser,jdbcType=VARCHAR},
-			#{updateDate,jdbcType=TIMESTAMP}
+			#{updateDate,jdbcType=TIMESTAMP},
+			#{sex,jdbcType=NUMERIC}
 		)
 	</insert>
 	

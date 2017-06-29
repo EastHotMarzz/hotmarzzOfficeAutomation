@@ -1,7 +1,11 @@
 package com.hotmarzz.oa.dao;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
+import com.hotmarzz.basic.dao.BaseQuery;
+import com.hotmarzz.oa.pojo.Emp;
 import com.hotmarzz.oa.pojo.Student;
 
 @Repository
@@ -30,5 +34,16 @@ public interface StudentDao {
 	 * @throws Exception
 	 */
 	Student getById(Long stuId) throws Exception;
-	
+	/**
+	 * 获取学生信息的集合
+	 * @param bq
+	 * @return
+	 */
+	List<Student> getListPage(BaseQuery bq);
+	/**
+	 * 查询数据个数
+	 * @param bq
+	 * @return
+	 */
+	int getCount(BaseQuery bq);
 }
