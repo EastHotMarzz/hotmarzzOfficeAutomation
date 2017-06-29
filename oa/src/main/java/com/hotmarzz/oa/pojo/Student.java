@@ -2,12 +2,24 @@ package com.hotmarzz.oa.pojo;
 
 import java.util.Date;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.EAN;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class Student {
 	private Long stuId;
+	@NotEmpty(message="电话不能为空")
 	private String phone;
+	@NotEmpty(message="姓名不能为空")
 	private String stuName;
 	private String idNumber;
 	private Integer sex;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date entranceTime;
 	private Classes firstClasses;
 	private Classes currentClasses;
@@ -19,6 +31,7 @@ public class Student {
 	private String wskLevel;
 	private String computerSkill;
 	private String qq;
+	@Email(message="必须是邮箱格式")
 	private String email;
 	private String contactPerson;
 	private String remarks;
@@ -29,12 +42,14 @@ public class Student {
 	private Date createDate;
 	private String updateUser;
 	private Date updateDate;
-	private Integer stuAge;
+	@Min(value=16,message="年龄在16~35岁之间")
+	@Max(value=35,message="年龄在16~35岁之间")
+	private int stuAge;
 	
-	public Integer getStuAge() {
+	public int getStuAge() {
 		return stuAge;
 	}
-	public void setStuAge(Integer stuAge) {
+	public void setStuAge(int stuAge) {
 		this.stuAge = stuAge;
 	}
 	private enum StuStatus{

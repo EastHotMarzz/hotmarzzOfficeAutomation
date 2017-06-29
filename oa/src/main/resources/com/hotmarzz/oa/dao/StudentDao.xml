@@ -23,5 +23,121 @@
 		<include refid="com.hotmarzz.basic.dao.BaseDao.queryByConditions"/>
 	</select>
 	
+	<insert id="add" parameterType="student">
+		<selectKey keyProperty="stuId" order="BEFORE" resultType="long">
+			select o_student_seq.nextval from dual
+		</selectKey>
+		insert into o_stu(
+		<include refid="com.hotmarzz.oa.dao.StudentDao.stuCol"/>
+		) values(
+			#{stuId,jdbcType=NUMERIC},
+			#{phone,jdbcType=VARCHAR},
+			#{stuName,jdbcType=VARCHAR},
+			<if test="idNumber !=null">
+			#{idNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="idNumber ==null">
+				null,
+			</if>
+			#{sex,jdbcType=NUMERIC},
+			<if test="entranceTime !=null">
+			#{entranceTime,jdbcType=DATE},
+			</if>
+			<if test="entranceTime ==null">
+				sysdate,
+			</if>
+			0,
+			0,
+			null,
+			null,
+			<if test="graSchool !=null">
+			#{graSchool,jdbcType=VARCHAR},
+			</if>
+			<if test="graSchool ==null">
+				null,
+			</if>
+			
+			<if test="education !=null">
+			#{education,jdbcType=VARCHAR},
+			</if>
+			<if test="education ==null">
+				null,
+			</if>
+			
+			<if test="proFession !=null">
+			#{proFession,jdbcType=VARCHAR},
+			</if>
+			<if test="proFession ==null">
+				null,
+			</if>
+			
+			<if test="wskLevel !=null">
+			#{wskLevel,jdbcType=VARCHAR},
+			</if>
+			<if test="wskLevel ==null">
+				null,
+			</if>
+			
+			<if test="computerSkill !=null">
+			#{computerSkill,jdbcType=VARCHAR},
+			</if>
+			<if test="computerSkill ==null">
+				null,
+			</if>
+			
+			<if test="qq !=null">
+			#{qq,jdbcType=VARCHAR},
+			</if>
+			<if test="qq ==null">
+				null,
+			</if>
+			
+			<if test="email !=null">
+			#{email,jdbcType=VARCHAR},
+			</if>
+			<if test="email ==null">
+				null,
+			</if>
+			
+			<if test="contactPerson !=null">
+			#{contactPerson,jdbcType=VARCHAR},
+			</if>
+			<if test="contactPerson ==null">
+				null,
+			</if>
+			
+			<if test="remarks !=null">
+			#{remarks,jdbcType=VARCHAR},
+			</if>
+			<if test="remarks ==null">
+				null,
+			</if>
+			
+			<if test="locked !=1">
+				0,
+			</if>
+			<if test="locked ==1">
+				1,
+			</if>
+			
+			<if test="lockUser !=null">
+			#{lockUser,jdbcType=VARCHAR},
+			</if>
+			<if test="lockUser ==null">
+				null,
+			</if>
+			#{createUser,jdbcType=VARCHAR},
+			#{createDate,jdbcType=TIMESTAMP },
+			#{updateUser,jdbcType=VARCHAR},
+			#{updateDate,jdbcType=TIMESTAMP},
+			0,
+			<if test="stuAge !=0">
+			#{stuAge,jdbcType=NUMERIC}
+			</if>
+			<if test="stuAge ==0">
+				18
+			</if>
+		)
+	</insert>
 	
 </mapper>

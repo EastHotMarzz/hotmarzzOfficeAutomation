@@ -28,7 +28,6 @@ public class Emp {
 	
 	private Integer sex;
 	
-	
 	public Integer getSex() {
 		return sex;
 	}

@@ -337,7 +337,7 @@
 										} else if ("leave" == data) {
 											return "离校";
 										} else {
-											return "wtf"
+											return "无状态"
 										}
 									}
 								},

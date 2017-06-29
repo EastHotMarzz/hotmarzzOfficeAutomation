@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.hotmarzz.basic.dao.BaseQuery;
-import com.hotmarzz.oa.pojo.Emp;
 import com.hotmarzz.oa.pojo.Student;
 
 @Repository
@@ -13,13 +12,13 @@ public interface StudentDao {
 
 	/**
 	 * 添加学生
-	 * @param emp
+	 * @param stu
 	 * @throws Exception
 	 */
-	void insert(Student stu) throws Exception;
+	void add(Student stu) throws Exception;
 	/**
 	 * 修改学生
-	 * @param emp
+	 * @param stu
 	 * @throws Exception
 	 */
 	void update(Student stu) throws Exception;
@@ -29,7 +28,7 @@ public interface StudentDao {
 	void delete(Long stuId) throws Exception;
 	/**
 	 * 根据ID获取学生
-	 * @param empId
+	 * @param stuId
 	 * @return
 	 * @throws Exception
 	 */
