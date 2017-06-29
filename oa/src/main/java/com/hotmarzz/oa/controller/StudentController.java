@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -102,7 +103,21 @@ public class StudentController {
 		return JsonUtils.bean2Json(result);
 	}
 	
-	
+	/*
+	 * 删除学员
+	 */
+	@RequestMapping(value = "stu/{id}.do", method = RequestMethod.DELETE)
+	@ResponseBody
+	public String delete(@PathVariable("id") Long stuId) throws Exception {
+		Map<String, Object> result = new HashMap<String, Object>();
+
+		stuBuzz.delete(stuId);
+
+		result.put("flag", true);
+		result.put("msg", "success");
+
+		return JsonUtils.bean2Json(result);
+	}
 	
 	
 }

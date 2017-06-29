@@ -140,4 +140,7 @@
 		)
 	</insert>
 	
+	<delete id="delete" parameterType="java.lang.Long">
+		delete from o_stu where stuid=#{stuId,jdbcType=NUMERIC}
+	</delete>
 </mapper>

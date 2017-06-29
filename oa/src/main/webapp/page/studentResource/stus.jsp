@@ -422,7 +422,7 @@
 																"dataType" : "json",
 																"contentType" : "application/json;charset=UTF-8",
 																"success" : function(result) {
-																	if (result.msg === 'success') {
+																	if (result.msg == 'success') {
 																		var href = "stus.do";
 																		$("#main").load(href,function(){
 																			initMain();
@@ -432,10 +432,10 @@
 																			alertDiv.removeClass("alert-danger");
 																			alertDiv.addClass("alert-info");
 																			alertDiv.find("button").next("span").remove();
-																			alertDiv.find("button").after("<span>删除成功,删除用户的为id:"+user_id+" <i class='ace-icon glyphicon glyphicon-ok'></i></span>");
+																			alertDiv.find("button").after("<span>删除成功<i class='ace-icon glyphicon glyphicon-ok'></i></span>");
 																		});
 																	}
-																	if (result.msg === 'error'){
+																	if (result.msg == 'error'){
 																		var alertDiv = $("#alertDiv");
 																		alertDiv.removeClass("hidden");
 																		if(result.errorCode == '503'){

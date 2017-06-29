@@ -54,10 +54,12 @@ public class StudentBuzzImpl implements StudentBuzz {
 		return bq;
 	}
 
+	/**
+	 * 删除学员
+	 */
 	@Override
 	public void delete(Long stuId) throws Exception {
-		// TODO Auto-generated method stub
-
+		stuDao.delete(stuId);
 	}
 
 }
