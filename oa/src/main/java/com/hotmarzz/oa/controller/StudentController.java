@@ -3,6 +3,7 @@ package com.hotmarzz.oa.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -81,9 +82,15 @@ public class StudentController {
 	 */
 	@RequestMapping(value = "stu.do", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
 	public @ResponseBody String add(@RequestBody @Valid Student stu,
-			BindingResult results) throws Exception {
+			BindingResult results,HttpSession session) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		
+		Student stu_check=checkStuRepeat(stu);
+		if(stu_check!=null){
+			result.put("flag", true);
+			result.put("msg", "已有重复学员，请勿重复添加!");
+			return JsonUtils.bean2Json(result);
+		}
 		// 数据校验
 		if (results.hasErrors()) {
 			result.put("flag", "validation");
@@ -96,7 +103,7 @@ public class StudentController {
 			result.put("validationMsg", validationMsg);
 			return JsonUtils.bean2Json(result);
 		}
-		
+		stu.setCreateUser(((Emp)session.getAttribute("loginEmp")).getEmpName());
 		stuBuzz.add(stu);
 		
 		result.put("flag", true);
@@ -157,6 +164,13 @@ public class StudentController {
 		result.put("flag", true);
 		result.put("msg", "修改成功");
 		return JsonUtils.bean2Json(result);
+	}
+	
+	/*
+	 * 判断学员信息是否重复
+	 */
+	private Student checkStuRepeat(Student stu) throws Exception{
+		return stuBuzz.checkStuRepeat(stu);
 	}
 	
 }

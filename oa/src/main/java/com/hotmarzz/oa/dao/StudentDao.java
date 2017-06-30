@@ -45,4 +45,10 @@ public interface StudentDao {
 	 * @return
 	 */
 	int getCount(BaseQuery bq);
+	/**
+	 * 检测学员是否重复
+	 * @param stu
+	 * @return
+	 */
+	Student checkStuRepeat(Student stu);
 }

@@ -127,7 +127,7 @@
 				null,
 			</if>
 			#{createUser,jdbcType=VARCHAR},
-			#{createDate,jdbcType=TIMESTAMP },
+			sysdate,
 			#{updateUser,jdbcType=VARCHAR},
 			#{updateDate,jdbcType=TIMESTAMP},
 			0,
@@ -165,4 +165,14 @@
 		idnumber=#{idNumber,jdbcType=VARCHAR}
 		where stuid=#{stuId,jdbcType=NUMERIC}
 	</update>
+	
+	<select id="checkStuRepeat" parameterType="student" resultType="student">
+		select
+		<include refid="com.hotmarzz.oa.dao.StudentDao.stuCol"/>
+		from o_stu
+		where stuname=#{stuName,jdbcType=VARCHAR} and
+		stuage=#{stuAge,jdbcType=NUMERIC} and
+		phone=#{phone,jdbcType=VARCHAR} and 
+		sex=#{sex,jdbcType=NUMERIC}
+	</select>
 </mapper>

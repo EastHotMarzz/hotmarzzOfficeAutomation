@@ -65,5 +65,12 @@ public class StudentBuzzImpl implements StudentBuzz {
 	public void delete(Long stuId) throws Exception {
 		stuDao.delete(stuId);
 	}
+	/**
+	 * 检测学员是否重复
+	 */
+	@Override
+	public Student checkStuRepeat(Student stu) throws Exception {
+		return stuDao.checkStuRepeat(stu);
+	}
 
 }
