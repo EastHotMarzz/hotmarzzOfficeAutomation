@@ -454,7 +454,7 @@
 									
 									$(".pagination .paginate_button")
 											.on(
-													"click",
+													"mousedown",
 													function(e) {
 														var cp = $(":input[name='pag.current_page']");
 														if(cp==null||cp==undefined){
@@ -476,15 +476,23 @@
 														} else if ($(this)
 																.hasClass(
 																		"previous")) {
-															cp
-																	.val(parseInt(currentPage) - 1);
-															pageInfo = "previous";
+															if(parseInt(currentPage) - 1<=1){
+																cp.val(firstPage);
+																pageInfo = "previous";
+															}else{
+																cp.val(parseInt(currentPage) - 1);
+																pageInfo = "previous";
+															}
 														} else if ($(this)
 																.hasClass(
 																		"next")) {
-															cp
-																	.val(parseInt(currentPage) + 1);
-															pageInfo = "next";
+															if(parseInt(currentPage) + 1>=total_page){
+																cp.val(total_page);
+																pageInfo = "next";
+															}else{
+																cp.val(parseInt(currentPage) + 1);
+																pageInfo = "next";
+															}
 														} else {
 															cp
 																	.val($(this)

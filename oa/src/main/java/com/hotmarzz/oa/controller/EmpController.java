@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.hotmarzz.basic.dao.BaseQuery;
 import com.hotmarzz.basic.dao.Expression;
@@ -86,6 +84,8 @@ public class EmpController {
 	@RequestMapping(value = "getEmpList.do", produces = "application/json;charset=utf-8")
 	public @ResponseBody String getEmpList(@RequestBody BaseQuery bq)
 			throws Exception {
+		//每页大小：可用
+		//当前页：可用
 		Map<String, Object> queryParams = bq.getQueryParams();
 		if (queryParams.containsKey("empName")
 				&& StringUtils.isNotEmpty((String) queryParams.get("empName"))) {

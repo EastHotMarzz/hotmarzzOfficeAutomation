@@ -172,7 +172,6 @@
 									<i class="ace-icon fa fa-database"></i> 员工管理
 
 								</h5>
-
 								<div class="widget-toolbar">
 									<div class="btn-toolbar">
 										<div class="btn-group">
@@ -304,6 +303,7 @@
 				return JSON.stringify(bq);
 			}
 
+			
 			var writeParams = function(result) {
 				$(":input[name='queryParams[userName]']").val(
 						result.queryParams.userName);
@@ -419,9 +419,9 @@
 									"type" : "post",
 									"contentType" : "application/json;charset=UTF-8",
 									"cache" : false,
-									"data" : function(d) {
+									"async" : true,
+									"data" : function(e) {
 										if (typeof (preParams) != "undefined"
-												&& preParams
 												&& typeof (preParams) == "function") {
 											return preParams();
 										} else {
@@ -429,15 +429,6 @@
 										}
 									},
 									"dataType" : "json",
-									//处理相应结果
-									// "dataSrc" : function(result) {
-									//	if (typeof (writeParams) != "undefined"
-									//			&& writeParams
-									//			&& typeof (writeParams) == "function") {
-									//		writeParams(result.queryParams);
-									//	}
-									//	return result.pag.pageList;
-									//}, 
 									//改成datatables期望的格式
 									"dataFilter" : function(result, settings) {
 										var json = jQuery.parseJSON(result);
@@ -461,7 +452,7 @@
 										//在当前页面刷新新的页面
 										$("#main").load(updateUrl,initMain);										
 									});
-									//删除
+									//删除----------
 									$(".dele").on("click",
 											function(e) {
 												e.preventDefault();
@@ -505,11 +496,10 @@
 															})
 												}
 											});
-									
-									
+									//删除结束----------
 									$(".pagination .paginate_button")
 											.on(
-													"click",
+													"mousedown",
 													function(e) {
 														var cp = $(":input[name='pag.current_page']");
 														if(cp==null||cp==undefined){
@@ -519,6 +509,7 @@
 														var firstPage = 1;
 														var total_page = $(":input[name='pag.total_page']").val();
 														var pageInfo = '';
+														//点击了那一个按钮
 														if ($(this).hasClass(
 																"first")) {
 															cp.val(firstPage);
@@ -531,15 +522,26 @@
 														} else if ($(this)
 																.hasClass(
 																		"previous")) {
-															cp
-																	.val(parseInt(currentPage) - 1);
-															pageInfo = "previous";
+															
+															if(parseInt(currentPage) - 1<=1){
+																cp.val(firstPage);
+																pageInfo = "previous";
+															}else{
+																cp.val(parseInt(currentPage) - 1);
+																pageInfo = "previous";
+															}
+															
 														} else if ($(this)
 																.hasClass(
 																		"next")) {
-															cp
-																	.val(parseInt(currentPage) + 1);
-															pageInfo = "next";
+															if(parseInt(currentPage) + 1>=total_page){
+																cp.val(total_page);
+																pageInfo = "next";
+															}else{
+																cp.val(parseInt(currentPage) + 1);
+																pageInfo = "next";
+															}
+															
 														} else {
 															cp
 																	.val($(this)
@@ -557,6 +559,7 @@
 								columns : tableColumn
 							});
 
+			//重新画分页按钮的css
 			function redraw() {
 				var currentPage = $(":input[name='pag.current_page']").val();
 				var totalPage = $(":input[name='pag.total_page']").val();
