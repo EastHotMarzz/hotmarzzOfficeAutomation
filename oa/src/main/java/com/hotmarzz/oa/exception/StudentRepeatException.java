@@ -6,8 +6,8 @@ public class StudentRepeatException extends BuzzException{
 
 	private static final long serialVersionUID = 1L;
 
-	public StudentRepeatException(){
-		super(ExceptionConstraints.STUDENT_REPEAT_CODE,ExceptionConstraints.STUDENT_REPEAT_MSG);
+	public StudentRepeatException(String lockUserName){
+		super(ExceptionConstraints.STUDENT_REPEAT_CODE,ExceptionConstraints.STUDENT_REPEAT_MSG+lockUserName);
 	}
 	
 	public StudentRepeatException(int code,String msg){

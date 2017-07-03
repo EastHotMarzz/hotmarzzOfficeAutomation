@@ -44,8 +44,9 @@ public class StudentBuzzImpl implements StudentBuzz {
 	 */
 	@Override
 	public void add(Student stu) throws Exception {
-		if(checkStuRepeat(stu)){
-			throw new StudentRepeatException();
+		String lockUserName = checkStuRepeat(stu);
+		if(lockUserName!=null){
+			throw new StudentRepeatException(lockUserName);
 		}
 		stu.setLocked(0);
 		stu.setLockTime(new Date());
@@ -88,17 +89,17 @@ public class StudentBuzzImpl implements StudentBuzz {
 	
 	/*
 	 * check repeat stu
-	 * if repeat return true
-	 * norepeat return false
+	 * if repeat return lockUserName
+	 * norepeat return null
 	 * @qi.wang
 	 * 20170703 
 	 */
-	private boolean checkStuRepeat(Student stu) throws Exception {
+	private String checkStuRepeat(Student stu) throws Exception {
 		Student s = stuDao.checkStuRepeat(stu);
 		if(s!=null){
-			return true;
+			return s.getLockUser();
 		}else{
-			return false;
+			return null;
 		}
 	}
 
