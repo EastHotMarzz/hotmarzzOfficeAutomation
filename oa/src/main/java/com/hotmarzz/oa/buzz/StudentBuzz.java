@@ -28,11 +28,4 @@ public interface StudentBuzz {
 	 */
 	void delete(Long stuId) throws Exception;
 	
-	/**
-	 * 检查学生是否重复
-	 * @param stu
-	 * @return
-	 * @throws Exception
-	 */
-	Student checkStuRepeat(Student stu) throws Exception;
 }

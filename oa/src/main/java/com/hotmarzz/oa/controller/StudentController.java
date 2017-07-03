@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,8 +25,10 @@ import com.hotmarzz.basic.dao.Expression;
 import com.hotmarzz.basic.utils.JsonUtils;
 import com.hotmarzz.basic.utils.StringUtils;
 import com.hotmarzz.oa.buzz.StudentBuzz;
+import com.hotmarzz.oa.exception.StudentRepeatException;
 import com.hotmarzz.oa.pojo.Emp;
 import com.hotmarzz.oa.pojo.Student;
+import com.hotmarzz.oa.utils.JSONConstrants;
 
 @Controller
 public class StudentController {
@@ -84,13 +87,6 @@ public class StudentController {
 	public @ResponseBody String add(@RequestBody @Valid Student stu,
 			BindingResult results,HttpSession session) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
-		
-		Student stu_check=checkStuRepeat(stu);
-		if(stu_check!=null){
-			result.put("flag", true);
-			result.put("msg", "已有重复学员，请勿重复添加!");
-			return JsonUtils.bean2Json(result);
-		}
 		// 数据校验
 		if (results.hasErrors()) {
 			result.put("flag", "validation");
@@ -103,9 +99,7 @@ public class StudentController {
 			result.put("validationMsg", validationMsg);
 			return JsonUtils.bean2Json(result);
 		}
-		stu.setCreateUser(((Emp)session.getAttribute("loginEmp")).getEmpName());
 		stuBuzz.add(stu);
-		
 		result.put("flag", true);
 		result.put("msg", "添加成功");
 		return JsonUtils.bean2Json(result);
@@ -143,7 +137,7 @@ public class StudentController {
 	 */
 	@RequestMapping(value = "stu.do", method = RequestMethod.PUT)
 	@ResponseBody
-	public String updateEmp(@RequestBody @Valid Student stu, BindingResult results)
+	public String update(@RequestBody @Valid Student stu, BindingResult results)
 			throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 
@@ -166,11 +160,13 @@ public class StudentController {
 		return JsonUtils.bean2Json(result);
 	}
 	
-	/*
-	 * 判断学员信息是否重复
-	 */
-	private Student checkStuRepeat(Student stu) throws Exception{
-		return stuBuzz.checkStuRepeat(stu);
+	@ExceptionHandler(StudentRepeatException.class)
+	public @ResponseBody String repeatStudentHandler(StudentRepeatException exc){
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put(JSONConstrants.FLAG, JSONConstrants.FLAG_EXCEPTION);
+		result.put(JSONConstrants.FLAG_EXCEPTION_CODE, exc.getCode());
+		result.put(JSONConstrants.FLAG_EXCEPTION_MSG, exc.getMsg());
+		return JsonUtils.bean2Json(result);
 	}
 	
 }

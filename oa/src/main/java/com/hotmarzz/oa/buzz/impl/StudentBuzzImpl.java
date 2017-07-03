@@ -1,19 +1,30 @@
 package com.hotmarzz.oa.buzz.impl;
 
+import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.support.DaoSupport;
 import org.springframework.stereotype.Service;
 
 import com.hotmarzz.basic.dao.BaseQuery;
 import com.hotmarzz.oa.buzz.StudentBuzz;
+import com.hotmarzz.oa.controller.EmpController;
 import com.hotmarzz.oa.dao.StudentDao;
+import com.hotmarzz.oa.exception.StudentRepeatException;
 import com.hotmarzz.oa.pojo.Emp;
 import com.hotmarzz.oa.pojo.Student;
+import com.hotmarzz.oa.utils.SessionUtils;
 
 @Service
 public class StudentBuzzImpl implements StudentBuzz {
+	
+	private Logger logger = LoggerFactory.getLogger(StudentBuzzImpl.class);
+
 	
 	private StudentDao stuDao;
 
@@ -24,12 +35,21 @@ public class StudentBuzzImpl implements StudentBuzz {
 	public void setStuDao(StudentDao stuDao) {
 		this.stuDao = stuDao;
 	}
-
+	
+	@Autowired
+	private HttpSession session;
+	
 	/**
 	 * 添加学员
 	 */
 	@Override
 	public void add(Student stu) throws Exception {
+		if(checkStuRepeat(stu)){
+			throw new StudentRepeatException();
+		}
+		stu.setLocked(0);
+		stu.setLockTime(new Date());
+		stu.setLockUser(((Emp)session.getAttribute(SessionUtils.LOGIN_EMP_KEY)).getUserName());
 		stuDao.add(stu);
 	}
 
@@ -65,12 +85,21 @@ public class StudentBuzzImpl implements StudentBuzz {
 	public void delete(Long stuId) throws Exception {
 		stuDao.delete(stuId);
 	}
-	/**
-	 * 检测学员是否重复
+	
+	/*
+	 * check repeat stu
+	 * if repeat return true
+	 * norepeat return false
+	 * @qi.wang
+	 * 20170703 
 	 */
-	@Override
-	public Student checkStuRepeat(Student stu) throws Exception {
-		return stuDao.checkStuRepeat(stu);
+	private boolean checkStuRepeat(Student stu) throws Exception {
+		Student s = stuDao.checkStuRepeat(stu);
+		if(s!=null){
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 }

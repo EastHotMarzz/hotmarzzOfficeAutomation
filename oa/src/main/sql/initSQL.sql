@@ -640,7 +640,7 @@ Target Server Type    : ORACLE
 Target Server Version : 110200
 File Encoding         : 65001
 
-Date: 2017-06-28 15:33:18
+Date: 2017-07-03 11:31:57
 */
 
 
@@ -675,7 +675,8 @@ CREATE TABLE "HOTMARZZ"."O_STU" (
 "UPDATEUSER" VARCHAR2(50 BYTE) NULL ,
 "UPDATEDATE" DATE NULL ,
 "PAYID" NUMBER NULL ,
-"STUAGE" NUMBER NULL 
+"STUAGE" NUMBER NULL ,
+"LOCKTIME" DATE NULL 
 )
 LOGGING
 NOCOMPRESS
@@ -709,6 +710,7 @@ COMMENT ON COLUMN "HOTMARZZ"."O_STU"."UPDATEUSER" IS '修改人';
 COMMENT ON COLUMN "HOTMARZZ"."O_STU"."UPDATEDATE" IS '修改时间';
 COMMENT ON COLUMN "HOTMARZZ"."O_STU"."PAYID" IS '付款信息ID';
 COMMENT ON COLUMN "HOTMARZZ"."O_STU"."STUAGE" IS '学生年龄';
+COMMENT ON COLUMN "HOTMARZZ"."O_STU"."LOCKTIME" IS '锁定时间';
 
 -- ----------------------------
 -- Records of O_STU
@@ -730,5 +732,5 @@ ALTER TABLE "HOTMARZZ"."O_STU" ADD CHECK ("STUNAME" IS NOT NULL);
 -- ----------------------------
 ALTER TABLE "HOTMARZZ"."O_STU" ADD PRIMARY KEY ("STUID");
 
-
-
+create sequence o_student_seq;
+select o_student_seq.nextval from dual;

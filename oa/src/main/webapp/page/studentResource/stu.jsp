@@ -429,7 +429,7 @@
 
 					var listUrl = "stus.do";
 					var addOrUpdateUrl = "stu.do";
-
+					
 					$("#submitBtn")
 							.on("click",
 									function(e) {
@@ -453,7 +453,6 @@
 													"dataType" : "json",
 													"contentType" : "application/json;charset=UTF-8",
 													"success" : function(result) {
-														debugger
 														if (result.flag === true) {
 															$("#main").load(listUrl,
 																			function() {
@@ -499,17 +498,17 @@
 																				}
 																			})
 														}
-														if (result.flag === false) {
+														if (result.flag === 'exception') {
 															var alertDiv = $("#alertDiv");
 															alertDiv
 																	.removeClass("hidden");
-															if (result.errorCode == '503') {
+															if (((result.exCode+"").indexOf("4"))==0) {
 																alertDiv
-																		.removeClass("alert-warning");
+																		.removeClass("alert-danger");
 																alertDiv
 																		.removeClass("alert-info");
 																alertDiv
-																		.addClass("alert-danger");
+																		.addClass("alert-warning");
 															}
 															alertDiv
 																	.find(
@@ -522,7 +521,7 @@
 																			"button")
 																	.after(
 																			"<span>"
-																					+ result.msg
+																					+ result.exMsg
 																					+ "</span>");
 														}
 													}

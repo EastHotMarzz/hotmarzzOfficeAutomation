@@ -26,6 +26,7 @@ import com.hotmarzz.basic.utils.JsonUtils;
 import com.hotmarzz.basic.utils.StringUtils;
 import com.hotmarzz.oa.buzz.EmpBuzz;
 import com.hotmarzz.oa.pojo.Emp;
+import com.hotmarzz.oa.utils.SessionUtils;
 
 @Controller
 public class EmpController {
@@ -65,7 +66,7 @@ public class EmpController {
 			model.addAttribute("errMsg","账号或密码有误");
 			return "login";
 		}
-		session.setAttribute("loginEmp", loginEmp);
+		session.setAttribute(SessionUtils.LOGIN_EMP_KEY, loginEmp);
 		return "main";
 	}
 
@@ -181,7 +182,7 @@ public class EmpController {
 	 */
 	@RequestMapping(value = "emp.do", method = RequestMethod.PUT)
 	@ResponseBody
-	public String updateEmp(@RequestBody @Valid Emp emp, BindingResult results)
+	public String update(@RequestBody @Valid Emp emp, BindingResult results)
 			throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 

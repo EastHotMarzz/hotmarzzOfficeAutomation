@@ -37,6 +37,7 @@ public class Student {
 	private String remarks;
 	private Integer locked;
 	private String lockUser;
+	private Date lockTime;
 	private Payment payment;
 	private String createUser;
 	private Date createDate;
@@ -223,6 +224,12 @@ public class Student {
 	}
 	public void setPayment(Payment payment) {
 		this.payment = payment;
+	}
+	public Date getLockTime() {
+		return lockTime;
+	}
+	public void setLockTime(Date lockTime) {
+		this.lockTime = lockTime;
 	}
 	@Override
 	public String toString() {

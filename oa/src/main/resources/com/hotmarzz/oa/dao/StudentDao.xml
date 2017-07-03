@@ -7,7 +7,7 @@
 		stuid,phone,stuname,idnumber,sex,entrancetime,firstclassid,currentclassid,
 		stustatus,graduation,graschool,education,profession,wsklevel,computerskill,qq,
 		email,contactperson,remarks,locked,lockuser,CREATEUSER,CREATEDATE,
-		UPDATEUSER,UPDATEDATE,PAYID,stuage
+		UPDATEUSER,UPDATEDATE,PAYID,stuage,locktime
 	</sql>
 	
 	<select id="getListPage" parameterType="baseQuery" resultType="student">
@@ -132,10 +132,16 @@
 			#{updateDate,jdbcType=TIMESTAMP},
 			0,
 			<if test="stuAge !=0">
-			#{stuAge,jdbcType=NUMERIC}
+				#{stuAge,jdbcType=NUMERIC},
 			</if>
 			<if test="stuAge ==0">
-				18
+				18,
+			</if>
+			<if test="lockTime !=null">
+				#{lockTime,jdbcType=DATE}
+			</if>
+			<if test="lockTime ==null">
+				null
 			</if>
 		)
 	</insert>
@@ -171,8 +177,7 @@
 		<include refid="com.hotmarzz.oa.dao.StudentDao.stuCol"/>
 		from o_stu
 		where stuname=#{stuName,jdbcType=VARCHAR} and
-		stuage=#{stuAge,jdbcType=NUMERIC} and
-		phone=#{phone,jdbcType=VARCHAR} and 
+		stuage=#{stuAge,jdbcType=NUMERIC} and 
 		sex=#{sex,jdbcType=NUMERIC}
 	</select>
 </mapper>

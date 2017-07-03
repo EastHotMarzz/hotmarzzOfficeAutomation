@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hotmarzz.basic.dao.BaseQuery;
+import com.hotmarzz.basic.utils.MD5Utils;
 import com.hotmarzz.oa.buzz.EmpBuzz;
 import com.hotmarzz.oa.dao.EmpDao;
 import com.hotmarzz.oa.pojo.Emp;
@@ -26,10 +27,11 @@ public class EmpBuzzImpl implements EmpBuzz {
 
 	@Override
 	public void add(Emp emp) throws Exception {
-		emp.setUserPwd(Constants.DEFAULT_EMP_PWD);
+		emp.setUserPwd(new MD5Utils().getMD5ofStr(Constants.DEFAULT_EMP_PWD));
 		emp.setSex(Constants.DEFAULT_EMP_SEX);
 		empDao.insert(emp);
 	}
+	
 	@Override
 	public BaseQuery getList(BaseQuery bq) throws Exception {
 		List<Emp> us =  empDao.getListPage(bq);
@@ -64,6 +66,7 @@ public class EmpBuzzImpl implements EmpBuzz {
 	 */
 	@Override
 	public Emp login(Emp emp) throws Exception {
+		emp.setUserPwd(new MD5Utils().getMD5ofStr(emp.getUserPwd()));
 		return empDao.login(emp);
 	}
 
