@@ -39,4 +39,7 @@ public interface EmpDao {
 
 	Emp login(Emp emp) throws Exception;
 	
+	Emp ckOldPwd(Emp emp) throws Exception;
+	
+	void updatePwd(Emp emp) throws Exception;
 }

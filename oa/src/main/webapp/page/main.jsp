@@ -274,15 +274,15 @@
 						<a data-toggle="dropdown" href="#" class="dropdown-toggle">
 							<img class="nav-user-photo" src="assets/images/avatars/user.jpg"/>
 							<span class="user-info">
-								<small>欢迎,</small>${loginEmp.empName}
+								<small>欢迎,</small>${login_emp.empName}
 							</span>
 							<i class="ace-icon fa fa-caret-down"></i>
 						</a>
 
 						<ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
 							<li>
-								<a href="个人信息.html">
-									<i class="ace-icon fa fa-user"></i> 个人信息
+								<a href="updatePwd.do">
+									<i class="ace-icon fa fa-user"></i> 修改密码
 								</a>
 							</li>
 
@@ -317,7 +317,7 @@
 
 			<ul class="nav nav-list">
 				<li class="active">
-					<a href="default.html">
+					<a href="main.do">
 						<i class="menu-icon fa fa-tachometer"></i>
 						<span class="menu-text">
 							东方黑玛OA系统

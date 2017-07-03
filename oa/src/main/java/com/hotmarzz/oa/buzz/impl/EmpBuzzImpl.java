@@ -69,5 +69,23 @@ public class EmpBuzzImpl implements EmpBuzz {
 		emp.setUserPwd(new MD5Utils().getMD5ofStr(emp.getUserPwd()));
 		return empDao.login(emp);
 	}
+	
+	/**
+	 * 检测老密码
+	 */
+	@Override
+	public Emp ckOldPwd(Emp emp) throws Exception {
+		emp.setUserPwd(new MD5Utils().getMD5ofStr(emp.getUserPwd()));
+		return empDao.ckOldPwd(emp);
+	}
+	/**
+	 * 修改密码
+	 */
+	@Override
+	public void updatePwd(Emp emp) throws Exception {
+		emp.setUserPwd(new MD5Utils().getMD5ofStr(emp.getUserPwd()));
+		empDao.updatePwd(emp);
+	}
+	
 
 }

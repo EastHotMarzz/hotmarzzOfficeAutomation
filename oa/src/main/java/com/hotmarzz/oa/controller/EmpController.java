@@ -26,6 +26,7 @@ import com.hotmarzz.basic.utils.JsonUtils;
 import com.hotmarzz.basic.utils.StringUtils;
 import com.hotmarzz.oa.buzz.EmpBuzz;
 import com.hotmarzz.oa.pojo.Emp;
+import com.hotmarzz.oa.pojo.EmpDto;
 import com.hotmarzz.oa.utils.SessionUtils;
 
 @Controller
@@ -212,5 +213,61 @@ public class EmpController {
 	public String getLoginPage(Model model) throws Exception{
 		model.addAttribute("emp", new Emp());
 		return "login";
+	}
+	/*
+	 * 跳转修改密码页面
+	 */
+	@RequestMapping(value="updatePwd.do",method=RequestMethod.GET)
+	public String toUpdatePwd(Model model,HttpSession session){
+		EmpDto dto=new EmpDto();
+		Emp loginEmp=(Emp) session.getAttribute(SessionUtils.LOGIN_EMP_KEY);
+		dto.setEmpId(loginEmp.getEmpId());
+		model.addAttribute("empForm",dto);
+		return "humanResources/updatePwd";
+	}
+	
+	/*
+	 * 修改密码
+	 */
+	@RequestMapping(value="updatePwd.do",method=RequestMethod.PUT)
+	@ResponseBody
+	public String updatePwd(@RequestBody @Valid EmpDto dto,BindingResult results) throws Exception{
+		Map<String, Object> result = new HashMap<String, Object>();
+		//接收错误信息的map
+		Map<String, Object> validationMsg = new HashMap<String, Object>();
+		// 数据校验
+		if (results.hasErrors()) {
+			result.put("flag", "validation");
+			for (FieldError e : results.getFieldErrors()) {
+				logger.error("object:" + e.getObjectName() + ";field: "
+						+ e.getField() + ";message:" + e.getDefaultMessage());
+				validationMsg.put(e.getField(), e.getDefaultMessage());
+			}
+			result.put("validationMsg", validationMsg);
+			return JsonUtils.bean2Json(result);
+		}
+		Emp emp=new Emp();
+		emp.setEmpId(dto.getEmpId());
+		emp.setUserPwd(dto.getOldPwd());
+		Emp e=empBuzz.ckOldPwd(emp);
+		if(e==null){
+			validationMsg.put("oldPwd", "旧密码不正确");
+			result.put("flag", "validation");
+			result.put("validationMsg", validationMsg);
+			return JsonUtils.bean2Json(result);
+		}
+		//检验新密码是否一致
+		if(!dto.getNewPwd().equals(dto.getCkNewPwd())){
+			validationMsg.put("ckNewPwd", "两次密码不一致");
+			result.put("flag", "validation");
+			result.put("validationMsg", validationMsg);
+			return JsonUtils.bean2Json(result);
+		}
+		emp.setUserPwd(dto.getNewPwd());
+		empBuzz.updatePwd(emp);
+		
+		result.put("flag", true);
+		result.put("msg", "ok");
+		return JsonUtils.bean2Json(result);
 	}
 }

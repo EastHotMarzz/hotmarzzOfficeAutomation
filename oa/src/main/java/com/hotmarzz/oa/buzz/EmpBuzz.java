@@ -38,4 +38,19 @@ public interface EmpBuzz {
 	 * @throws Exception
 	 */
 	Emp login(Emp emp) throws Exception;
+	/**
+	 * 检测老密码
+	 * @param emp
+	 * @return
+	 * @throws Exception
+	 */
+	Emp ckOldPwd(Emp emp) throws Exception;
+	
+	/**
+	 * 修改密码
+	 * @param emp
+	 * @return
+	 * @throws Exception
+	 */
+	void updatePwd(Emp emp) throws Exception;
 }

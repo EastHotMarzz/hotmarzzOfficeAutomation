@@ -91,4 +91,15 @@
 		update o_emp set empname=#{empName,jdbcType=VARCHAR},username=#{userName,jdbcType=VARCHAR},
 		phone=#{phone,jdbcType=VARCHAR},hiredate=#{hiredate,jdbcType=DATE} where empid=#{empId,jdbcType=NUMERIC}
 	</update>
+	
+	<select id="ckOldPwd" parameterType="emp" resultType="emp">
+		select 
+		<include refid="com.hotmarzz.oa.dao.EmpDao.empCol"/>
+		from o_emp
+		where empid=#{empId,jdbcType=NUMERIC} and userpwd=#{userPwd,jdbcType=VARCHAR}
+	</select>
+	
+	<update id="updatePwd" parameterType="emp">
+		update o_emp set userpwd=#{userPwd,jdbcType=VARCHAR} where empid=#{empId,jdbcType=NUMERIC}
+	</update>
 </mapper>
