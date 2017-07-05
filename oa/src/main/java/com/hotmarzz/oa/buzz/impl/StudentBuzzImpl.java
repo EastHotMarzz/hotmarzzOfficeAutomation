@@ -50,7 +50,7 @@ public class StudentBuzzImpl implements StudentBuzz {
 		}
 		stu.setLocked(0);
 		stu.setLockTime(new Date());
-		stu.setLockUser(((Emp)session.getAttribute(SessionUtils.LOGIN_EMP_KEY)).getUserName());
+		stu.setLockUser(((Emp)session.getAttribute(SessionUtils.LOGIN_EMP_KEY)).getEmpName());
 		stuDao.add(stu);
 	}
 

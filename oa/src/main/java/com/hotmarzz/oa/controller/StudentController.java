@@ -85,7 +85,7 @@ public class StudentController {
 	 */
 	@RequestMapping(value = "stu.do", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
 	public @ResponseBody String add(@RequestBody @Valid Student stu,
-			BindingResult results,HttpSession session) throws Exception {
+			BindingResult results) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		// 数据校验
 		if (results.hasErrors()) {
@@ -160,6 +160,11 @@ public class StudentController {
 		return JsonUtils.bean2Json(result);
 	}
 	
+	/**
+	 * 一旦学员添加时service抛出异常，就能在这里接收到
+	 * @param exc
+	 * @return
+	 */
 	@ExceptionHandler(StudentRepeatException.class)
 	public @ResponseBody String repeatStudentHandler(StudentRepeatException exc){
 		Map<String, Object> result = new HashMap<String, Object>();

@@ -122,12 +122,12 @@
 													忘记密码
 												</a>
 											</div>
-											<div>
-												<a href="#" data-target="#" class="user-signup-link">
-													注册
-													<i class="ace-icon fa fa-arrow-right"></i>
-												</a>
-											</div>
+<!-- 											<div> -->
+<!-- 												<a href="#" data-target="#" class="user-signup-link"> -->
+<!-- 													注册 -->
+<!-- 													<i class="ace-icon fa fa-arrow-right"></i> -->
+<!-- 												</a> -->
+<!-- 											</div> -->
 										</div>
 									</div><!-- /.widget-body -->
 								</div><!-- /.login-box -->
@@ -269,7 +269,7 @@
 			 $("#userRegister").on("submit",function(e){
 				 var passVal = $("#userRegister input[name='password']").val();
 				 var passCFVal = $("#userRegister input[name='passCF']").val();
-				 if(passCFVal!==passVal){    
+				 if(passCFVal!==passVal){
 					 $("#userRegister input[name='password']").css("border-color","#f2a696");
 					 $("#userRegister input[name='password']").css("color","#D68273");
 					 $(this).css("border-color","#f2a696");

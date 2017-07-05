@@ -101,7 +101,7 @@
 							</small>
 						</h1>
 					</div>
-					<!-- /.page-header -->
+					<!-- 提示：学员重复信息的div -->
 					<div id="alertDiv" class="alert hidden">
 						<button class="close" data-dismiss="alert">
 							<i class="ace-icon fa fa-times"></i>

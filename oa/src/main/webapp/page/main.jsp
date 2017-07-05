@@ -680,14 +680,14 @@
 		</div>
 
 		<!-- 主内容显示区 -->
-		<div id="main" style="float:left;">11</div>
+		<div id="main" style="float:left;"></div>
 		
 
 		<div class="footer">
 			<div class="footer-inner">
 				<div class="footer-content">
 					<span class="bigger-120"> <span class="blue bolder">东方黑玛</span>
-						Application &copy; 2017-
+						Application &copy; 2017
 					</span>
 				</div>
 			</div>
