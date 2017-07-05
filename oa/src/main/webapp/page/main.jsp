@@ -344,7 +344,7 @@
 									</li>
 									
 									<li class="">
-										<a href="#">
+										<a href="depts.do">
 											<i class="menu-icon fa fa-caret-right"></i>
 											部门岗位管理
 										</a>
@@ -679,9 +679,9 @@
 			</div>
 		</div>
 
+		<!-- 主内容显示区 -->
+		<div id="main" style="float:left;">11</div>
 		
-		<div id="main" style="float:left;"></div>
-		<!-- /.main-content -->
 
 		<div class="footer">
 			<div class="footer-inner">
@@ -752,7 +752,14 @@
 					return;
 				}
 			}
+			/* 每个左侧菜单的a链接内容显示在main中 */
 			$(".nav-list a").not(".dropdown-toggle").on("click",function(e){
+				e.preventDefault();
+				var href = $(this).attr("href");
+				$("#main").load(href,initMain);
+			})
+			/* 修改密码显示在main中 */
+			$(".user-menu a").on("click",function(e){
 				e.preventDefault();
 				var href = $(this).attr("href");
 				$("#main").load(href,initMain);

@@ -79,6 +79,12 @@ public class EmpController {
 		model.addAttribute("bq", bq);
 		return "humanResources/emps";
 	}
+	//待会删除
+	@RequestMapping(value = "depts.do")
+	public String getDeptPage(Model model, BaseQuery bq) {
+		model.addAttribute("bq", bq);
+		return "humanResources/depts";
+	}
 
 	/*
 	 * 查询员工
