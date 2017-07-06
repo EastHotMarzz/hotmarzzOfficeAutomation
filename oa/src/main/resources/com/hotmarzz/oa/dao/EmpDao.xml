@@ -2,20 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.hotmarzz.oa.dao.EmpDao">
-	
+	<!-- 原版的字段 -->
 	<sql id="empCol">
 		empid,empname,username,userpwd,phone,hiredate,schoolid,deptid,roleid,
 		stationid,assowechat,createuser,createdate,updateuser,updatedate,sex
 	</sql>
+	<!-- 添加了role权限的字段 -->
 	<sql id="empCol_role">
 		empid,empname,username,userpwd,phone,hiredate,e.roleid er,
 		assowechat,createuser,createdate,updateuser,updatedate,sex,r.roleid rr,r.rolename
 	</sql>
 	
-	<select id="getListPage" parameterType="baseQuery" resultType="emp">
+<!-- 	<select id="getListPage" parameterType="baseQuery" resultType="emp"> -->
+<!-- 		select  -->
+<!-- 		<include refid="com.hotmarzz.oa.dao.EmpDao.empCol"/> -->
+<!-- 		 from o_emp -->
+<!-- 		<include refid="com.hotmarzz.basic.dao.BaseDao.queryByConditions"/> -->
+<!-- 		<include refid="com.hotmarzz.basic.dao.BaseDao.queryByOrders"/> -->
+<!-- 	</select> -->
+
+	<select id="getListPage" parameterType="baseQuery" resultMap="empMap">
 		select 
-		<include refid="com.hotmarzz.oa.dao.EmpDao.empCol"/>
-		 from o_emp
+		<include refid="com.hotmarzz.oa.dao.EmpDao.empCol_role"/>
+		from o_emp e,o_role r
+		where 
+		e.roleid=r.roleid
 		<include refid="com.hotmarzz.basic.dao.BaseDao.queryByConditions"/>
 		<include refid="com.hotmarzz.basic.dao.BaseDao.queryByOrders"/>
 	</select>
@@ -27,45 +38,45 @@
 		where empid=#{emp.empId,jdbcType=NUMERIC}
 	</select>
 	
-	<select id="login" parameterType="emp" resultType="emp">
-		select 
-		<include refid="com.hotmarzz.oa.dao.EmpDao.empCol"/>
-		from o_emp 
-		where 
-		userName=#{userName,jdbcType=VARCHAR} and userpwd=#{userPwd,jdbcType=VARCHAR}
-	</select>
-	
-<!-- 	<select id="login" parameterType="emp" resultMap="empMap"> -->
+<!-- 	<select id="login" parameterType="emp" resultType="emp"> -->
 <!-- 		select  -->
-<!-- 		<include refid="com.hotmarzz.oa.dao.EmpDao.empCol_role"/> -->
-<!-- 		from o_emp e,o_role r -->
+<!-- 		<include refid="com.hotmarzz.oa.dao.EmpDao.empCol"/> -->
+<!-- 		from o_emp  -->
 <!-- 		where  -->
-<!-- 		e.roleid=r.roleid -->
-<!-- 		and -->
 <!-- 		userName=#{userName,jdbcType=VARCHAR} and userpwd=#{userPwd,jdbcType=VARCHAR} -->
 <!-- 	</select> -->
-<!-- 	<resultMap type="Emp" id="empMap"> -->
-<!-- 		<id column="empid" property="empId"/> -->
-<!-- 		<result column="empname" property="empName"/> -->
-<!-- 		<result column="username" property="userName"/> -->
-<!-- 		<result column="userpwd" property="userPwd"/> -->
-<!-- 		<result column="phone" property="phone"/> -->
-<!-- 		<result column="hiredate" property="hiredate"/> -->
+	
+	<select id="login" parameterType="emp" resultMap="empMap">
+		select 
+		<include refid="com.hotmarzz.oa.dao.EmpDao.empCol_role"/>
+		from o_emp e,o_role r
+		where 
+		e.roleid=r.roleid
+		and
+		userName=#{userName,jdbcType=VARCHAR} and userpwd=#{userPwd,jdbcType=VARCHAR}
+	</select>
+	<resultMap type="Emp" id="empMap">
+		<id column="empid" property="empId"/>
+		<result column="empname" property="empName"/>
+		<result column="username" property="userName"/>
+		<result column="userpwd" property="userPwd"/>
+		<result column="phone" property="phone"/>
+		<result column="hiredate" property="hiredate"/>
 <!-- 		<result column="schoolid" property="schoolDistrict"/> -->
 <!-- 		<result column="deptid" property="dept"/> -->
 <!-- 		<result column="stationid" property="station"/> -->
-<!-- 		<result column="assoWeChat" property="assoWeChat"/> -->
-<!-- 		<result column="sex" property="sex"/> -->
-<!-- 		<result column="createUser" property="createUser"/> -->
-<!-- 		<result column="createDate" property="createDate"/> -->
-<!-- 		<result column="updateUser" property="updateUser"/> -->
-<!-- 		<result column="updateDate" property="updateDate"/> -->
+		<result column="assoWeChat" property="assoWeChat"/>
+		<result column="sex" property="sex"/>
+		<result column="createUser" property="createUser"/>
+		<result column="createDate" property="createDate"/>
+		<result column="updateUser" property="updateUser"/>
+		<result column="updateDate" property="updateDate"/>
 		
-<!-- 		<association property="role" column="er" javaType="com.hotmarzz.oa.pojo.Role"> -->
-<!-- 			<id column="rr" property="roleId"/> -->
-<!-- 			<result column="rolename" property="roleName"/> -->
-<!-- 		</association> -->
-<!-- 	</resultMap> -->
+		<association property="role" column="er" javaType="com.hotmarzz.oa.pojo.Role">
+			<id column="rr" property="roleId"/>
+			<result column="rolename" property="roleName"/>
+		</association>
+	</resultMap>
 	
 	
 	<select id="getCount" parameterType="baseQuery" resultType="int">
