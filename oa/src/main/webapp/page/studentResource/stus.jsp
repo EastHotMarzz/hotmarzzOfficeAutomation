@@ -85,11 +85,11 @@
 						</small>
 					</h1>
 				</div>
-				
+				<!-- 提示信息div -->
 				<div id="alertDiv" class="alert alert-warning hidden">
-									<button class="close" data-dismiss="alert">
+									<a class="close" href="#">
 										<i class="ace-icon fa fa-times"></i>
-									</button>
+									</a>
 				</div>
 				<!-- /.page-header -->
 
@@ -231,6 +231,11 @@
 	<!-- inline scripts related to this page -->
 	<script type="text/javascript">
 		jQuery(function($) {
+			$("#alertDiv a").click(function(){
+				var alertDiv = $("#alertDiv");
+				alertDiv.addClass("hidden");
+				alertDiv.find("a").next("span").remove();
+			})
 
 			var bq = {
 				'pag' : {
@@ -360,7 +365,7 @@
 									title : "操作",
 									data : function(row, type, val, meta) {
 										var id = row['stuId'];
-										var str = "<a class='update blue' href='stu/"+id+".do' data-toggle='modal'>修改</a>"
+										var str = "<a class='update blue' ck='"+id+"' href='stu/"+id+".do' data-toggle='modal'>修改</a>"
 												+ "&nbsp;&nbsp;"
 												+ "<a class='dele red' href='stu/"+id+".do' data-toggle='modal'>删除</a>";
 
@@ -417,9 +422,49 @@
 									//修改
 									$(".update").on("click", function(e) {
 										e.preventDefault();
+										var myVal=false;
 										var updateUrl = $(this).prop("href");
-										//在当前页面刷新新的页面
-										$("#main").load(updateUrl,initMain);										
+										var id=$(this).attr("ck");
+										$.ajax({
+											"url" : "ifCanUpdateStu/"+id+".do",
+											"method" : "get",
+											"dataType" : "json",
+											"async":false,
+											"contentType" : "application/json;charset=UTF-8",
+											"success" : function(result) {
+												if (result.flag == 'exception') {
+													var alertDiv = $("#alertDiv");
+													alertDiv
+															.removeClass("hidden");
+													if (((result.exCode+"").indexOf("4"))==0) {
+														alertDiv
+																.removeClass("alert-danger");
+														alertDiv
+																.removeClass("alert-info");
+														alertDiv
+																.addClass("alert-warning");
+													}
+													alertDiv
+															.find(
+																	"a")
+															.next(
+																	"span")
+															.remove();
+													alertDiv
+															.find(
+																	"a")
+															.after(
+																	"<span>"
+																			+ result.exMsg
+																			+ "</span>");
+												}else{
+													myVal=true;									
+												}
+											}
+										})
+										if(myVal){
+											$("#main").load(updateUrl,initMain);
+										}
 									});
 									//删除
 									$(".dele").on("click",
@@ -445,8 +490,8 @@
 																			alertDiv.removeClass("alert-warning");
 																			alertDiv.removeClass("alert-danger");
 																			alertDiv.addClass("alert-info");
-																			alertDiv.find("button").next("span").remove();
-																			alertDiv.find("button").after("<span>删除成功<i class='ace-icon glyphicon glyphicon-ok'></i></span>");
+																			alertDiv.find("a").next("span").remove();
+																			alertDiv.find("a").after("<span>删除成功<i class='ace-icon glyphicon glyphicon-ok'></i></span>");
 																		});
 																	}
 																	if (result.msg === 'error'){
@@ -457,8 +502,34 @@
 																			alertDiv.removeClass("alert-info");
 																			alertDiv.addClass("alert-danger");
 																		}
-																		alertDiv.find("button").next("span").remove();
-																		alertDiv.find("button").after("<span>"+result.errorMsg+"</span>");
+																		alertDiv.find("a").next("span").remove();
+																		alertDiv.find("a").after("<span>"+result.errorMsg+"</span>");
+																	}
+																	if (result.flag === 'exception') {
+																		var alertDiv = $("#alertDiv");
+																		alertDiv
+																				.removeClass("hidden");
+																		if (((result.exCode+"").indexOf("4"))==0) {
+																			alertDiv
+																					.removeClass("alert-danger");
+																			alertDiv
+																					.removeClass("alert-info");
+																			alertDiv
+																					.addClass("alert-warning");
+																		}
+																		alertDiv
+																				.find(
+																						"a")
+																				.next(
+																						"span")
+																				.remove();
+																		alertDiv
+																				.find(
+																						"a")
+																				.after(
+																						"<span>"
+																								+ result.exMsg
+																								+ "</span>");
 																	}
 																	if (result.flag === 'exception') {
 																		var alertDiv = $("#alertDiv");

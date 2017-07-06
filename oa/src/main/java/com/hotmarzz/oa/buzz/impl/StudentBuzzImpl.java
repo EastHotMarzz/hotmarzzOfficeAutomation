@@ -6,6 +6,9 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 
+
+
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +30,6 @@ public class StudentBuzzImpl implements StudentBuzz {
 	
 	private Logger logger = LoggerFactory.getLogger(StudentBuzzImpl.class);
 
-	
 	private StudentDao stuDao;
 
 	public StudentDao getStuDao() {
@@ -92,7 +94,6 @@ public class StudentBuzzImpl implements StudentBuzz {
 	@Override
 	public void delete(Long stuId) throws Exception {
 		checkLockPermission(stuId);
-		stuDao.delete(stuId);
 	}
 	
 	/*

@@ -103,9 +103,9 @@
 					</div>
 					<!-- 提示：学员重复信息的div -->
 					<div id="alertDiv" class="alert hidden">
-						<button class="close" data-dismiss="alert">
+						<a class="close" href="#">
 							<i class="ace-icon fa fa-times"></i>
-						</button>
+						</a>
 					</div>
 
 					<div class="row">
@@ -426,6 +426,11 @@
 			<!-- inline scripts related to this page -->
 			<script type="text/javascript">
 				jQuery(function($) {
+					$("#alertDiv a").click(function(){
+						var alertDiv = $("#alertDiv");
+						alertDiv.addClass("hidden");
+						alertDiv.find("a").next("span").remove();
+					})
 
 					var listUrl = "stus.do";
 					var addOrUpdateUrl = "stu.do";
@@ -439,11 +444,6 @@
 										var method = "post";
 										if (update) {
 											method = "put";
-// 											addOrUpdateUrl = "../"
-// 													+ addOrUpdateUrl;
-// 											listUrl = "../" + listUrl;
-// 											alert(addOrUpdateUrl)
-// 											alert(listUrl)
 										}
 										var param = $("#fillForm").serializeJSON();
 										$.ajax({
@@ -468,13 +468,13 @@
 																						.addClass("alert-info");
 																				alertDiv
 																						.find(
-																								"button")
+																								"a")
 																						.next(
 																								"span")
 																						.remove();
 																				alertDiv
 																						.find(
-																								"button")
+																								"a")
 																						.after(
 																								"<span>"
 																										+ result.msg
@@ -512,13 +512,13 @@
 															}
 															alertDiv
 																	.find(
-																			"button")
+																			"a")
 																	.next(
 																			"span")
 																	.remove();
 															alertDiv
 																	.find(
-																			"button")
+																			"a")
 																	.after(
 																			"<span>"
 																					+ result.exMsg

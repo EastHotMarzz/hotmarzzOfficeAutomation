@@ -21,7 +21,7 @@ public interface StudentBuzz {
 	 * @throws Exception
 	 */
 	Student getById(Long id) throws Exception;
-
+	
 	BaseQuery getList(BaseQuery bq) throws Exception;
 	/**
 	 * 删除学生
