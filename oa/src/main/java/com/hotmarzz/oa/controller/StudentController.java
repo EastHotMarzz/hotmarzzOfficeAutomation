@@ -25,12 +25,7 @@ import com.hotmarzz.basic.dao.Expression;
 import com.hotmarzz.basic.utils.JsonUtils;
 import com.hotmarzz.basic.utils.StringUtils;
 import com.hotmarzz.oa.buzz.StudentBuzz;
-<<<<<<< HEAD
 import com.hotmarzz.oa.exception.StudentLockException;
-=======
-import com.hotmarzz.oa.exception.CanNotDeleteStuException;
-import com.hotmarzz.oa.exception.CanNotUpdateStuException;
->>>>>>> 7f04f387e5278eb8be97145500e7309cf0c8dcd8
 import com.hotmarzz.oa.exception.StudentRepeatException;
 import com.hotmarzz.oa.pojo.Student;
 import com.hotmarzz.oa.utils.JSONConstrants;
@@ -169,8 +164,8 @@ public class StudentController {
 	
 	@RequestMapping(value="ifCanUpdateStu/{id}.do",method=RequestMethod.GET)
 	@ResponseBody
-	public String ifCanUpdateStu(@PathVariable("id") Long id) throws Exception{
-		stuBuzz.getById1(id);
+	public String updateFill(@PathVariable("id") Long id) throws Exception{
+		stuBuzz.getById(id);
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("flag", "");
 		return JsonUtils.bean2Json(result);
@@ -186,28 +181,6 @@ public class StudentController {
 		return JsonUtils.bean2Json(result);
 	}
 
-	// 非自招学员不能删除异常
-	@ExceptionHandler(CanNotDeleteStuException.class)
-	public @ResponseBody String CanNotDeleteStuHandler(
-			CanNotDeleteStuException exc) {
-		Map<String, Object> result = new HashMap<String, Object>();
-		result.put(JSONConstrants.FLAG, JSONConstrants.FLAG_EXCEPTION);
-		result.put(JSONConstrants.FLAG_EXCEPTION_CODE, exc.getCode());
-		result.put(JSONConstrants.FLAG_EXCEPTION_MSG, exc.getMsg());
-		return JsonUtils.bean2Json(result);
-	}
-
-	// 非自招学员不能删除异常
-	@ExceptionHandler(CanNotUpdateStuException.class)
-	public @ResponseBody String CanNotUpdateStuHandler(
-			CanNotUpdateStuException exc) {
-		Map<String, Object> result = new HashMap<String, Object>();
-		result.put(JSONConstrants.FLAG, JSONConstrants.FLAG_EXCEPTION);
-		result.put(JSONConstrants.FLAG_EXCEPTION_CODE, exc.getCode());
-		result.put(JSONConstrants.FLAG_EXCEPTION_MSG, exc.getMsg());
-		return JsonUtils.bean2Json(result);
-	}
-<<<<<<< HEAD
 	
 	@ExceptionHandler(StudentLockException.class)
 	public @ResponseBody String lockStudentHandler(StudentLockException exc){
@@ -218,6 +191,4 @@ public class StudentController {
 		return JsonUtils.bean2Json(result);
 	}
 	
-=======
->>>>>>> 7f04f387e5278eb8be97145500e7309cf0c8dcd8
 }
