@@ -350,6 +350,7 @@
 									data : "locked",
 									title : "锁定",
 									render : function(data, type, full, meta) {
+										debugger
 										if ("0" == data) {
 											return "已锁定";
 										} else {
@@ -380,6 +381,7 @@
 								bPaginate : true,
 								pageLength : 10,
 								pagingType : "full_numbers",
+								searching:false,
 								columnDefs : [
 								//targets定义哪一列，可以是数组，0代表左起第一列，_all代表所有
 								{
@@ -422,49 +424,9 @@
 									//修改
 									$(".update").on("click", function(e) {
 										e.preventDefault();
-										var myVal=false;
 										var updateUrl = $(this).prop("href");
-										var id=$(this).attr("ck");
-										$.ajax({
-											"url" : "ifCanUpdateStu/"+id+".do",
-											"method" : "get",
-											"dataType" : "json",
-											"async":false,
-											"contentType" : "application/json;charset=UTF-8",
-											"success" : function(result) {
-												if (result.flag == 'exception') {
-													var alertDiv = $("#alertDiv");
-													alertDiv
-															.removeClass("hidden");
-													if (((result.exCode+"").indexOf("4"))==0) {
-														alertDiv
-																.removeClass("alert-danger");
-														alertDiv
-																.removeClass("alert-info");
-														alertDiv
-																.addClass("alert-warning");
-													}
-													alertDiv
-															.find(
-																	"a")
-															.next(
-																	"span")
-															.remove();
-													alertDiv
-															.find(
-																	"a")
-															.after(
-																	"<span>"
-																			+ result.exMsg
-																			+ "</span>");
-												}else{
-													myVal=true;									
-												}
-											}
-										})
-										if(myVal){
-											$("#main").load(updateUrl,initMain);
-										}
+										//在当前页面刷新新的页面
+										$("#main").load(updateUrl,initMain);
 									});
 									//删除
 									$(".dele").on("click",

@@ -5,10 +5,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-
-
-
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import com.hotmarzz.basic.dao.BaseQuery;
 import com.hotmarzz.oa.buzz.StudentBuzz;
-import com.hotmarzz.oa.controller.EmpController;
 import com.hotmarzz.oa.dao.StudentDao;
 import com.hotmarzz.oa.exception.StudentLockException;
 import com.hotmarzz.oa.exception.StudentRepeatException;
@@ -94,6 +89,7 @@ public class StudentBuzzImpl implements StudentBuzz {
 	@Override
 	public void delete(Long stuId) throws Exception {
 		checkLockPermission(stuId);
+		stuDao.delete(stuId);
 	}
 	
 	/*
@@ -111,6 +107,7 @@ public class StudentBuzzImpl implements StudentBuzz {
 			return null;
 		}
 	}
+	
 	/**
 	 * 检查指定ID的学生的锁定人，是否与当前登陆人一致。不一致会抛出
 	 * @param stuId

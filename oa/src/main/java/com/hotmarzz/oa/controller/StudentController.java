@@ -3,7 +3,6 @@ package com.hotmarzz.oa.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -29,7 +28,6 @@ import com.hotmarzz.oa.exception.StudentLockException;
 import com.hotmarzz.oa.exception.StudentRepeatException;
 import com.hotmarzz.oa.pojo.Student;
 import com.hotmarzz.oa.utils.JSONConstrants;
-import com.hotmarzz.oa.utils.SessionUtils;
 
 @Controller
 public class StudentController {
@@ -51,7 +49,7 @@ public class StudentController {
 	 * 跳转学生页面
 	 */
 	@RequestMapping(value = "stus.do", method = RequestMethod.GET)
-	public String getStusList(Model model, BaseQuery bq) {
+	public String getStuPage(Model model, BaseQuery bq) {
 		model.addAttribute("bq", bq);
 		return "studentResource/stus";
 	}
@@ -128,10 +126,8 @@ public class StudentController {
 	 * 修改前获取信息并且跳转页面
 	 */
 	@RequestMapping(value = "stu/{id}.do", method = RequestMethod.GET)
-	public String updateFilling(@PathVariable("id") Long id, Model model,HttpSession session)
-			throws Exception {
+	public String updateFilling(@PathVariable("id") Long id, Model model) throws Exception {
 		Student stu = stuBuzz.getById(id);
-		session.setAttribute(SessionUtils.FOR_UPDATE, stu);
 		model.addAttribute("stuForm", stu);
 		return "studentResource/stu";
 	}
@@ -160,14 +156,6 @@ public class StudentController {
 		result.put("flag", true);
 		result.put("msg", "修改成功");
 		return JsonUtils.bean2Json(result);
-	}
-	
-	@RequestMapping(value = "stu/{id}.do", method = RequestMethod.GET)
-	public String updateFilling(@PathVariable("id") Long id, Model model)
-			throws Exception {
-		Student stu = stuBuzz.getById(id);
-		model.addAttribute("stuForm", stu);
-		return "studentResource/stu";
 	}
 
 	// 学员重复添加异常
