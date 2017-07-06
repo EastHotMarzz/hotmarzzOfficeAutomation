@@ -25,6 +25,7 @@ import com.hotmarzz.basic.dao.Expression;
 import com.hotmarzz.basic.utils.JsonUtils;
 import com.hotmarzz.basic.utils.StringUtils;
 import com.hotmarzz.oa.buzz.StudentBuzz;
+import com.hotmarzz.oa.exception.StudentLockException;
 import com.hotmarzz.oa.exception.StudentRepeatException;
 import com.hotmarzz.oa.pojo.Emp;
 import com.hotmarzz.oa.pojo.Student;
@@ -167,6 +168,15 @@ public class StudentController {
 	 */
 	@ExceptionHandler(StudentRepeatException.class)
 	public @ResponseBody String repeatStudentHandler(StudentRepeatException exc){
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put(JSONConstrants.FLAG, JSONConstrants.FLAG_EXCEPTION);
+		result.put(JSONConstrants.FLAG_EXCEPTION_CODE, exc.getCode());
+		result.put(JSONConstrants.FLAG_EXCEPTION_MSG, exc.getMsg());
+		return JsonUtils.bean2Json(result);
+	}
+	
+	@ExceptionHandler(StudentLockException.class)
+	public @ResponseBody String lockStudentHandler(StudentLockException exc){
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put(JSONConstrants.FLAG, JSONConstrants.FLAG_EXCEPTION);
 		result.put(JSONConstrants.FLAG_EXCEPTION_CODE, exc.getCode());

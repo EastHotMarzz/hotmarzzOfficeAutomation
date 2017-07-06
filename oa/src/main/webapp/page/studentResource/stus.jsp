@@ -342,6 +342,21 @@
 									}
 								},
 								{
+									data : "locked",
+									title : "锁定",
+									render : function(data, type, full, meta) {
+										if ("0" == data) {
+											return "已锁定";
+										} else {
+											return "未锁定"
+										}
+									}
+								},
+								{
+									data : "lockUser",
+									title : "锁定人"
+								},
+								{
 									title : "操作",
 									data : function(row, type, val, meta) {
 										var id = row['stuId'];
@@ -411,18 +426,17 @@
 											function(e) {
 												e.preventDefault();
 												var del = window
-														.confirm("你真的要删除吗？");
+														.confirm("你真的要删除吗222？");
 												if (del) {
 													var url = $(this).prop("href");
 													var user_id = $(this).closest("tr").children("td").first().html();
-													console.log(url);
 													$.ajax({
 																"url" : url,
 																"method" : "delete",
 																"dataType" : "json",
 																"contentType" : "application/json;charset=UTF-8",
 																"success" : function(result) {
-																	if (result.msg == 'success') {
+																	if (result.msg === 'success') {
 																		var href = "stus.do";
 																		$("#main").load(href,function(){
 																			initMain();
@@ -435,7 +449,7 @@
 																			alertDiv.find("button").after("<span>删除成功<i class='ace-icon glyphicon glyphicon-ok'></i></span>");
 																		});
 																	}
-																	if (result.msg == 'error'){
+																	if (result.msg === 'error'){
 																		var alertDiv = $("#alertDiv");
 																		alertDiv.removeClass("hidden");
 																		if(result.errorCode == '503'){
@@ -445,6 +459,32 @@
 																		}
 																		alertDiv.find("button").next("span").remove();
 																		alertDiv.find("button").after("<span>"+result.errorMsg+"</span>");
+																	}
+																	if (result.flag === 'exception') {
+																		var alertDiv = $("#alertDiv");
+																		alertDiv
+																				.removeClass("hidden");
+																		if (((result.exCode+"").indexOf("4"))==0) {
+																			alertDiv
+																					.removeClass("alert-danger");
+																			alertDiv
+																					.removeClass("alert-info");
+																			alertDiv
+																					.addClass("alert-warning");
+																		}
+																		alertDiv
+																				.find(
+																						"button")
+																				.next(
+																						"span")
+																				.remove();
+																		alertDiv
+																				.find(
+																						"button")
+																				.after(
+																						"<span>"
+																								+ result.exMsg
+																								+ "</span>");
 																	}
 																}
 															})
