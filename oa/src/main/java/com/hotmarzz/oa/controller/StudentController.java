@@ -162,13 +162,12 @@ public class StudentController {
 		return JsonUtils.bean2Json(result);
 	}
 	
-	@RequestMapping(value="ifCanUpdateStu/{id}.do",method=RequestMethod.GET)
-	@ResponseBody
-	public String updateFill(@PathVariable("id") Long id) throws Exception{
-		stuBuzz.getById(id);
-		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("flag", "");
-		return JsonUtils.bean2Json(result);
+	@RequestMapping(value = "stu/{id}.do", method = RequestMethod.GET)
+	public String updateFilling(@PathVariable("id") Long id, Model model)
+			throws Exception {
+		Student stu = stuBuzz.getById(id);
+		model.addAttribute("stuForm", stu);
+		return "studentResource/stu";
 	}
 
 	// 学员重复添加异常
