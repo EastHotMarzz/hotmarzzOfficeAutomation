@@ -281,7 +281,7 @@
 
 						<ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
 							<li>
-								<a href="updatePwd.do">
+								<a href="updatePwd.do" id="a_update">
 									<i class="ace-icon fa fa-user"></i> 修改密码
 								</a>
 							</li>
@@ -289,7 +289,7 @@
 							<li class="divider"></li>
 
 							<li>
-								<a href="退出.do">
+								<a href="login.do">
 									<i class="ace-icon fa fa-power-off"></i>
 									退出
 								</a>
@@ -759,7 +759,7 @@
 				$("#main").load(href,initMain);
 			})
 			/* 修改密码显示在main中 */
-			$(".user-menu a").on("click",function(e){
+			$(".user-menu #a_update").on("click",function(e){
 				e.preventDefault();
 				var href = $(this).attr("href");
 				$("#main").load(href,initMain);
