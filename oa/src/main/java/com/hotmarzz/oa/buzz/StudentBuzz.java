@@ -19,6 +19,8 @@ public interface StudentBuzz {
 	 * @throws Exception
 	 */
 	Student getById(Long id) throws Exception;
+	
+	void getById1(Long id) throws Exception;
 
 	BaseQuery getList(BaseQuery bq) throws Exception;
 	/**

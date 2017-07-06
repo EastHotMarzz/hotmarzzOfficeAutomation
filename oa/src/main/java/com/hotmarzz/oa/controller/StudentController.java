@@ -25,41 +25,44 @@ import com.hotmarzz.basic.dao.Expression;
 import com.hotmarzz.basic.utils.JsonUtils;
 import com.hotmarzz.basic.utils.StringUtils;
 import com.hotmarzz.oa.buzz.StudentBuzz;
+import com.hotmarzz.oa.exception.CanNotDeleteStuException;
+import com.hotmarzz.oa.exception.CanNotUpdateStuException;
 import com.hotmarzz.oa.exception.StudentRepeatException;
-import com.hotmarzz.oa.pojo.Emp;
 import com.hotmarzz.oa.pojo.Student;
 import com.hotmarzz.oa.utils.JSONConstrants;
+import com.hotmarzz.oa.utils.SessionUtils;
 
 @Controller
 public class StudentController {
 
 	private Logger logger = LoggerFactory.getLogger(EmpController.class);
-	
+
 	private StudentBuzz stuBuzz;
 
 	public StudentBuzz getStuBuzz() {
 		return stuBuzz;
 	}
+
 	@Autowired
 	public void setStuBuzz(StudentBuzz stuBuzz) {
 		this.stuBuzz = stuBuzz;
 	}
-	
-	
+
 	/*
 	 * 跳转学生页面
 	 */
-	@RequestMapping(value="stus.do",method=RequestMethod.GET)
-	public String getStusList(Model model,BaseQuery bq){
+	@RequestMapping(value = "stus.do", method = RequestMethod.GET)
+	public String getStusList(Model model, BaseQuery bq) {
 		model.addAttribute("bq", bq);
 		return "studentResource/stus";
 	}
+
 	/*
 	 * 查询学员信息
 	 */
-	@RequestMapping(value="getStuList.do",method=RequestMethod.POST, produces = "application/json;charset=utf-8")
+	@RequestMapping(value = "getStuList.do", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
 	@ResponseBody
-	public String getStuList(@RequestBody BaseQuery bq) throws Exception{
+	public String getStuList(@RequestBody BaseQuery bq) throws Exception {
 
 		Map<String, Object> queryParams = bq.getQueryParams();
 		if (queryParams.containsKey("stuName")
@@ -67,10 +70,11 @@ public class StudentController {
 			bq.putCondition("stuName", Expression.OP_LIKE,
 					"%" + queryParams.get("stuName") + "%");
 		}
-		
+
 		BaseQuery bqResult = stuBuzz.getList(bq);
 		return JsonUtils.bean2Json(bqResult);
 	}
+
 	/*
 	 * 跳转添加员工页面
 	 */
@@ -79,7 +83,7 @@ public class StudentController {
 		model.addAttribute("stuForm", new Student());
 		return "studentResource/stu";
 	}
-	
+
 	/*
 	 * 添加学员
 	 */
@@ -104,7 +108,7 @@ public class StudentController {
 		result.put("msg", "添加成功");
 		return JsonUtils.bean2Json(result);
 	}
-	
+
 	/*
 	 * 删除学员
 	 */
@@ -120,18 +124,19 @@ public class StudentController {
 
 		return JsonUtils.bean2Json(result);
 	}
-	
+
 	/*
 	 * 修改前获取信息并且跳转页面
 	 */
 	@RequestMapping(value = "stu/{id}.do", method = RequestMethod.GET)
-	public String updateFilling(@PathVariable("id") Long id, Model model)
+	public String updateFilling(@PathVariable("id") Long id, Model model,HttpSession session)
 			throws Exception {
 		Student stu = stuBuzz.getById(id);
+		session.setAttribute(SessionUtils.FOR_UPDATE, stu);
 		model.addAttribute("stuForm", stu);
 		return "studentResource/stu";
 	}
-	
+
 	/*
 	 * 修改学员
 	 */
@@ -140,7 +145,6 @@ public class StudentController {
 	public String update(@RequestBody @Valid Student stu, BindingResult results)
 			throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
-
 		// 数据校验
 		if (results.hasErrors()) {
 			result.put("flag", "validation");
@@ -153,25 +157,50 @@ public class StudentController {
 			result.put("validationMsg", validationMsg);
 			return JsonUtils.bean2Json(result);
 		}
-
 		stuBuzz.update(stu);
 		result.put("flag", true);
 		result.put("msg", "修改成功");
 		return JsonUtils.bean2Json(result);
 	}
 	
-	/**
-	 * 一旦学员添加时service抛出异常，就能在这里接收到
-	 * @param exc
-	 * @return
-	 */
+	@RequestMapping(value="ifCanUpdateStu/{id}.do",method=RequestMethod.GET)
+	@ResponseBody
+	public String ifCanUpdateStu(@PathVariable("id") Long id) throws Exception{
+		stuBuzz.getById1(id);
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("flag", "");
+		return JsonUtils.bean2Json(result);
+	}
+
+	// 学员重复添加异常
 	@ExceptionHandler(StudentRepeatException.class)
-	public @ResponseBody String repeatStudentHandler(StudentRepeatException exc){
+	public @ResponseBody String repeatStudentHandler(StudentRepeatException exc) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put(JSONConstrants.FLAG, JSONConstrants.FLAG_EXCEPTION);
 		result.put(JSONConstrants.FLAG_EXCEPTION_CODE, exc.getCode());
 		result.put(JSONConstrants.FLAG_EXCEPTION_MSG, exc.getMsg());
 		return JsonUtils.bean2Json(result);
 	}
-	
+
+	// 非自招学员不能删除异常
+	@ExceptionHandler(CanNotDeleteStuException.class)
+	public @ResponseBody String CanNotDeleteStuHandler(
+			CanNotDeleteStuException exc) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put(JSONConstrants.FLAG, JSONConstrants.FLAG_EXCEPTION);
+		result.put(JSONConstrants.FLAG_EXCEPTION_CODE, exc.getCode());
+		result.put(JSONConstrants.FLAG_EXCEPTION_MSG, exc.getMsg());
+		return JsonUtils.bean2Json(result);
+	}
+
+	// 非自招学员不能删除异常
+	@ExceptionHandler(CanNotUpdateStuException.class)
+	public @ResponseBody String CanNotUpdateStuHandler(
+			CanNotUpdateStuException exc) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put(JSONConstrants.FLAG, JSONConstrants.FLAG_EXCEPTION);
+		result.put(JSONConstrants.FLAG_EXCEPTION_CODE, exc.getCode());
+		result.put(JSONConstrants.FLAG_EXCEPTION_MSG, exc.getMsg());
+		return JsonUtils.bean2Json(result);
+	}
 }
