@@ -80,10 +80,11 @@ public class EmpController {
 	@RequestMapping(value = "emps.do")
 	public String getEmpPage(Model model, BaseQuery bq,HttpSession session) {
 		model.addAttribute("bq", bq);
-		Emp emp=(Emp)session.getAttribute(SessionUtils.LOGIN_EMP_KEY);
-		if(emp==null || (emp.getRole().getRoleId()!=1 && emp.getRole().getRoleId()!=2)){
-			return "permissionDenied";
-		}
+		//权限控制
+//		Emp emp=(Emp)session.getAttribute(SessionUtils.LOGIN_EMP_KEY);
+//		if(emp==null || (emp.getRole().getRoleId()!=1 && emp.getRole().getRoleId()!=2)){
+//			return "permissionDenied";
+//		}
 		return "humanResources/emps";
 	}
 	//待会删除
