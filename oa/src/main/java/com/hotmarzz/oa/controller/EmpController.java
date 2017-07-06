@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.hibernate.validator.internal.util.Contracts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,8 @@ import com.hotmarzz.basic.utils.StringUtils;
 import com.hotmarzz.oa.buzz.EmpBuzz;
 import com.hotmarzz.oa.pojo.Emp;
 import com.hotmarzz.oa.pojo.EmpDto;
+import com.hotmarzz.oa.pojo.Role;
+import com.hotmarzz.oa.utils.Constants;
 import com.hotmarzz.oa.utils.SessionUtils;
 
 @Controller
@@ -78,8 +81,6 @@ public class EmpController {
 	public String getEmpPage(Model model, BaseQuery bq,HttpSession session) {
 		model.addAttribute("bq", bq);
 		Emp emp=(Emp)session.getAttribute(SessionUtils.LOGIN_EMP_KEY);
-		System.err.println(emp);
-		
 		if(emp==null || (emp.getRole().getRoleId()!=1 && emp.getRole().getRoleId()!=2)){
 			return "permissionDenied";
 		}
@@ -148,6 +149,11 @@ public class EmpController {
 			result.put("validationMsg", validationMsg);
 			return JsonUtils.bean2Json(result);
 		}
+		//默认权限：最低权限
+		Role r=new Role();
+		r.setRoleId(Constants.DEFAULT_EMP_ROLE);
+		emp.setRole(r);
+		
 		empBuzz.add(emp);
 		result.put("flag", true);
 		result.put("msg", "添加成功");
