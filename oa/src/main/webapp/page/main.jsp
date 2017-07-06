@@ -753,7 +753,12 @@
 				}
 			}
 			/* 每个左侧菜单的a链接内容显示在main中 */
-			$(".nav-list a").not(".dropdown-toggle").on("click",function(e){
+			$(".nav-list a").filter(function(index){
+				var href = $(this).attr("href");
+				if(href !== '#'&&href!== null&& href!==undefined&&href!==''){
+					return true;
+				}
+			}).on("click",function(e){
 				e.preventDefault();
 				var href = $(this).attr("href");
 				$("#main").load(href,initMain);

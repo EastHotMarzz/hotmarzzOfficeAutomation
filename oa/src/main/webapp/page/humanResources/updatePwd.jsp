@@ -238,9 +238,9 @@
 			<script src="<%=path%>/assets/js/select2.min.js"></script>
 
 
-			<!-- ace scripts -->
+			<!-- ace scripts
 			<script src="<%=path%>/assets/js/ace-elements.min.js"></script>
-			<script src="<%=path%>/assets/js/ace.min.js"></script>
+			<script src="<%=path%>/assets/js/ace.min.js"></script> -->
 
 			<!-- serializeJSON -->
 			<script src="<%=path%>/assets/js/tools/jquery.serializejson.min.js"></script>
