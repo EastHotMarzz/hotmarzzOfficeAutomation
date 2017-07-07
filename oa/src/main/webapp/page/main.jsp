@@ -65,7 +65,7 @@
 			</button>
 
 			<div class="navbar-header pull-left">
-				<a href="index.html" class="navbar-brand">
+				<a href="#" class="navbar-brand">
 					<small>
 						<i class="fa fa-cloud"></i>东方黑玛OA系统
 					</small>
@@ -265,7 +265,7 @@
 								</ul>
 							</li>
 
-							<li class="dropdown-footer"><a href="inbox.html"> See
+							<li class="dropdown-footer"><a href="#"> See
 									all messages <i class="ace-icon fa fa-arrow-right"></i>
 							</a></li>
 						</ul></li>
@@ -317,7 +317,7 @@
 
 			<ul class="nav nav-list">
 				<li class="active">
-					<a href="main.do">
+					<a href="#">
 						<i class="menu-icon fa fa-tachometer"></i>
 						<span class="menu-text">
 							东方黑玛OA系统
