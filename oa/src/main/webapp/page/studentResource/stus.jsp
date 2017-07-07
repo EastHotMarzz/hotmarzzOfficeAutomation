@@ -433,7 +433,7 @@
 											function(e) {
 												e.preventDefault();
 												var del = window
-														.confirm("你真的要删除吗222？");
+														.confirm("你真的要删除吗？");
 												if (del) {
 													var url = $(this).prop("href");
 													var user_id = $(this).closest("tr").children("td").first().html();
