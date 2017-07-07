@@ -603,6 +603,9 @@
 				}
 			}
 
+			$("#searchButton").on("mousedown", function() {
+				$(":input[name='pag.current_page']").val(1);
+			})
 			$("#searchButton").on("click", function() {
 				mainTable.fnDraw();
 			})
