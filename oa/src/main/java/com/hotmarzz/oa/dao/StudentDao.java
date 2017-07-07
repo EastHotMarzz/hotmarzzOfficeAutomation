@@ -1,5 +1,6 @@
 package com.hotmarzz.oa.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -51,4 +52,9 @@ public interface StudentDao {
 	 * @return
 	 */
 	Student checkStuRepeat(Student stu);
+	/**
+	 * 为锁定时间早于指定时间的学生解锁
+	 * @param 
+	 */
+	void unlockAllByLockTime(Date lockTime) throws Exception;
 }

@@ -58,6 +58,7 @@
 		and
 		userName=#{userName,jdbcType=VARCHAR} and userpwd=#{userPwd,jdbcType=VARCHAR}
 	</select>
+	
 	<resultMap type="Emp" id="empMap">
 		<id column="empid" property="empId"/>
 		<result column="empname" property="empName"/>

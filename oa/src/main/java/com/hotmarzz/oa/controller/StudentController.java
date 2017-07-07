@@ -3,7 +3,6 @@ package com.hotmarzz.oa.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -25,12 +24,10 @@ import com.hotmarzz.basic.dao.Expression;
 import com.hotmarzz.basic.utils.JsonUtils;
 import com.hotmarzz.basic.utils.StringUtils;
 import com.hotmarzz.oa.buzz.StudentBuzz;
-import com.hotmarzz.oa.exception.CanNotDeleteStuException;
-import com.hotmarzz.oa.exception.CanNotUpdateStuException;
+import com.hotmarzz.oa.exception.StudentLockException;
 import com.hotmarzz.oa.exception.StudentRepeatException;
 import com.hotmarzz.oa.pojo.Student;
 import com.hotmarzz.oa.utils.JSONConstrants;
-import com.hotmarzz.oa.utils.SessionUtils;
 
 @Controller
 public class StudentController {
@@ -52,7 +49,7 @@ public class StudentController {
 	 * 跳转学生页面
 	 */
 	@RequestMapping(value = "stus.do", method = RequestMethod.GET)
-	public String getStusList(Model model, BaseQuery bq) {
+	public String getStuPage(Model model, BaseQuery bq) {
 		model.addAttribute("bq", bq);
 		return "studentResource/stus";
 	}
@@ -129,10 +126,8 @@ public class StudentController {
 	 * 修改前获取信息并且跳转页面
 	 */
 	@RequestMapping(value = "stu/{id}.do", method = RequestMethod.GET)
-	public String updateFilling(@PathVariable("id") Long id, Model model,HttpSession session)
-			throws Exception {
+	public String updateFilling(@PathVariable("id") Long id, Model model) throws Exception {
 		Student stu = stuBuzz.getById(id);
-		session.setAttribute(SessionUtils.FOR_UPDATE, stu);
 		model.addAttribute("stuForm", stu);
 		return "studentResource/stu";
 	}
@@ -162,15 +157,6 @@ public class StudentController {
 		result.put("msg", "修改成功");
 		return JsonUtils.bean2Json(result);
 	}
-	
-	@RequestMapping(value="ifCanUpdateStu/{id}.do",method=RequestMethod.GET)
-	@ResponseBody
-	public String ifCanUpdateStu(@PathVariable("id") Long id) throws Exception{
-		stuBuzz.getById1(id);
-		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("flag", "");
-		return JsonUtils.bean2Json(result);
-	}
 
 	// 学员重复添加异常
 	@ExceptionHandler(StudentRepeatException.class)
@@ -182,25 +168,14 @@ public class StudentController {
 		return JsonUtils.bean2Json(result);
 	}
 
-	// 非自招学员不能删除异常
-	@ExceptionHandler(CanNotDeleteStuException.class)
-	public @ResponseBody String CanNotDeleteStuHandler(
-			CanNotDeleteStuException exc) {
+	
+	@ExceptionHandler(StudentLockException.class)
+	public @ResponseBody String lockStudentHandler(StudentLockException exc){
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put(JSONConstrants.FLAG, JSONConstrants.FLAG_EXCEPTION);
 		result.put(JSONConstrants.FLAG_EXCEPTION_CODE, exc.getCode());
 		result.put(JSONConstrants.FLAG_EXCEPTION_MSG, exc.getMsg());
 		return JsonUtils.bean2Json(result);
 	}
-
-	// 非自招学员不能删除异常
-	@ExceptionHandler(CanNotUpdateStuException.class)
-	public @ResponseBody String CanNotUpdateStuHandler(
-			CanNotUpdateStuException exc) {
-		Map<String, Object> result = new HashMap<String, Object>();
-		result.put(JSONConstrants.FLAG, JSONConstrants.FLAG_EXCEPTION);
-		result.put(JSONConstrants.FLAG_EXCEPTION_CODE, exc.getCode());
-		result.put(JSONConstrants.FLAG_EXCEPTION_MSG, exc.getMsg());
-		return JsonUtils.bean2Json(result);
-	}
+	
 }

@@ -406,6 +406,7 @@
 								bPaginate : true,
 								pageLength : 10,
 								pagingType : "full_numbers",
+								searching:false,
 								columnDefs : [
 								//targets定义哪一列，可以是数组，0代表左起第一列，_all代表所有
 								{

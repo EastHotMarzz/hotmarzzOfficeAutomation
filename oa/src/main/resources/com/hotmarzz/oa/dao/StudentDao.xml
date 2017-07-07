@@ -138,7 +138,7 @@
 				18,
 			</if>
 			<if test="lockTime !=null">
-				#{lockTime,jdbcType=DATE}
+				#{lockTime,jdbcType=TIMESTAMP}
 			</if>
 			<if test="lockTime ==null">
 				null
@@ -168,7 +168,10 @@
 		graschool=#{graSchool,jdbcType=VARCHAR},
 		qq=#{qq,jdbcType=VARCHAR},
 		email=#{email,jdbcType=VARCHAR},
-		idnumber=#{idNumber,jdbcType=VARCHAR}
+		idnumber=#{idNumber,jdbcType=VARCHAR},
+		lockuser=#{lockUser,jdbcType=VARCHAR},
+		locktime=#{lockTime,jdbcType=TIMESTAMP},
+		locked=#{locked,jdbcType=NUMERIC}
 		where stuid=#{stuId,jdbcType=NUMERIC}
 	</update>
 	
@@ -180,4 +183,9 @@
 		stuage=#{stuAge,jdbcType=NUMERIC} and 
 		sex=#{sex,jdbcType=NUMERIC}
 	</select>
+	
+	<update id="unlockAllByLockTime" parameterType="date">
+		update o_stu set locked = 1,lockuser = '',locktime = null 
+		where locked = 0 and locktime <![CDATA[<]]> #{lockTime,jdbcType=TIMESTAMP}
+	</update>
 </mapper>
