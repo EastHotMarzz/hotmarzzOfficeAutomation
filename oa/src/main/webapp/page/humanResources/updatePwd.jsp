@@ -202,15 +202,6 @@
 
 			<!-- <![endif]-->
 
-			<!--[if IE]>
-<script src="<%=path%>/assets/js/jquery-1.11.3.min.js"></script>
-<![endif]
-			<script type="text/javascript">
-			if('ontouchstart' in document.documentElement) document.write("<script src='<%=path%>/assets/js/jquery.mobile.custom.min.js'>"
-									+ "<"+"/script>");
-			</script>
-			<script src="<%=path%>/assets/js/bootstrap.min.js"></script>
-
 			<!-- page specific plugin scripts -->
 			<script src="<%=path%>/assets/js/jquery.dataTables.min.js"></script>
 			<script src="<%=path%>/assets/js/jquery.dataTables.bootstrap.min.js"></script>
@@ -236,11 +227,6 @@
 			<script src="<%=path%>/assets/js/bootbox.js"></script>
 			<script src="<%=path%>/assets/js/jquery.maskedinput.min.js"></script>
 			<script src="<%=path%>/assets/js/select2.min.js"></script>
-
-
-			<!-- ace scripts
-			<script src="<%=path%>/assets/js/ace-elements.min.js"></script>
-			<script src="<%=path%>/assets/js/ace.min.js"></script> -->
 
 			<!-- serializeJSON -->
 			<script src="<%=path%>/assets/js/tools/jquery.serializejson.min.js"></script>
