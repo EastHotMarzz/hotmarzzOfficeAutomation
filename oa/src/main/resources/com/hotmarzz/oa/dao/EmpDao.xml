@@ -13,25 +13,13 @@
 		assowechat,createuser,createdate,updateuser,updatedate,sex,r.roleid rr,r.rolename
 	</sql>
 	
-<!-- 	<select id="getListPage" parameterType="baseQuery" resultType="emp"> -->
-<!-- 		select  -->
-<!-- 		<include refid="com.hotmarzz.oa.dao.EmpDao.empCol"/> -->
-<!-- 		 from o_emp -->
-<!-- 		<include refid="com.hotmarzz.basic.dao.BaseDao.queryByConditions"/> -->
-<!-- 		<include refid="com.hotmarzz.basic.dao.BaseDao.queryByOrders"/> -->
-<!-- 	</select> -->
-
 	<select id="getListPage" parameterType="baseQuery" resultMap="empMap">
 		select 
 		<include refid="com.hotmarzz.oa.dao.EmpDao.empCol_role"/>
-		from o_emp e,o_role r
-		where e.roleid=r.roleid
-		<if test="conditions!=null and conditions.size()>0">
-			and
-			<foreach collection="conditions" item="c" separator="and">
-				${c.name} ${c.op} #{c.value}
-			</foreach>
-		</if>
+		from o_emp e left outer join o_role r
+		on e.roleid=r.roleid
+		<include refid="com.hotmarzz.basic.dao.BaseDao.queryByConditions"/>
+		<include refid="com.hotmarzz.basic.dao.BaseDao.queryByOrders"/>
 	</select>
 	
 	<select id="getById" parameterType="baseQuery" resultType="emp">
@@ -41,21 +29,13 @@
 		where empid=#{emp.empId,jdbcType=NUMERIC}
 	</select>
 	
-<!-- 	<select id="login" parameterType="emp" resultType="emp"> -->
-<!-- 		select  -->
-<!-- 		<include refid="com.hotmarzz.oa.dao.EmpDao.empCol"/> -->
-<!-- 		from o_emp  -->
-<!-- 		where  -->
-<!-- 		userName=#{userName,jdbcType=VARCHAR} and userpwd=#{userPwd,jdbcType=VARCHAR} -->
-<!-- 	</select> -->
-	
 	<select id="login" parameterType="emp" resultMap="empMap">
 		select 
 		<include refid="com.hotmarzz.oa.dao.EmpDao.empCol_role"/>
-		from o_emp e,o_role r
-		where 
+		from o_emp e left outer join o_role r
+		on
 		e.roleid=r.roleid
-		and
+		where
 		userName=#{userName,jdbcType=VARCHAR} and userpwd=#{userPwd,jdbcType=VARCHAR}
 	</select>
 	
@@ -84,7 +64,8 @@
 	
 	
 	<select id="getCount" parameterType="baseQuery" resultType="int">
-		<include refid="com.hotmarzz.basic.dao.BaseDao.count"/> o_emp 
+		<include refid="com.hotmarzz.basic.dao.BaseDao.count"/> 
+		o_emp e left outer join o_role r on e.roleid=r.roleid
 		<include refid="com.hotmarzz.basic.dao.BaseDao.queryByConditions"/>
 	</select>
 	

@@ -752,6 +752,8 @@
 					return;
 				}
 			}
+			
+			
 			/* 每个左侧菜单的a链接内容显示在main中 */
 			$(".nav-list a").filter(function(index){
 				var href = $(this).attr("href");
