@@ -116,9 +116,9 @@ public class StudentBuzzImpl implements StudentBuzz {
 	 */
 	private void checkLockPermission(Long stuId) throws StudentLockException,Exception{
 		Student stu = stuDao.getById(stuId);
-		String lockUserName =  ((Emp)session.getAttribute(SessionUtils.LOGIN_EMP_KEY)).getEmpName();
-		if(stu.getLocked() == 0 && !lockUserName.equals(stu.getLockUser())){
-			throw new StudentLockException(lockUserName);
+		String loginName =  ((Emp)session.getAttribute(SessionUtils.LOGIN_EMP_KEY)).getEmpName();
+		if(stu.getLocked() == 0 && !loginName.equals(stu.getLockUser())){
+			throw new StudentLockException(stu.getLockUser());
 		}
 	}
 	
