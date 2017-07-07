@@ -140,7 +140,7 @@
 																cssClass="control-label col-xs-12 col-sm-3 no-padding-right">新密码:</form:label>
 															<div class="col-xs-12 col-sm-9">
 																<div class="clearfix">
-																	<form:input path="newPwd"
+																	<form:password path="newPwd"
 																		cssClass="col-xs-12 col-sm-6" />
 																	<form:errors path="newPwd" />
 																</div>
@@ -154,7 +154,7 @@
 																cssClass="control-label col-xs-12 col-sm-3 no-padding-right">确认密码:</form:label>
 															<div class="col-xs-12 col-sm-9">
 																<div class="clearfix">
-																	<form:input path="ckNewPwd" cssClass="col-xs-12 col-sm-6" />
+																	<form:password path="ckNewPwd" cssClass="col-xs-12 col-sm-6" />
 																	<form:errors path="ckNewPwd" />
 																</div>
 															</div>

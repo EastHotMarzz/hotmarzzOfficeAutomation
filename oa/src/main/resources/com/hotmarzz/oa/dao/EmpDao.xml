@@ -25,10 +25,13 @@
 		select 
 		<include refid="com.hotmarzz.oa.dao.EmpDao.empCol_role"/>
 		from o_emp e,o_role r
-		where 
-		e.roleid=r.roleid
-		<include refid="com.hotmarzz.basic.dao.BaseDao.queryByConditions"/>
-		<include refid="com.hotmarzz.basic.dao.BaseDao.queryByOrders"/>
+		where e.roleid=r.roleid
+		<if test="conditions!=null and conditions.size()>0">
+			and
+			<foreach collection="conditions" item="c" separator="and">
+				${c.name} ${c.op} #{c.value}
+			</foreach>
+		</if>
 	</select>
 	
 	<select id="getById" parameterType="baseQuery" resultType="emp">
