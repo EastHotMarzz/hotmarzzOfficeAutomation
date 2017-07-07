@@ -204,7 +204,7 @@
 
 			<!--[if IE]>
 <script src="<%=path%>/assets/js/jquery-1.11.3.min.js"></script>
-<![endif]-->
+<![endif]
 			<script type="text/javascript">
 			if('ontouchstart' in document.documentElement) document.write("<script src='<%=path%>/assets/js/jquery.mobile.custom.min.js'>"
 									+ "<"+"/script>");

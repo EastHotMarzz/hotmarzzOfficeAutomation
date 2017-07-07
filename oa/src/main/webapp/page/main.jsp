@@ -270,7 +270,7 @@
 							</a></li>
 						</ul></li>
 
-					<li class="light-blue dropdown-modal">
+					<li class="light-blue">
 						<a data-toggle="dropdown" href="#" class="dropdown-toggle">
 							<img class="nav-user-photo" src="assets/images/avatars/user.jpg"/>
 							<span class="user-info">
@@ -711,7 +711,6 @@
 		<script type="text/javascript">
 			if('ontouchstart' in document.documentElement) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
 		</script>
-		
 		<script src="assets/js/bootstrap.min.js"></script>
 
 		<!-- page specific plugin scripts -->
@@ -730,7 +729,7 @@
 		<script src="assets/js/tools/base64.min.js"></script>
 		<script src="assets/js/bootstrap-datepicker.min.js"></script>
 	
-		<!-- ace scripts -->
+		<!-- ace scripts--> 
 		<script src="assets/js/ace-elements.min.js"></script>
 		<script src="assets/js/ace.min.js"></script>
 		
