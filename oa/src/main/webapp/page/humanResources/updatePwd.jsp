@@ -126,7 +126,7 @@
 																cssClass="control-label col-xs-12 col-sm-3 no-padding-right">旧密码:</form:label>
 															<div class="col-xs-12 col-sm-9">
 																<div class="clearfix">
-																	<form:input path="oldPwd"
+																	<form:password path="oldPwd"
 																		cssClass="col-xs-12 col-sm-6" />
 																	<form:errors path="oldPwd" />
 																</div>
