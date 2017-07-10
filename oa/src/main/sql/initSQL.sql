@@ -733,3 +733,279 @@ ALTER TABLE "HOTMARZZ"."O_STU" ADD PRIMARY KEY ("STUID");
 
 create sequence o_student_seq;
 select o_student_seq.nextval from dual;
+
+/*
+Navicat Oracle Data Transfer
+Oracle Client Version : 11.2.0.1.0
+
+Source Server         : hotMarzz_OA
+Source Server Version : 110200
+Source Host           : localhost:1521
+Source Schema         : HOTMARZZ
+
+Target Server Type    : ORACLE
+Target Server Version : 110200
+File Encoding         : 65001
+
+Date: 2017-07-10 15:35:32
+*/
+
+
+-- ----------------------------
+-- Table structure for O_CAMPUSWATER
+-- ----------------------------
+DROP TABLE "HOTMARZZ"."O_CAMPUSWATER";
+CREATE TABLE "HOTMARZZ"."O_CAMPUSWATER" (
+"WATERID" NUMBER NOT NULL ,
+"SCHOOLID" NUMBER NULL ,
+"SUBJECTID" NUMBER NULL ,
+"SUBJECTDETAILID" NUMBER NULL ,
+"WATERTYPE" NUMBER(1) DEFAULT 0  NULL ,
+"WATERBANCH" VARCHAR2(50 BYTE) NULL ,
+"WATERSUM" NUMBER NULL ,
+"REMARK" VARCHAR2(255 BYTE) NULL ,
+"WATERDATE" DATE NULL ,
+"BILLPATH" VARCHAR2(255 BYTE) NULL ,
+"BROKERAGE" VARCHAR2(50 BYTE) NULL ,
+"CREATEUSER" VARCHAR2(50 BYTE) NULL ,
+"CREATEDATE" DATE NULL ,
+"UPDATEUSER" VARCHAR2(50 BYTE) NULL ,
+"UPDATEDATE" DATE NULL 
+)
+LOGGING
+NOCOMPRESS
+NOCACHE
+
+;
+COMMENT ON COLUMN "HOTMARZZ"."O_CAMPUSWATER"."WATERID" IS '流水ID';
+COMMENT ON COLUMN "HOTMARZZ"."O_CAMPUSWATER"."SCHOOLID" IS '校区ID';
+COMMENT ON COLUMN "HOTMARZZ"."O_CAMPUSWATER"."SUBJECTID" IS '科目ID';
+COMMENT ON COLUMN "HOTMARZZ"."O_CAMPUSWATER"."SUBJECTDETAILID" IS '科目明细ID';
+COMMENT ON COLUMN "HOTMARZZ"."O_CAMPUSWATER"."WATERTYPE" IS '流水类型。0代表支出，1代表收入';
+COMMENT ON COLUMN "HOTMARZZ"."O_CAMPUSWATER"."WATERBANCH" IS '流水批次';
+COMMENT ON COLUMN "HOTMARZZ"."O_CAMPUSWATER"."WATERSUM" IS '流水金额';
+COMMENT ON COLUMN "HOTMARZZ"."O_CAMPUSWATER"."REMARK" IS '备注';
+COMMENT ON COLUMN "HOTMARZZ"."O_CAMPUSWATER"."WATERDATE" IS '流水日期';
+COMMENT ON COLUMN "HOTMARZZ"."O_CAMPUSWATER"."BILLPATH" IS '票据路径';
+COMMENT ON COLUMN "HOTMARZZ"."O_CAMPUSWATER"."BROKERAGE" IS '经手人';
+COMMENT ON COLUMN "HOTMARZZ"."O_CAMPUSWATER"."CREATEUSER" IS '创建人';
+COMMENT ON COLUMN "HOTMARZZ"."O_CAMPUSWATER"."CREATEDATE" IS '创建时间';
+COMMENT ON COLUMN "HOTMARZZ"."O_CAMPUSWATER"."UPDATEUSER" IS '修改人';
+COMMENT ON COLUMN "HOTMARZZ"."O_CAMPUSWATER"."UPDATEDATE" IS '修改时间';
+
+-- ----------------------------
+-- Records of O_CAMPUSWATER
+-- ----------------------------
+
+-- ----------------------------
+-- Indexes structure for table O_CAMPUSWATER
+-- ----------------------------
+
+-- ----------------------------
+-- Checks structure for table O_CAMPUSWATER
+-- ----------------------------
+ALTER TABLE "HOTMARZZ"."O_CAMPUSWATER" ADD CHECK ("WATERID" IS NOT NULL);
+
+-- ----------------------------
+-- Primary Key structure for table O_CAMPUSWATER
+-- ----------------------------
+ALTER TABLE "HOTMARZZ"."O_CAMPUSWATER" ADD PRIMARY KEY ("WATERID");
+
+/*
+Navicat Oracle Data Transfer
+Oracle Client Version : 11.2.0.1.0
+
+Source Server         : hotMarzz_OA
+Source Server Version : 110200
+Source Host           : localhost:1521
+Source Schema         : HOTMARZZ
+
+Target Server Type    : ORACLE
+Target Server Version : 110200
+File Encoding         : 65001
+
+Date: 2017-07-10 15:36:09
+*/
+
+
+-- ----------------------------
+-- Table structure for O_SUBJECT
+-- ----------------------------
+DROP TABLE "HOTMARZZ"."O_SUBJECT";
+CREATE TABLE "HOTMARZZ"."O_SUBJECT" (
+"SUBJECTID" NUMBER NOT NULL ,
+"SUBJECTNAME" VARCHAR2(255 BYTE) NULL ,
+"CREATEUSER" VARCHAR2(50 BYTE) NULL ,
+"CREATEDATE" DATE NULL ,
+"UPDATEUSER" VARCHAR2(50 BYTE) NULL ,
+"UPDATEDATE" DATE NULL 
+)
+LOGGING
+NOCOMPRESS
+NOCACHE
+
+;
+COMMENT ON COLUMN "HOTMARZZ"."O_SUBJECT"."SUBJECTID" IS '科目ID';
+COMMENT ON COLUMN "HOTMARZZ"."O_SUBJECT"."SUBJECTNAME" IS '科目名称';
+COMMENT ON COLUMN "HOTMARZZ"."O_SUBJECT"."CREATEUSER" IS '创建人';
+COMMENT ON COLUMN "HOTMARZZ"."O_SUBJECT"."CREATEDATE" IS '创建时间';
+COMMENT ON COLUMN "HOTMARZZ"."O_SUBJECT"."UPDATEUSER" IS '修改人';
+COMMENT ON COLUMN "HOTMARZZ"."O_SUBJECT"."UPDATEDATE" IS '修改时间';
+
+-- ----------------------------
+-- Records of O_SUBJECT
+-- ----------------------------
+INSERT INTO "HOTMARZZ"."O_SUBJECT" VALUES ('1', '公司拨款', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_SUBJECT" VALUES ('2', '机房建设', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_SUBJECT" VALUES ('3', '教学部', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_SUBJECT" VALUES ('4', '就业部', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_SUBJECT" VALUES ('5', '市场部', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_SUBJECT" VALUES ('6', '行政-日常费', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_SUBJECT" VALUES ('7', '固定资产', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_SUBJECT" VALUES ('8', '耗材', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_SUBJECT" VALUES ('9', '房屋租赁', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_SUBJECT" VALUES ('10', '物业管理', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_SUBJECT" VALUES ('11', '班级管理', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_SUBJECT" VALUES ('12', '学生管理', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_SUBJECT" VALUES ('13', '其它', null, null, null, null);
+
+-- ----------------------------
+-- Checks structure for table O_SUBJECT
+-- ----------------------------
+ALTER TABLE "HOTMARZZ"."O_SUBJECT" ADD CHECK ("SUBJECTID" IS NOT NULL);
+
+/*
+Navicat Oracle Data Transfer
+Oracle Client Version : 11.2.0.1.0
+
+Source Server         : hotMarzz_OA
+Source Server Version : 110200
+Source Host           : localhost:1521
+Source Schema         : HOTMARZZ
+
+Target Server Type    : ORACLE
+Target Server Version : 110200
+File Encoding         : 65001
+
+Date: 2017-07-10 15:36:15
+*/
+
+
+-- ----------------------------
+-- Table structure for O_SUBJECTDETAIL
+-- ----------------------------
+DROP TABLE "HOTMARZZ"."O_SUBJECTDETAIL";
+CREATE TABLE "HOTMARZZ"."O_SUBJECTDETAIL" (
+"SUBJECTDETAILID" NUMBER NOT NULL ,
+"SUBJECTDETAILNAME" VARCHAR2(255 BYTE) NULL ,
+"SUBJECTID" NUMBER NULL ,
+"CREATEUSER" VARCHAR2(50 BYTE) NULL ,
+"CREATEDATE" DATE NULL ,
+"UPDATEUSER" VARCHAR2(50 BYTE) NULL ,
+"UPDATEDATE" DATE NULL ,
+"DETAILTITLE" VARCHAR2(1000 BYTE) NULL 
+)
+LOGGING
+NOCOMPRESS
+NOCACHE
+
+;
+COMMENT ON COLUMN "HOTMARZZ"."O_SUBJECTDETAIL"."SUBJECTDETAILID" IS '流水明细ID';
+COMMENT ON COLUMN "HOTMARZZ"."O_SUBJECTDETAIL"."SUBJECTDETAILNAME" IS '科目明细名称';
+COMMENT ON COLUMN "HOTMARZZ"."O_SUBJECTDETAIL"."SUBJECTID" IS '所属科目ID';
+COMMENT ON COLUMN "HOTMARZZ"."O_SUBJECTDETAIL"."CREATEUSER" IS '创建人';
+COMMENT ON COLUMN "HOTMARZZ"."O_SUBJECTDETAIL"."CREATEDATE" IS '创建时间';
+COMMENT ON COLUMN "HOTMARZZ"."O_SUBJECTDETAIL"."UPDATEUSER" IS '修改人';
+COMMENT ON COLUMN "HOTMARZZ"."O_SUBJECTDETAIL"."UPDATEDATE" IS '修改时间';
+COMMENT ON COLUMN "HOTMARZZ"."O_SUBJECTDETAIL"."DETAILTITLE" IS '科目明细说明';
+
+-- ----------------------------
+-- Records of O_SUBJECTDETAIL
+-- ----------------------------
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('1', '奖金', '1', null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('2', '工资', '1', null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('3', '备用金', '1', null, null, null, null, '公司备用金');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('4', '公司垫付', '1', null, null, null, null, '学生贷款9+15模式前9期企业垫付');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('5', '机房建设费', '1', null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('6', '教学费', '1', null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('7', '就业费', '1', null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('8', '市场费', '1', null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('9', '行政—日常费', '1', null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('10', '固定资产费', '1', null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('11', '耗材费', '1', null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('12', '房屋租赁费', '1', null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('13', '物业管理费', '1', null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('14', '班级管理费', '1', null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('15', '学生管理费', '1', null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('16', '施工费', '2', null, null, null, null, '机房地板、天花板铺设;墙面刷新、隔断施工、综合布线等施工费');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('17', '材料费', '2', null, null, null, null, '教室、机房装修的材料费。比如：电料，门窗，玻璃、电线等');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('18', '其他', '3', null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('19', '差旅', '3', null, null, null, null, '教学老师出差外出乘坐交通工具，住宿费等。注明起点，终点，出差事由');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('20', '交通费', '3', null, null, null, null, '教学老师外出办理公司业务发生的交通费。写明支付对象，地点，重点，外出事由等');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('21', '教材费', '3', null, null, null, null, '讲师购买的教学书籍等。注明教材的数量，名称，金额，用途即可');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('22', '教学部工薪', '3', null, null, null, null, '注明月份，校区，发放对象，金额等');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('23', '教学部奖金', '3', null, null, null, null, '注明奖励对象，金额，奖励事由等');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('24', '教学部提成', '3', null, null, null, null, '注明提成对象，金额，提成事由等');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('25', '差旅', '4', null, null, null, null, '就业老师出差外出乘坐交通工具，住宿费等。注明起点，终点，出差事由');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('26', '通信费', '4', null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('27', '交通费', '4', null, null, null, null, '外出办理公司业务发生的打车费。需写明，支付对象，打车起点、终点，外出办理事宜');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('28', '就业部工薪', '4', null, null, null, null, '注明月份，校区，发放对象，金额等');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('29', '就业奖金', '4', null, null, null, null, '注明班级、奖励对象等');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('30', '就业提成', '4', null, null, null, null, '写明班级，提成对象；比如：济南总部就业部发放济南23期提成，备注中写明：发放济南总部23期就业部提成为XXX元');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('31', '市场宣传', '5', null, null, null, null, '宣传品的制作：包括条幅、易拉宝、宣传彩页等。录入时写明数量，单价，用途等');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('32', '市场推广费', '5', null, null, null, null, '招聘端口开通、品牌宣传（比如与百度，今日头条等合作进行宣传发生的费用）录入时注明合作运营商名称，周期，金额，用途等');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('33', '市场部工薪', '5', null, null, null, null, '录入时注明：注明月份，校区、金额。比如：2016年2月济南东校区市场人员工薪XXX元');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('34', '市场奖金', '5', null, null, null, null, '录入时注明提成对象，具体事宜');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('35', '市场提成', '5', null, null, null, null, '录入时注明提成对象，具体提成事宜');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('36', '业务招待费', '5', null, null, null, null, '市场人员开拓公司业务与客户发生的餐费。录入时写明：时间，支付对象，事由');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('37', '通信费', '5', null, null, null, null, '市场人员的电话费。录入时写明：支付对象，费用周期');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('38', '燃油费', '5', null, null, null, null, '市场人员本市内办理公司业务发生的燃油费。录入时写明时间，起点、终点、外出事由，支付对象');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('39', '交通费', '5', null, null, null, null, '市场人员本市内外出办理公司业务发生的打车费。录入时写明时间（按发票时间），支付对象，打车起点、终点，外出事由');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('40', '差旅费', '5', null, null, null, null, '市场人员外地出差的费用，一般包括：火车票、汽车票，住宿费，业务招待费等。录入时写明支付对象，出差时间，出差事由等');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('41', '押金', '6', null, null, null, null, '桶装水押金，其他行政项目需要支付的押金等');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('42', '维修费', '6', null, null, null, null, '公司日常办公设备的维修；注明维修设备的名称，金额，维修时间等');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('43', '行政部工薪', '6', null, null, null, null, '行政部门的工薪，录入时写明发放月份，部门人数，金额等');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('44', '交通费', '6', null, null, null, null, '行政部门的交通费，注明：支付对象，起始地点，事宜等');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('45', '通信费', '6', null, null, null, null, '行政部门的固话费，注明：话费周期');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('46', '办公费', '6', null, null, null, null, '协议印刷、快递费、日常办公用品、劳保用品、桶装水，公司宽带费；教学用的麦克风、话筒，优盘等；录入时注明事由，项目名称，金额等');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('47', '其他', '7', null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('48', '办公设备', '7', null, null, null, null, '打印机、投影机、办公桌椅、办公文件柜、公司沙发、办公白板、公司自购的饮水机；教学设备');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('49', '机房设备', '7', null, null, null, null, '笔记本电脑、台式电脑显示器、主机，空调、交换机、路由器、机房服务器、工具等；录入时写明：型号，数量，单价，用途');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('50', '电脑耗材', '8', null, null, null, null, '鼠标、键盘、电源线等');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('51', '办公耗材', '8', null, null, null, null, '日常清洁用具：拖把、扫帚、簸箕、抹布、垃圾袋、浇花器等；低值易耗品：硒鼓、卡扣、水晶头、铆钉、扎带、网线等');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('52', '房租押金', '9', null, null, null, null, '注明付费地点，押金金额，同时写明押金金额是几个月房租');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('53', '中介费', '9', null, null, null, null, '注明付费地点，金额');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('54', '房租', '9', null, null, null, null, '公司办公地房屋租金、公司租用的员工宿舍的房屋租金等；录入时，需清楚写明，付费地点，周期，月租金金额，总额等；比如：济南总部泺口支付2017年上半年房租，备注中录入：支付济泺口2017年1月1日至6月30日房租6000元，1000元/月');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('55', '车位管理费', '10', null, null, null, null, '注明付费地点，周期，金额（仅限于公司公共车辆）');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('56', '电费', '10', null, null, null, null, '录入时，需清楚写明，付费地点，周期，月租金金额，总额等；比如：济南总部泺口支付2017年1月电费，备注中录入：支付济泺口2017年1月电费6000元');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('57', '水费', '10', null, null, null, null, '录入时，需清楚写明，付费地点，周期，月租金金额，总额等；比如：济南总部泺口支付2017年1月电费，备注中录入：支付济泺口2017年1月电费6000元');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('58', '公摊费', '10', null, null, null, null, '录入时，需清楚写明，付费地点，周期，月租金金额，总额等；比如：济南总部泺口支付2017年1月电费，备注中录入：支付济泺口2017年1月电费6000元');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('59', '供暖费', '10', null, null, null, null, '录入时，需清楚写明，付费地点，周期，月租金金额，总额等；比如：济南总部泺口支付2017年1月电费，备注中录入：支付济泺口2017年1月电费6000元');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('60', '物业费', '10', null, null, null, null, '录入时，需清楚写明，付费地点，周期，月租金金额，总额等；比如：济南总部泺口支付2017年1月电费，备注中录入：支付济泺口2017年1月电费6000元');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('61', '学生交通费', '11', null, null, null, null, '注明接学生时间，学生班级、乘坐交通工具、支付对象等');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('62', '学生奖金、奖励', '11', null, null, null, null, '注明学生班级、学生人数、奖励事宜、金额');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('63', '班级管理费', '11', null, null, null, null, '注明班级、支付对象、金额');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('64', '学生奖学金', '12', null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('65', '企业垫付', '12', null, null, null, null, '学生贷款9+15模式前9期企业垫付');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('66', '学生提前还款', '12', null, null, null, null, '提前还款的学生注明学生班级、姓名，金额');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('67', '学生退费', '12', null, null, null, null, '注明学生班级、姓名，退学原因，应还本金，违约金等金额');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('68', '学生保险', '12', null, null, null, null, '注明学生班级、人数、单价、金额');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('69', '学生补贴', '12', null, null, null, null, '注明学生班级、发放补贴次数，班级人数，单价');
+INSERT INTO "HOTMARZZ"."O_SUBJECTDETAIL" VALUES ('70', '其他', '13', null, null, null, null, '无匹配项目时，使用其它，但是要备注清楚事由');
+
+-- ----------------------------
+-- Indexes structure for table O_SUBJECTDETAIL
+-- ----------------------------
+
+-- ----------------------------
+-- Checks structure for table O_SUBJECTDETAIL
+-- ----------------------------
+ALTER TABLE "HOTMARZZ"."O_SUBJECTDETAIL" ADD CHECK ("SUBJECTDETAILID" IS NOT NULL);
+
+-- ----------------------------
+-- Primary Key structure for table O_SUBJECTDETAIL
+-- ----------------------------
+ALTER TABLE "HOTMARZZ"."O_SUBJECTDETAIL" ADD PRIMARY KEY ("SUBJECTDETAILID");
+
+
+
