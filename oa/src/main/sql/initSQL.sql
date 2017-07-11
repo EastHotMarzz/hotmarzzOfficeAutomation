@@ -1008,4 +1008,204 @@ ALTER TABLE "HOTMARZZ"."O_SUBJECTDETAIL" ADD CHECK ("SUBJECTDETAILID" IS NOT NUL
 ALTER TABLE "HOTMARZZ"."O_SUBJECTDETAIL" ADD PRIMARY KEY ("SUBJECTDETAILID");
 
 
+/*
+Navicat Oracle Data Transfer
+Oracle Client Version : 11.2.0.1.0
 
+Source Server         : hotMarzz_OA
+Source Server Version : 110200
+Source Host           : localhost:1521
+Source Schema         : HOTMARZZ
+
+Target Server Type    : ORACLE
+Target Server Version : 110200
+File Encoding         : 65001
+
+Date: 2017-07-11 14:07:52
+*/
+
+
+-- ----------------------------
+-- Table structure for O_FINANCIAL
+-- ----------------------------
+DROP TABLE "HOTMARZZ"."O_FINANCIAL";
+CREATE TABLE "HOTMARZZ"."O_FINANCIAL" (
+"FINAPPID" NUMBER NOT NULL ,
+"FINAPPSUM" NUMBER NULL ,
+"FINAPPDES" VARCHAR2(500 BYTE) NULL ,
+"FINSUBJECTID" NUMBER NULL ,
+"FINSUBDETID" NUMBER NULL ,
+"APPLYUSER" VARCHAR2(50 BYTE) NULL ,
+"APPROVEUSER" VARCHAR2(50 BYTE) NULL ,
+"APPROVEVIEW" VARCHAR2(255 BYTE) NULL ,
+"APPROPRIATIONUSER" VARCHAR2(50 BYTE) NULL ,
+"APPROPRIATIONTIME" DATE NULL ,
+"FINSTATUS" VARCHAR2(50 BYTE) NULL ,
+"CREATEUSER" VARCHAR2(50 BYTE) NULL ,
+"CREATEDATE" DATE NULL ,
+"UPDATEUSER" VARCHAR2(50 BYTE) NULL ,
+"UPDATEDATE" DATE NULL 
+)
+LOGGING
+NOCOMPRESS
+NOCACHE
+
+;
+COMMENT ON COLUMN "HOTMARZZ"."O_FINANCIAL"."FINAPPID" IS '财务申请ID';
+COMMENT ON COLUMN "HOTMARZZ"."O_FINANCIAL"."FINAPPSUM" IS '财务申请金额';
+COMMENT ON COLUMN "HOTMARZZ"."O_FINANCIAL"."FINAPPDES" IS '申请描述';
+COMMENT ON COLUMN "HOTMARZZ"."O_FINANCIAL"."FINSUBJECTID" IS '所属财务科目ID';
+COMMENT ON COLUMN "HOTMARZZ"."O_FINANCIAL"."FINSUBDETID" IS '所属财务科目明细ID';
+COMMENT ON COLUMN "HOTMARZZ"."O_FINANCIAL"."APPLYUSER" IS '财务申请人';
+COMMENT ON COLUMN "HOTMARZZ"."O_FINANCIAL"."APPROVEUSER" IS '财务审批人';
+COMMENT ON COLUMN "HOTMARZZ"."O_FINANCIAL"."APPROVEVIEW" IS '财务审批意见';
+COMMENT ON COLUMN "HOTMARZZ"."O_FINANCIAL"."APPROPRIATIONUSER" IS '拨款人';
+COMMENT ON COLUMN "HOTMARZZ"."O_FINANCIAL"."APPROPRIATIONTIME" IS '拨款时间';
+COMMENT ON COLUMN "HOTMARZZ"."O_FINANCIAL"."FINSTATUS" IS '财务审批状态--未审核，通过，拒绝，已拨款';
+COMMENT ON COLUMN "HOTMARZZ"."O_FINANCIAL"."CREATEUSER" IS '创建人';
+COMMENT ON COLUMN "HOTMARZZ"."O_FINANCIAL"."CREATEDATE" IS '创建时间';
+COMMENT ON COLUMN "HOTMARZZ"."O_FINANCIAL"."UPDATEUSER" IS '修改人';
+COMMENT ON COLUMN "HOTMARZZ"."O_FINANCIAL"."UPDATEDATE" IS '修改时间';
+
+-- ----------------------------
+-- Records of O_FINANCIAL
+-- ----------------------------
+
+-- ----------------------------
+-- Indexes structure for table O_FINANCIAL
+-- ----------------------------
+
+-- ----------------------------
+-- Checks structure for table O_FINANCIAL
+-- ----------------------------
+ALTER TABLE "HOTMARZZ"."O_FINANCIAL" ADD CHECK ("FINAPPID" IS NOT NULL);
+
+-- ----------------------------
+-- Primary Key structure for table O_FINANCIAL
+-- ----------------------------
+ALTER TABLE "HOTMARZZ"."O_FINANCIAL" ADD PRIMARY KEY ("FINAPPID");
+
+
+/*
+Navicat Oracle Data Transfer
+Oracle Client Version : 11.2.0.1.0
+
+Source Server         : hotMarzz_OA
+Source Server Version : 110200
+Source Host           : localhost:1521
+Source Schema         : HOTMARZZ
+
+Target Server Type    : ORACLE
+Target Server Version : 110200
+File Encoding         : 65001
+
+Date: 2017-07-11 14:34:32
+*/
+
+
+-- ----------------------------
+-- Table structure for O_FINSUBDETAIL
+-- ----------------------------
+DROP TABLE "HOTMARZZ"."O_FINSUBDETAIL";
+CREATE TABLE "HOTMARZZ"."O_FINSUBDETAIL" (
+"FINSUBDETAILID" NUMBER NOT NULL ,
+"FINSUBDETAILNAME" VARCHAR2(50 BYTE) NULL ,
+"FINSUBJECTID" NUMBER NULL ,
+"CREATEUSER" VARCHAR2(50 BYTE) NULL ,
+"CREATEDATE" DATE NULL ,
+"UPDATEUSER" VARCHAR2(50 BYTE) NULL ,
+"UPDATEDATE" DATE NULL 
+)
+LOGGING
+NOCOMPRESS
+NOCACHE
+
+;
+COMMENT ON COLUMN "HOTMARZZ"."O_FINSUBDETAIL"."FINSUBDETAILID" IS '财务科目明细ID';
+COMMENT ON COLUMN "HOTMARZZ"."O_FINSUBDETAIL"."FINSUBDETAILNAME" IS '财务科目明细名称';
+COMMENT ON COLUMN "HOTMARZZ"."O_FINSUBDETAIL"."FINSUBJECTID" IS '所属财务科目ID';
+COMMENT ON COLUMN "HOTMARZZ"."O_FINSUBDETAIL"."CREATEUSER" IS '创建人';
+COMMENT ON COLUMN "HOTMARZZ"."O_FINSUBDETAIL"."CREATEDATE" IS '创建时间';
+COMMENT ON COLUMN "HOTMARZZ"."O_FINSUBDETAIL"."UPDATEUSER" IS '修改人';
+COMMENT ON COLUMN "HOTMARZZ"."O_FINSUBDETAIL"."UPDATEDATE" IS '修改时间';
+
+-- ----------------------------
+-- Records of O_FINSUBDETAIL
+-- ----------------------------
+INSERT INTO "HOTMARZZ"."O_FINSUBDETAIL" VALUES ('1', '奖金', '1', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_FINSUBDETAIL" VALUES ('2', '工资', '1', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_FINSUBDETAIL" VALUES ('3', '备用金', '1', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_FINSUBDETAIL" VALUES ('4', '公司垫付', '1', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_FINSUBDETAIL" VALUES ('5', '机房建设费', '1', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_FINSUBDETAIL" VALUES ('6', '教学费', '1', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_FINSUBDETAIL" VALUES ('7', '就业费', '1', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_FINSUBDETAIL" VALUES ('8', '市场费', '1', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_FINSUBDETAIL" VALUES ('9', '行政--日常费', '1', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_FINSUBDETAIL" VALUES ('10', '固定资产费', '1', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_FINSUBDETAIL" VALUES ('11', '耗材费', '1', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_FINSUBDETAIL" VALUES ('12', '房屋租赁费', '1', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_FINSUBDETAIL" VALUES ('13', '物业管理费', '1', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_FINSUBDETAIL" VALUES ('14', '班级管理费', '1', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_FINSUBDETAIL" VALUES ('15', '学生管理费', '1', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_FINSUBDETAIL" VALUES ('16', '其它', '2', null, null, null, null);
+
+-- ----------------------------
+-- Indexes structure for table O_FINSUBDETAIL
+-- ----------------------------
+
+-- ----------------------------
+-- Checks structure for table O_FINSUBDETAIL
+-- ----------------------------
+ALTER TABLE "HOTMARZZ"."O_FINSUBDETAIL" ADD CHECK ("FINSUBDETAILID" IS NOT NULL);
+
+-- ----------------------------
+-- Primary Key structure for table O_FINSUBDETAIL
+-- ----------------------------
+ALTER TABLE "HOTMARZZ"."O_FINSUBDETAIL" ADD PRIMARY KEY ("FINSUBDETAILID");
+
+/*
+Navicat Oracle Data Transfer
+Oracle Client Version : 11.2.0.1.0
+
+Source Server         : hotMarzz_OA
+Source Server Version : 110200
+Source Host           : localhost:1521
+Source Schema         : HOTMARZZ
+
+Target Server Type    : ORACLE
+Target Server Version : 110200
+File Encoding         : 65001
+
+Date: 2017-07-11 14:34:40
+*/
+
+
+-- ----------------------------
+-- Table structure for O_FINSUBJECT
+-- ----------------------------
+DROP TABLE "HOTMARZZ"."O_FINSUBJECT";
+CREATE TABLE "HOTMARZZ"."O_FINSUBJECT" (
+"FINSUBJECTID" NUMBER NULL ,
+"FINSUBJECTNAME" VARCHAR2(50 BYTE) NULL ,
+"CREATEUSER" VARCHAR2(50 BYTE) NULL ,
+"CREATEDATE" DATE NULL ,
+"UPDATEUSER" VARCHAR2(50 BYTE) NULL ,
+"UPDATEDATE" DATE NULL 
+)
+LOGGING
+NOCOMPRESS
+NOCACHE
+
+;
+COMMENT ON COLUMN "HOTMARZZ"."O_FINSUBJECT"."FINSUBJECTID" IS '财务科目ID';
+COMMENT ON COLUMN "HOTMARZZ"."O_FINSUBJECT"."FINSUBJECTNAME" IS '财务科目名称';
+COMMENT ON COLUMN "HOTMARZZ"."O_FINSUBJECT"."CREATEUSER" IS '创建人';
+COMMENT ON COLUMN "HOTMARZZ"."O_FINSUBJECT"."CREATEDATE" IS '创建时间';
+COMMENT ON COLUMN "HOTMARZZ"."O_FINSUBJECT"."UPDATEUSER" IS '修改人';
+COMMENT ON COLUMN "HOTMARZZ"."O_FINSUBJECT"."UPDATEDATE" IS '修改时间';
+
+-- ----------------------------
+-- Records of O_FINSUBJECT
+-- ----------------------------
+INSERT INTO "HOTMARZZ"."O_FINSUBJECT" VALUES ('1', '公司拨款', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_FINSUBJECT" VALUES ('2', '其它', null, null, null, null);
