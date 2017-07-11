@@ -364,7 +364,7 @@
 						
 							<ul class="submenu">
 									<li class="">
-										<a href="#">
+										<a href="schools.do">
 											<i class="menu-icon fa fa-caret-right"></i>
 											校区管理
 										</a>
@@ -561,7 +561,7 @@
 						
 							<ul class="submenu">
 									<li class="">
-										<a href="#">
+										<a href="fins.do">
 											<i class="menu-icon fa fa-caret-right"></i>
 											校区流水
 										</a>
