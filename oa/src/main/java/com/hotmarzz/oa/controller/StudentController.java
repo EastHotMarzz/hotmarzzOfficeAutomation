@@ -32,7 +32,7 @@ import com.hotmarzz.oa.utils.JSONConstrants;
 @Controller
 public class StudentController {
 
-	private Logger logger = LoggerFactory.getLogger(EmpController.class);
+	private Logger logger = LoggerFactory.getLogger(StudentController.class);
 
 	private StudentBuzz stuBuzz;
 

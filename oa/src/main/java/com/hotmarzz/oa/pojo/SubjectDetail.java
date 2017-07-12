@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class SubjectDetail {
 
-	private Long subjetcDetailId;
+	private Long subjectDetailId;
 	private String subjectDetailName;
 	private Subject subjectId;
 	private String createUser;
@@ -12,11 +12,12 @@ public class SubjectDetail {
 	private String updateUser;
 	private Date updateDate;
 	private String detailTitle;
-	public Long getSubjetcDetailId() {
-		return subjetcDetailId;
+	
+	public Long getSubjectDetailId() {
+		return subjectDetailId;
 	}
-	public void setSubjetcDetailId(Long subjetcDetailId) {
-		this.subjetcDetailId = subjetcDetailId;
+	public void setSubjectDetailId(Long subjectDetailId) {
+		this.subjectDetailId = subjectDetailId;
 	}
 	public String getSubjectDetailName() {
 		return subjectDetailName;
@@ -62,7 +63,7 @@ public class SubjectDetail {
 	}
 	@Override
 	public String toString() {
-		return "SubjectDetail [subjetcDetailId=" + subjetcDetailId
+		return "SubjectDetail [subjectDetailId=" + subjectDetailId
 				+ ", subjectDetailName=" + subjectDetailName + ", subjectId="
 				+ subjectId + ", createUser=" + createUser + ", createDate="
 				+ createDate + ", updateUser=" + updateUser + ", updateDate="

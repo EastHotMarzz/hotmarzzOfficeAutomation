@@ -561,7 +561,7 @@
 						
 							<ul class="submenu">
 									<li class="">
-										<a href="fins.do">
+										<a href="fins.do" id="xqls">
 											<i class="menu-icon fa fa-caret-right"></i>
 											校区流水
 										</a>

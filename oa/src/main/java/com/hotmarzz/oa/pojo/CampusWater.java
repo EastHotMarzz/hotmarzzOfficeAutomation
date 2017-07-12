@@ -2,46 +2,66 @@ package com.hotmarzz.oa.pojo;
 
 import java.util.Date;
 
-public class CampusWater {
+import com.hotmarzz.basic.dao.BaseQuery;
+
+public class CampusWater extends BaseQuery{
 
 	private Long waterId;
-	private Long schoolId;
-	private Long subjectId;
-	private Long subjectDetailId;
+	private SchoolDistrict schoolId;
+	private Subject subId;
+	private SubjectDetail subDetailId;
 	private int waterType;
 	private String waterBanch;
 	private Double waterSum;
 	private String remark;
 	private Date waterDate;
+	//开始日期
+	private Date startDate;
+	//结束日期
+	private Date endDate;
 	private String billPath;
 	private String brokerage;
 	private String createUser;
 	private Date createDate;
 	private String updateUser;
 	private Date updateDate;
+	
+	
+	public Date getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+	public Date getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
 	public Long getWaterId() {
 		return waterId;
 	}
 	public void setWaterId(Long waterId) {
 		this.waterId = waterId;
 	}
-	public Long getSchoolId() {
+	public SchoolDistrict getSchoolId() {
 		return schoolId;
 	}
-	public void setSchoolId(Long schoolId) {
+	public void setSchoolId(SchoolDistrict schoolId) {
 		this.schoolId = schoolId;
 	}
-	public Long getSubjectId() {
-		return subjectId;
+	public Subject getSubId() {
+		return subId;
 	}
-	public void setSubjectId(Long subjectId) {
-		this.subjectId = subjectId;
+	public void setSubId(Subject subId) {
+		this.subId = subId;
 	}
-	public Long getSubjectDetailId() {
-		return subjectDetailId;
+	public SubjectDetail getSubDetailId() {
+		return subDetailId;
 	}
-	public void setSubjectDetailId(Long subjectDetailId) {
-		this.subjectDetailId = subjectDetailId;
+	public void setSubDetailId(SubjectDetail subDetailId) {
+		this.subDetailId = subDetailId;
 	}
 	public int getWaterType() {
 		return waterType;
@@ -112,13 +132,13 @@ public class CampusWater {
 	@Override
 	public String toString() {
 		return "CampusWater [waterId=" + waterId + ", schoolId=" + schoolId
-				+ ", subjectId=" + subjectId + ", subjectDetailId="
-				+ subjectDetailId + ", waterType=" + waterType
-				+ ", waterBanch=" + waterBanch + ", waterSum=" + waterSum
-				+ ", remark=" + remark + ", waterDate=" + waterDate
-				+ ", billPath=" + billPath + ", brokerage=" + brokerage
-				+ ", createUser=" + createUser + ", createDate=" + createDate
-				+ ", updateUser=" + updateUser + ", updateDate=" + updateDate
-				+ "]";
+				+ ", subId=" + subId + ", subDetailId=" + subDetailId
+				+ ", waterType=" + waterType + ", waterBanch=" + waterBanch
+				+ ", waterSum=" + waterSum + ", remark=" + remark
+				+ ", waterDate=" + waterDate + ", startDate=" + startDate
+				+ ", endDate=" + endDate + ", billPath=" + billPath
+				+ ", brokerage=" + brokerage + ", createUser=" + createUser
+				+ ", createDate=" + createDate + ", updateUser=" + updateUser
+				+ ", updateDate=" + updateDate + "]";
 	}
 }
