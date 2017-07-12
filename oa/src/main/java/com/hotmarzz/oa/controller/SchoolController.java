@@ -20,7 +20,7 @@ import com.hotmarzz.oa.buzz.SchoolBuzz;
 
 @Controller
 public class SchoolController {
-	private Logger logger = LoggerFactory.getLogger(EmpController.class);
+	private Logger logger = LoggerFactory.getLogger(SchoolController.class);
 	
 	private SchoolBuzz schoolBuzz;
 	public SchoolBuzz getSchoolBuzz() {

@@ -1,8 +1,6 @@
 package com.hotmarzz.oa.controller;
 
-import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.hotmarzz.basic.dao.BaseQuery;
 import com.hotmarzz.basic.dao.Expression;
 import com.hotmarzz.basic.utils.JsonUtils;
 import com.hotmarzz.basic.utils.StringUtils;
@@ -31,7 +28,7 @@ import com.hotmarzz.oa.utils.FormatDateUtil;
 @Controller
 public class FinanceController {
 
-	private Logger logger = LoggerFactory.getLogger(EmpController.class);
+	private Logger logger = LoggerFactory.getLogger(FinanceController.class);
 
 	private FinanceBuzz finBuzz;
 
@@ -81,7 +78,7 @@ public class FinanceController {
 		model.addAttribute("subs", finBuzz.getSubsList());
 		model.addAttribute("fin", fin);
 		model.addAttribute("cw", cw);
-		return "financeResources/fins";
+		return "financeResources/waters";
 	}
 
 	@RequestMapping(value = "getSubDetailsList/{subId}.do", method = RequestMethod.POST)
