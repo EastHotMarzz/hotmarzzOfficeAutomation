@@ -33,6 +33,17 @@ public interface FinanceBuzz {
 	 * @throws Exception
 	 */
 	Double getSumExpenditure(String formatDate) throws Exception;
-	
+	/**
+	 * 分页获取校区流水信息
+	 * @param cw
+	 * @return
+	 * @throws Exception
+	 */
 	CampusWater getList(CampusWater cw) throws Exception;
+	/**
+	 * 删除流水信息
+	 * @param fid
+	 * @throws Exception
+	 */
+	void delete(Long fid) throws Exception;
 }

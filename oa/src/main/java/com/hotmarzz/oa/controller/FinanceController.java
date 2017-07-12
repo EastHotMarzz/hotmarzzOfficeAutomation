@@ -3,6 +3,7 @@ package com.hotmarzz.oa.controller;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -56,6 +57,20 @@ public class FinanceController {
 		Double pin = finBuzz.getSumIncome(pre);
 		// 当月总支出
 		Double pout = finBuzz.getSumExpenditure(pre);
+		if(din==null||dout==null||pin==null||pout==null){
+			if(din==null){
+				din=0.0;
+			}
+			if(dout==null){
+				dout=0.0;
+			}
+			if(pin==null){
+				pin=0.0;
+			}
+			if(pout==null){
+				pout=0.0;
+			}
+		}
 		fin.setSumIncome(din);
 		fin.setSumExpenditure(dout);
 		fin.setCurCount(din - dout);
@@ -98,18 +113,29 @@ public class FinanceController {
 		if (queryParams.containsKey("subId")
 				&& StringUtils.isNotEmpty((String) queryParams.get("subId"))) {
 			if(!"0".equals((String) queryParams.get("subId"))){
-				cw.putCondition("subjectid", Expression.OP_EQ,queryParams.get("subId"));
+				cw.putCondition("cw.subjectid", Expression.OP_EQ,queryParams.get("subId"));
 			}
 		}
 		if (queryParams.containsKey("subDetailId")
 				&& StringUtils.isNotEmpty((String) queryParams.get("subDetailId"))) {
-			if(!"0".equals((String) queryParams.get("subId"))){
-				cw.putCondition("subjectdetailid", Expression.OP_EQ,queryParams.get("subDetailId"));
+			if(!"0".equals((String) queryParams.get("subDetailId"))){
+				cw.putCondition("cw.subjectdetailid", Expression.OP_EQ,queryParams.get("subDetailId"));
 			}
 		}
-		
 		CampusWater cwResult = finBuzz.getList(cw);
-		
 		return JsonUtils.bean2Json(cwResult);
+	}
+	
+	@RequestMapping(value="fin/{fid}.do",method=RequestMethod.DELETE)
+	@ResponseBody
+	public String delete(@PathVariable("fid") Long fid) throws Exception{
+		Map<String, Object> result = new HashMap<String, Object>();
+
+		finBuzz.delete(fid);
+		
+		result.put("flag", true);
+		result.put("msg", "success");
+
+		return JsonUtils.bean2Json(result);
 	}
 }

@@ -7,7 +7,7 @@ import com.hotmarzz.basic.dao.BaseQuery;
 public class CampusWater extends BaseQuery{
 
 	private Long waterId;
-	private Long schoolId;
+	private SchoolDistrict schoolId;
 	private Subject subId;
 	private SubjectDetail subDetailId;
 	private int waterType;
@@ -45,10 +45,10 @@ public class CampusWater extends BaseQuery{
 	public void setWaterId(Long waterId) {
 		this.waterId = waterId;
 	}
-	public Long getSchoolId() {
+	public SchoolDistrict getSchoolId() {
 		return schoolId;
 	}
-	public void setSchoolId(Long schoolId) {
+	public void setSchoolId(SchoolDistrict schoolId) {
 		this.schoolId = schoolId;
 	}
 	public Subject getSubId() {

@@ -7,8 +7,23 @@
 		SUBJECTDETAILID,SUBJECTDETAILNAME,DETAILTITLE
 	</sql>
 	<sql id="finCol">
-		WATERID,SCHOOLID,SUBJECTID,SUBJECTDETAILID,WATERTYPE,WATERBANCH,WATERSUM,
-		REMARK,WATERDATE,BILLPATH,BROKERAGE,CREATEUSER,CREATEDATE,UPDATEUSER,UPDATEDATE
+		cw.WATERID,cw.SCHOOLID aid1,cw.SUBJECTID bid1,cw.SUBJECTDETAILID cid1,cw.WATERTYPE,cw.WATERBANCH,cw.WATERSUM,
+		cw.REMARK,cw.WATERDATE,cw.BILLPATH,cw.BROKERAGE,cw.CREATEUSER,cw.CREATEDATE,cw.UPDATEUSER,cw.UPDATEDATE
+	</sql>
+	<sql id="sbCol">
+		sb.SUBJECTID bid2,sb.SUBJECTNAME
+	</sql>
+	<sql id="slsCol">
+		sls.SCHOOLID aid2,sls.SCHOOLNAME,sls.PROVINCE
+	</sql>
+	<sql id="sbdCol">
+		sbd.SUBJECTDETAILID cid2,sbd.SUBJECTDETAILNAME,sbd.DETAILTITLE
+	</sql>
+	<sql id="waterCol">
+		<include refid="com.hotmarzz.oa.dao.FinanceDao.finCol"></include>,
+		<include refid="com.hotmarzz.oa.dao.FinanceDao.sbCol"></include>,
+		<include refid="com.hotmarzz.oa.dao.FinanceDao.slsCol"></include>,
+		<include refid="com.hotmarzz.oa.dao.FinanceDao.sbdCol"></include>
 	</sql>
 	
 	<select id="getSubsList" resultType="subject">
@@ -33,10 +48,13 @@
 		and (select to_char(WATERDATE,'yyyy-mm') from dual)=#{formatDate}
 	</select>
 	
-	<select id="getListPage" parameterType="baseQuery" resultType="campuswater">
+	<select id="getListPage" parameterType="baseQuery" resultMap="waterMap">
 		select 
-		<include refid="com.hotmarzz.oa.dao.FinanceDao.finCol"/>
-		from o_campuswater
+		<include refid="com.hotmarzz.oa.dao.FinanceDao.waterCol"/>
+		from o_campuswater cw 
+		join (select * from o_subject) sb on cw.subjectid=sb.subjectid
+		join (select * from o_schooldistrict) sls on cw.schoolid=sls.schoolid
+		join (select * from o_subjectdetail) sbd on cw.subjectdetailid=sbd.subjectdetailid
 		<include refid="com.hotmarzz.basic.dao.BaseDao.queryByConditions"/>
 		<if test="startDate!=null">
 			and waterdate >=#{startDate}
@@ -47,8 +65,50 @@
 		<include refid="com.hotmarzz.basic.dao.BaseDao.queryByOrders"/>
 	</select>
 	
+	<resultMap type="com.hotmarzz.oa.pojo.CampusWater" id="waterMap">
+		<id column="waterid" property="waterId"/>
+		<result column="waterType" property="waterType"/>
+		<result column="waterBanch" property="waterBanch"/>
+		<result column="waterSum" property="waterSum"/>
+		<result column="remark" property="remark"/>
+		<result column="waterDate" property="waterDate"/>
+		<result column="billPath" property="billPath"/>
+		<result column="brokerage" property="brokerage"/>
+		<result column="createUser" property="createUser"/>
+		<result column="createDate" property="createDate"/>
+		<result column="updateUser" property="updateUser"/>
+		<result column="updateDate" property="updateDate"/>
+		<!-- 校区 -->
+		<association property="schoolId" column="aid1" javaType="com.hotmarzz.oa.pojo.SchoolDistrict">
+			<id column="aid2" property="schoolId"/>
+			<result column="schoolName" property="schoolName"/>
+			<result column="province" property="province"/>
+		</association>
+		<!-- 科目 -->
+		<association property="subId" column="bid1" javaType="com.hotmarzz.oa.pojo.Subject">
+			<id column="bid2" property="subjectId"/>
+			<result column="subjectName" property="subjectName"/>
+		</association>
+		<!-- 科目明细 -->
+		<association property="subDetailId" column="cid1" javaType="com.hotmarzz.oa.pojo.SubjectDetail">
+			<id column="cid2" property="subjectDetailId"/>
+			<result column="subjectDetailName" property="subjectDetailName"/>
+			<result column="detailTitle" property="detailTitle"/>
+		</association>
+	</resultMap>
+	
 	<select id="getCount" parameterType="baseQuery" resultType="int">
-		<include refid="com.hotmarzz.basic.dao.BaseDao.count"/> o_campuswater 
+		<include refid="com.hotmarzz.basic.dao.BaseDao.count"/> o_campuswater cw
 		<include refid="com.hotmarzz.basic.dao.BaseDao.queryByConditions"/>
+		<if test="startDate!=null">
+			and waterdate >=#{startDate}
+		</if>
+		<if test="endDate!=null">
+			and waterdate &lt;=#{endDate}
+		</if>
 	</select>
+	
+	<delete id="delete" parameterType="long">
+		delete from o_campuswater where waterid=#{fid}
+	</delete>
 </mapper>

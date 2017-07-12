@@ -61,5 +61,10 @@ public class FinanceBuzzImpl implements FinanceBuzz{
 		return cw;
 	}
 	
+	@Override
+	public void delete(Long fid) throws Exception {
+		finDao.delete(fid);
+	}
+	
 	
 }

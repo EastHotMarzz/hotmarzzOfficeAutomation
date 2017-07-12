@@ -22,4 +22,6 @@ public interface FinanceDao {
 	List<CampusWater> getListPage(CampusWater cw) throws Exception;
 	
 	int getCount(CampusWater cw) throws Exception;
+	
+	void delete(Long fid) throws Exception;
 }

@@ -367,6 +367,16 @@
 
 			var tableColumn = [
 					{
+						data : "schoolId.schoolName",
+						title : "校区"
+					},{
+						data : "subId.subjectName",
+						title : "科目"
+					},{
+						data : "subDetailId.subjectDetailName",
+						title : "科目明细"
+					},
+					{
 						data : "waterType",
 						title : "收支类型",
 						render : function(data, type, full, meta) {
@@ -376,6 +386,9 @@
 								return "收入";
 							}
 						}
+					},{
+						data : "waterBanch",
+						title : "批次"
 					},
 					{
 						data : "waterSum",
@@ -390,6 +403,15 @@
 						title : "票据",
 						render : function(data, type, full, meta) {
 							return "<img style='width:40px;height:30px' src='"+data+"'><button style='width:75px;height:25px'>票据添加</button>";
+						}
+					},{
+						data : "brokerage",
+						title : "经手人"
+					},{
+						data : "waterDate",
+						title : "时间",
+						render : function(data, type, full, meta) {
+							return (new Date(data)).Format("yyyy-MM-dd");
 						}
 					},
 					{
@@ -485,10 +507,9 @@
 																		"contentType" : "application/json;charset=UTF-8",
 																		"success" : function(
 																				result) {
-																			if (result.msg === 'success') {
-																				var href = "emps.do";
-																				$(
-																						"#main")
+																			if (result.msg == 'success') {
+																				var href = "fins.do";
+																				$("#main")
 																						.load(
 																								href,
 																								function() {
@@ -512,9 +533,7 @@
 																											.find(
 																													"button")
 																											.after(
-																													"<span>删除成功,删除用户的为id:"
-																															+ user_id
-																															+ " <i class='ace-icon glyphicon glyphicon-ok'></i></span>");
+																													"<span>删除成功<i class='ace-icon glyphicon glyphicon-ok'></i></span>");
 																								});
 																			}
 																			if (result.msg === 'error') {
