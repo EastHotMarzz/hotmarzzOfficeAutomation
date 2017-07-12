@@ -6,7 +6,6 @@
 <html lang="en">
 <head>
 <style type="text/css">
-	
 </style>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta charset="utf-8" />
@@ -61,7 +60,7 @@
 </head>
 
 <body class="skin-1">
-	
+
 	<div class="main-content">
 		<div class="main-content-inner">
 			<div class="breadcrumbs ace-save-state" id="breadcrumbs">
@@ -85,11 +84,11 @@
 						</small>
 					</h1>
 				</div>
-				
+
 				<div id="alertDiv" class="alert alert-warning hidden">
-									<button class="close" data-dismiss="alert">
-										<i class="ace-icon fa fa-times"></i>
-									</button>
+					<button class="close" data-dismiss="alert">
+						<i class="ace-icon fa fa-times"></i>
+					</button>
 				</div>
 				<!-- /.page-header -->
 
@@ -104,51 +103,82 @@
 								<div class="widget-toolbar no-border">
 									<div class="btn-toolbar">
 										<div class="btn-group">
-											<button id="searchButton"
+											<button id="addFinButton"
 												class="btn btn-sm btn-success btn-white btn-round">
-												<i class="ace-icon fa fa-search bigger-110 green"></i> 查询
+												<i class="ace-icon fa fa-plus bigger-110 green"></i> 添加
 											</button>
 										</div>
 										<div class="btn-group">
 											<button id="clearButton"
 												class="btn btn-sm btn-success btn-white btn-round">
-												<i class="ace-icon fa fa-search bigger-110 green"></i> 清空
+												<i class="ace-icon fa fa-mail-forward bigger-110 green"></i> 导出
 											</button>
 										</div>
+										<div class="btn-group">
+											<button id="searchButton"
+												class="btn btn-sm btn-success btn-white btn-round"
+												value="fin.do">
+												<i class="ace-icon fa fa-search bigger-110 green"></i> 流水查询
+											</button>
+										</div>
+										
+										
 									</div>
 								</div>
 							</div>
 
 							<div class="widget-body">
-								<div class="widget-main">
-									<form:form id="searchForm"
-										modelAttribute="bq" method="post" cssClass="form-horizontal"
-										role="form">
+								<div class="widget-main" style="height:200px;width:1100px">
+									<form:form id="searchForm" modelAttribute="cw" method="post"
+										cssClass="form-horizontal" role="form">
 										<div class="form-group">
-											<form:label path="queryParams[empName]"
-												cssClass="col-sm-1 control-label no-padding-right">员工姓名</form:label>
-
-											<div class="col-sm-3">
-												<form:input id="form-field-1" path="queryParams[empName]"
-													placeholder="员工姓名" cssClass="col-xs-10 col-sm-5" />
+											<div
+												style="float: left; width: 200px; height: 30px; margin-left: 20px; margin-top: 5px">
+												<span>类型：</span>
+												<form:radiobutton path="waterType" value="0" />
+												<label for="waterType1">支出</label>
+												<form:radiobutton path="waterType" value="1" />
+												<label for="waterType2">收入</label>
 											</div>
-											
-											<form:label path="queryParams[userName]"
-												cssClass="col-sm-1 control-label no-padding-right">用户名</form:label>
-
-											<div class="col-sm-3">
-												<form:input id="form-field-1" path="queryParams[userName]"
-													placeholder="用户名" cssClass="col-xs-10 col-sm-5" />
+											<div
+												style="float: left; width: 200px; height: 30px; margin-left: 20px">
+												<span>开始日期：</span>
+												<form:input path="startDate" cssClass="datepicker" cssStyle="width:100px"/>
+											</div>
+											<div
+												style="float: left; width: 200px; height: 30px; margin-left: 20px">
+												<span>结束日期：</span>
+												<form:input path="endDate" cssClass="datepicker" cssStyle="width:100px"/>
+											</div>
+											<div
+												style="float: left; width: 200px; height: 30px; margin-left: 20px">
+												<span>科目：</span>
+												<form:select path="subId" onchange="change_sub()">
+													<form:option value="0" label="全部"></form:option>
+													<form:options items="${subs}" itemLabel="subjectName"
+														itemValue="subjectId" />
+												</form:select>
+											</div>
+											<div
+												style="float: left; width: 200px; height: 30px; margin-left: 20px">
+												<span>明细科目：</span>
+												<form:select path="subDetailId">
+													<form:option value="0" label="全部"></form:option>
+													<form:options items="${subDetails}"
+														itemLabel="subjectDetailName" itemValue="subjectDetailId" />
+												</form:select>
+											</div>
+											<div style="height:60px;"></div>
+											<div
+												style="width: 1100px; height: 30px; margin-left: 20px;">
+												<span class="sp1 well">本月收入：￥</span><span class="sp1 well">${fin.sumIncome }</span>
+												<span class="sp1 well">本月支出：￥</span><span class="sp1 well">${fin.sumExpenditure }</span>
+												<span class="sp1 well">本月结余：￥</span><span class="sp1 well" style="color:green;font-weight: bold">${fin.curCount }</span>
+												<span class="sp1 well">上月结余：￥</span><span class="sp1 well">${fin.preCount }</span>
+												<br><br><br><br>
+												<span class="sp1 well">总结余：￥</span><span class="sp1 well" style="color:green;font-weight: bold;">${fin.sumCount }</span>
 											</div>
 
-											<form:label path="queryParams[hiredate]"
-												cssClass="col-sm-1 control-label no-padding-right">入职时间早于</form:label>
-
-											<div class="col-sm-3">
-												<form:input id="form-field-2" path="queryParams[hiredate]"
-													placeholder="入职时间早于" cssClass="datepicker" />
-											</div>
-											
 											<form:hidden id="current_page" path="pag.current_page" />
 											<form:hidden id="total_page" path="pag.total_page" />
 										</div>
@@ -169,17 +199,11 @@
 						<div class="widget-box">
 							<div class="widget-header widget-header-flat widget-header-small">
 								<h5 class="widget-title">
-									<i class="ace-icon fa fa-database"></i> 员工管理
-
+									<i class="ace-icon fa fa-database"></i> 流水信息
 								</h5>
 								<div class="widget-toolbar">
 									<div class="btn-toolbar">
 										<div class="btn-group">
-											<button id="addButton"
-												class="btn btn-sm btn-success btn-white btn-round"
-												value="emp.do">
-												<i class="ace-icon fa fa-plus bigger-110 green"></i> 员工添加
-											</button>
 											<div class="tableTools-container"></div>
 										</div>
 									</div>
@@ -236,11 +260,39 @@
 	<script src="assets/js/buttons.print.min.js"></script>
 	<script src="assets/js/buttons.colVis.min.js"></script>
 	<script src="assets/js/dataTables.select.min.js"></script>
-
 	<!-- inline scripts related to this page -->
 	<script type="text/javascript">
+		function change_sub() {
+			var subid=$("#subId").val();
+			$.ajax({
+				"url" : "getSubDetailsList/"+subid+".do",
+				"type" : "post",
+				"contentType" : "application/json;charset=UTF-8",
+				"cache" : false,
+				"dataType":"json",
+				"success":function(result){
+					var subDe=document.getElementById("subDetailId");
+					subDe.innerHTML=""
+					if(result==null || result.length==0){
+						var newOP=document.createElement("option");
+						newOP.innerHTML="全部";
+						newOP.value=0;
+						subDe.appendChild(newOP);
+					}
+					for(var i=0;i<result.length;i++){
+						var newOP=document.createElement("option");
+						newOP.innerHTML=result[i].subjectDetailName;
+						newOP.value=result[i].subjectDetailId;
+						subDe.appendChild(newOP);
+					}
+				},
+				"error":function(){
+					alert("服务器响应失败！")
+				}
+			})
+		}
 		jQuery(function($) {
-
+			
 			var bq = {
 				'pag' : {
 					'current_page' : '1',
@@ -284,28 +336,30 @@
 					bq.pag.current_page = current_page;
 				}
 				bq.pag.page_size = $("select[name='main-table_length']").val();
-				if($(":input[name='queryParams[empName]']")!=null&&$(":input[name='queryParams[empName]']")!=undefined){
-					bq.queryParams.empName = $(":input[name='queryParams[empName]']").val();
+				//添加收支类型
+				bq.queryParams.waterType = $('input:radio:checked').val();
+				//开始时间
+				if($(":input[name='startDate']")!=null&&$(":input[name='startDate']")!=undefined){
+					bq.queryParams.startDate = $(":input[name='startDate']").val();
 				}
-				if($(":input[name='queryParams[userName]']")!=null&&$(":input[name='queryParams[userName]']")!=undefined){
-					bq.queryParams.userName = $(
-					":input[name='queryParams[userName]']").val();
+				//结束时间
+				if($(":input[name='endDate']")!=null&&$(":input[name='endDate']")!=undefined){
+					bq.queryParams.endDate = $(":input[name='endDate']").val();
 				}
-				if($(":input[name='queryParams[hiredate]']")!=null&&$(":input[name='queryParams[hiredate]']")!=undefined){
-					bq.queryParams.hiredate = $(
-					":input[name='queryParams[hiredate]']").val();
-				}
+				//科目
+				bq.queryParams.subId = $("#subId").val();
+				//科目明细
+				bq.queryParams.subDetailId = $("#subDetailId").val();
+				
 				return JSON.stringify(bq);
 			}
 
-			
 			var writeParams = function(result) {
-				$(":input[name='queryParams[userName]']").val(
-						result.queryParams.userName);
-				$(":input[name='queryParams[empName]']").val(
-						result.queryParams.empName);
-				$(":input[name='queryParams[hiredate]']").val(
-						result.queryParams.hiredate);
+// 				$(":input[name='queryParams[empName]']").val(
+// 						result.queryParams.empName);
+// 				$(":input[name='queryParams[hiredate]']").val(
+// 						result.queryParams.hiredate);
+				
 				$(":input[name='pag.current_page']").val(
 						result.pag.current_page);
 				$(":input[name='pag.total_page']").val(result.pag.total_page);
@@ -313,83 +367,38 @@
 
 			var tableColumn = [
 					{
-						data : "empName",
-						title : "员工姓名"
-					},
-					{
-						data : "userName",
-						title : "用户名"
-					},
-					{
-						data : "phone",
-						title : "手机号"
-					},
-					{
-						data : "hiredate",
-						title : "入职时间",
+						data : "waterType",
+						title : "收支类型",
 						render : function(data, type, full, meta) {
-							return (new Date(data)).Format("yyyy-MM-dd");
-						}
-					},
-					{
-						data : "schoolDistrict",
-						title : "所属校区",
-						render : function(data, type, full, meta) {
-							if(data!=null){
-								return data.schoolName;
-							}
-							return '';
-						}
-					},
-					{
-						data : "dept",
-						title : "所属部门",
-						render : function(data, type, full, meta) {
-							if(data!=null){
-								return data.deptName;
-							}
-							return '';
-						}
-					},
-					{
-						data : "role",
-						title : "所属角色",
-						render : function(data, type, full, meta) {
-							if(data!=null){
-								return data.roleName;
-							}
-							return '';
-						}
-					},
-					{
-						data : "station",
-						title : "所属岗位",
-						render : function(data, type, full, meta) {
-							if(data!=null){
-								return data.stationName;
-							}
-							return '';
-						}
-					},
-					{
-						data : "assoWeChat",
-						title : "是否关联微信",
-						render : function(data, type, full, meta) {
-							if ("0" === data) {
-								return "是";
+							if ("0" == data) {
+								return "支出";
 							} else {
-								return "否";
+								return "收入";
 							}
+						}
+					},
+					{
+						data : "waterSum",
+						title : "金额"
+					},
+					{
+						data : "remark",
+						title : "备注"
+					},
+					{
+						data : "billPath",
+						title : "票据",
+						render : function(data, type, full, meta) {
+							return "<img style='width:40px;height:30px' src='"+data+"'><button style='width:75px;height:25px'>票据添加</button>";
 						}
 					},
 					{
 						title : "操作",
-						data : function( row, type, val, meta ) {
-							var id = row['empId'];
-							var str = "<a class='update blue' href='emp/"+id+".do' data-toggle='modal'>修改</a>"
+						data : function(row, type, val, meta) {
+							var id = row['waterId'];
+							var str = "<a class='update blue' href='fin/"+id+".do' data-toggle='modal'>修改</a>"
 									+ "&nbsp;&nbsp;"
-									+ "<a class='dele red' href='emp/"+id+".do' data-toggle='modal'>删除</a>";
-							
+									+ "<a class='dele red' href='fin/"+id+".do' data-toggle='modal'>删除</a>";
 							return str;
 						}
 					} ];
@@ -401,7 +410,7 @@
 								bPaginate : true,
 								pageLength : 10,
 								pagingType : "full_numbers",
-								searching:false,
+								searching : false,
 								columnDefs : [
 								//targets定义哪一列，可以是数组，0代表左起第一列，_all代表所有
 								{
@@ -411,11 +420,10 @@
 								//必须加这句话，fnDraw()时才会重新加载数据
 								"bServerSide" : true,
 								ajax : {
-									"url" : "getEmpList.do",
+									"url" : "getFinList.do",
 									"type" : "post",
 									"contentType" : "application/json;charset=UTF-8",
 									"cache" : false,
-									"async" : true,
 									"data" : function(e) {
 										if (typeof (preParams) != "undefined"
 												&& typeof (preParams) == "function") {
@@ -446,64 +454,115 @@
 										e.preventDefault();
 										var updateUrl = $(this).prop("href");
 										//在当前页面刷新新的页面
-										$("#main").load(updateUrl,initMain);										
+										$("#main").load(updateUrl, initMain);
 									});
 									//删除----------
-									$(".dele").on("click",
-											function(e) {
-												e.preventDefault();
-												var del = window
-														.confirm("你真的要删除吗？");
-												if (del) {
-													var url = $(this).prop("href");
-													var user_id = $(this).closest("tr").children("td").first().html();
-													console.log(url);
-													$.ajax({
-																"url" : url,
-																"method" : "delete",
-																"dataType" : "json",
-																"contentType" : "application/json;charset=UTF-8",
-																"success" : function(result) {
-																	if (result.msg === 'success') {
-																		var href = "emps.do";
-																		$("#main").load(href,function(){
-																			initMain();
-																			var alertDiv = $("#alertDiv");
-																			alertDiv.removeClass("hidden");
-																			alertDiv.removeClass("alert-warning");
-																			alertDiv.removeClass("alert-danger");
-																			alertDiv.addClass("alert-info");
-																			alertDiv.find("button").next("span").remove();
-																			alertDiv.find("button").after("<span>删除成功,删除用户的为id:"+user_id+" <i class='ace-icon glyphicon glyphicon-ok'></i></span>");
-																		});
-																	}
-																	if (result.msg === 'error'){
-																		var alertDiv = $("#alertDiv");
-																		alertDiv.removeClass("hidden");
-																		if(result.errorCode == '503'){
-																			alertDiv.removeClass("alert-warning");
-																			alertDiv.removeClass("alert-info");
-																			alertDiv.addClass("alert-danger");
+									$(".dele")
+											.on(
+													"click",
+													function(e) {
+														e.preventDefault();
+														var del = window
+																.confirm("你真的要删除吗？");
+														if (del) {
+															var url = $(this)
+																	.prop(
+																			"href");
+															var user_id = $(
+																	this)
+																	.closest(
+																			"tr")
+																	.children(
+																			"td")
+																	.first()
+																	.html();
+															console.log(url);
+															$
+																	.ajax({
+																		"url" : url,
+																		"method" : "delete",
+																		"dataType" : "json",
+																		"contentType" : "application/json;charset=UTF-8",
+																		"success" : function(
+																				result) {
+																			if (result.msg === 'success') {
+																				var href = "emps.do";
+																				$(
+																						"#main")
+																						.load(
+																								href,
+																								function() {
+																									initMain();
+																									var alertDiv = $("#alertDiv");
+																									alertDiv
+																											.removeClass("hidden");
+																									alertDiv
+																											.removeClass("alert-warning");
+																									alertDiv
+																											.removeClass("alert-danger");
+																									alertDiv
+																											.addClass("alert-info");
+																									alertDiv
+																											.find(
+																													"button")
+																											.next(
+																													"span")
+																											.remove();
+																									alertDiv
+																											.find(
+																													"button")
+																											.after(
+																													"<span>删除成功,删除用户的为id:"
+																															+ user_id
+																															+ " <i class='ace-icon glyphicon glyphicon-ok'></i></span>");
+																								});
+																			}
+																			if (result.msg === 'error') {
+																				var alertDiv = $("#alertDiv");
+																				alertDiv
+																						.removeClass("hidden");
+																				if (result.errorCode == '503') {
+																					alertDiv
+																							.removeClass("alert-warning");
+																					alertDiv
+																							.removeClass("alert-info");
+																					alertDiv
+																							.addClass("alert-danger");
+																				}
+																				alertDiv
+																						.find(
+																								"button")
+																						.next(
+																								"span")
+																						.remove();
+																				alertDiv
+																						.find(
+																								"button")
+																						.after(
+																								"<span>"
+																										+ result.errorMsg
+																										+ "</span>");
+																			}
 																		}
-																		alertDiv.find("button").next("span").remove();
-																		alertDiv.find("button").after("<span>"+result.errorMsg+"</span>");
-																	}
-																}
-															})
-												}
-											});
+																	})
+														}
+													});
 									//删除结束----------
 									$(".pagination .paginate_button")
 											.on(
 													"mousedown",
 													function(e) {
 														var cp = $(":input[name='pag.current_page']");
-														if(cp==null||cp==undefined){
+														if (cp == null
+																|| cp == undefined) {
 															return;
 														}
-														var currentPage = cp.val();
+														var currentPage = cp
+																.val();
 														var firstPage = 1;
-														var total_page = $(":input[name='pag.total_page']").val();
+														var total_page = $(
+																":input[name='pag.total_page']")
+																.val();
 														var pageInfo = '';
 														//点击了那一个按钮
 														if ($(this).hasClass(
@@ -518,26 +577,30 @@
 														} else if ($(this)
 																.hasClass(
 																		"previous")) {
-															
-															if(parseInt(currentPage) - 1<=1){
-																cp.val(firstPage);
+
+															if (parseInt(currentPage) - 1 <= 1) {
+																cp
+																		.val(firstPage);
 																pageInfo = "previous";
-															}else{
-																cp.val(parseInt(currentPage) - 1);
+															} else {
+																cp
+																		.val(parseInt(currentPage) - 1);
 																pageInfo = "previous";
 															}
-															
+
 														} else if ($(this)
 																.hasClass(
 																		"next")) {
-															if(parseInt(currentPage) + 1>=total_page){
-																cp.val(total_page);
+															if (parseInt(currentPage) + 1 >= total_page) {
+																cp
+																		.val(total_page);
 																pageInfo = "next";
-															}else{
-																cp.val(parseInt(currentPage) + 1);
+															} else {
+																cp
+																		.val(parseInt(currentPage) + 1);
 																pageInfo = "next";
 															}
-															
+
 														} else {
 															cp
 																	.val($(this)
@@ -580,11 +643,12 @@
 				$(":input[name='pag.current_page']").val(1);
 			})
 			$("#searchButton").on("click", function() {
+				//重新画
 				mainTable.fnDraw();
 			})
-			
-			$("#clearButton").on("click",function(){
-				$("#searchForm input").each(function(){
+
+			$("#clearButton").on("click", function() {
+				$("#searchForm input").each(function() {
 					$(this).val("");
 				})
 			})
@@ -598,7 +662,7 @@
 
 			$("#addButton").on("click", function() {
 				var addUrl = $(this).val();
-				$("#main").load(addUrl,initMain);
+				$("#main").load(addUrl, initMain);
 			});
 
 		})

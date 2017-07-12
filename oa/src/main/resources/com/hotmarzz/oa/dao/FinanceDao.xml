@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hotmarzz.oa.dao.FinanceDao">
+	
+	<sql id="subDetailCol">
+		SUBJECTDETAILID,SUBJECTDETAILNAME,DETAILTITLE
+	</sql>
+	<sql id="finCol">
+		WATERID,SCHOOLID,SUBJECTID,SUBJECTDETAILID,WATERTYPE,WATERBANCH,WATERSUM,
+		REMARK,WATERDATE,BILLPATH,BROKERAGE,CREATEUSER,CREATEDATE,UPDATEUSER,UPDATEDATE
+	</sql>
+	
+	<select id="getSubsList" resultType="subject">
+		select subjectid,subjectname from o_subject
+	</select>
+	
+	<select id="getSubDetailsList" parameterType="int" resultType="subjectDetail">
+		select 
+		<include refid="com.hotmarzz.oa.dao.FinanceDao.subDetailCol"/>
+		from o_subjectdetail where subjectid=#{subId}
+	</select>
+	
+	<select id="getSumIncome" resultType="double">
+		select sum(watersum) from O_CAMPUSWATER 
+		where watertype=1 
+		and (select to_char(WATERDATE,'yyyy-mm') from dual)=#{formatDate}
+	</select>
+	
+	<select id="getSumExpenditure" resultType="double">
+		select sum(watersum) from O_CAMPUSWATER 
+		where watertype=0 
+		and (select to_char(WATERDATE,'yyyy-mm') from dual)=#{formatDate}
+	</select>
+	
+	<select id="getListPage" parameterType="baseQuery" resultType="campuswater">
+		select 
+		<include refid="com.hotmarzz.oa.dao.FinanceDao.finCol"/>
+		from o_campuswater
+		<include refid="com.hotmarzz.basic.dao.BaseDao.queryByConditions"/>
+		<if test="startDate!=null">
+			and waterdate >=#{startDate}
+		</if>
+		<if test="endDate!=null">
+			and waterdate &lt;=#{endDate}
+		</if>
+		<include refid="com.hotmarzz.basic.dao.BaseDao.queryByOrders"/>
+	</select>
+	
+	<select id="getCount" parameterType="baseQuery" resultType="int">
+		<include refid="com.hotmarzz.basic.dao.BaseDao.count"/> o_campuswater 
+		<include refid="com.hotmarzz.basic.dao.BaseDao.queryByConditions"/>
+	</select>
+</mapper>
