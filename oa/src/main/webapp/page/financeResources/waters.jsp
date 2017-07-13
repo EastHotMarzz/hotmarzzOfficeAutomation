@@ -86,9 +86,9 @@
 				</div>
 
 				<div id="alertDiv" class="alert alert-warning hidden">
-					<button class="close" data-dismiss="alert">
-						<i class="ace-icon fa fa-times"></i>
-					</button>
+					<a class="close" href="#">
+							<i class="ace-icon fa fa-times"></i>
+					</a>
 				</div>
 				<!-- /.page-header -->
 
@@ -103,7 +103,7 @@
 								<div class="widget-toolbar no-border">
 									<div class="btn-toolbar">
 										<div class="btn-group">
-											<button id="addFinButton"
+											<button id="addButton" value="water.do"
 												class="btn btn-sm btn-success btn-white btn-round">
 												<i class="ace-icon fa fa-plus bigger-110 green"></i> 添加
 											</button>
@@ -292,6 +292,11 @@
 			})
 		}
 		jQuery(function($) {
+			$("#alertDiv a").click(function(){
+				var alertDiv = $("#alertDiv");
+				alertDiv.addClass("hidden");
+				alertDiv.find("a").next("span").remove();
+			})
 			
 			var bq = {
 				'pag' : {
@@ -525,13 +530,13 @@
 																											.addClass("alert-info");
 																									alertDiv
 																											.find(
-																													"button")
+																													"a")
 																											.next(
 																													"span")
 																											.remove();
 																									alertDiv
 																											.find(
-																													"button")
+																													"a")
 																											.after(
 																													"<span>删除成功<i class='ace-icon glyphicon glyphicon-ok'></i></span>");
 																								});
@@ -550,13 +555,13 @@
 																				}
 																				alertDiv
 																						.find(
-																								"button")
+																								"a")
 																						.next(
 																								"span")
 																						.remove();
 																				alertDiv
 																						.find(
-																								"button")
+																								"a")
 																						.after(
 																								"<span>"
 																										+ result.errorMsg

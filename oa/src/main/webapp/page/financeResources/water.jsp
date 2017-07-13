@@ -11,7 +11,7 @@
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta charset="utf-8" />
-<title>学员信息填写 - 东方黑玛oa系统</title>
+<title>流水信息填写 - 东方黑玛oa系统</title>
 
 <meta name="description" content="Static &amp; Dynamic Tables" />
 <meta name="viewport"
@@ -66,23 +66,16 @@
 			<div class="main-content-inner">
 				<div class="breadcrumbs ace-save-state" id="breadcrumbs">
 					<ul class="breadcrumb">
-						<li><i class="ace-icon fa fa-home home-icon"></i> <a href="main.do">东方黑玛oa系统</a>
+						<li><i class="ace-icon fa fa-home home-icon"></i> <a href="#">东方黑玛oa系统</a>
 						</li>
-
-						<li><c:if test="${stuForm.stuId == null || stuForm.stuId == ''}">
-								<a id="fillingManageLink" href="stus.do">学员管理</a>
-							</c:if> 
-							<c:if test="${!(stuForm.stuId == null || stuForm.stuId == '')}">
-								<a id="fillingManageLink" href="stus.do">学员管理</a>
-							</c:if></li>
 						<li class="active">
 							<c:if
-								test="${stuForm.stuId == null || stuForm.stuId == ''}">
-												学员添加
+								test="${waterForm.waterId == null || waterForm.waterId == ''}">
+												资金申请
 							</c:if> 
 							<c:if
-								test="${!(stuForm.stuId == null || stuForm.stuId == '')}">
-												学员修改
+								test="${!(waterForm.waterId == null || waterForm.waterId == '')}">
+												流水修改
 							</c:if>
 					</ul>
 					<!-- /.breadcrumb -->
@@ -91,17 +84,17 @@
 				<div class="page-content">
 					<div class="page-header">
 						<h1>
-							学员管理 <small> <i class="ace-icon fa fa-angle-double-right"></i>
-								<c:if test="${stuForm.stuId == null || stuForm.stuId == ''}">
-												学员添加
+							流水管理 <small> <i class="ace-icon fa fa-angle-double-right"></i>
+								<c:if test="${waterForm.waterId == null || waterForm.waterId == ''}">
+												资金申请
 											</c:if> <c:if
-									test="${!(stuForm.stuId == null || stuForm.stuId == '')}">
-												学员修改
+									test="${!(waterForm.waterId == null || waterForm.waterId == '')}">
+												流水修改
 											</c:if>
 							</small>
 						</h1>
 					</div>
-					<!-- 提示：学员重复信息的div -->
+					<!-- 提示：流水重复信息的div -->
 					<div id="alertDiv" class="alert hidden">
 						<a class="close" href="#">
 							<i class="ace-icon fa fa-times"></i>
@@ -118,12 +111,12 @@
 								<div class="widget-header widget-header-blue widget-header-flat">
 									<h4 class="widget-title lighter">
 
-										<c:if test="${stuForm.stuId == null || stuForm.stuId == ''}">
-												学员添加
+										<c:if test="${waterForm.waterId == null || waterForm.waterId == ''}">
+												资金申请
 											</c:if>
 										<c:if
-											test="${!(stuForm.stuId == null || stuForm.stuId == '')}">
-												学员修改
+											test="${!(waterForm.waterId == null || waterForm.waterId == '')}">
+												流水修改
 											</c:if>
 									</h4>
 
@@ -136,146 +129,101 @@
 											<div class="step-content pos-rel">
 												<div class="step-pane active" data-step="1">
 													<form:form cssClass="form-horizontal" id="fillForm"
-														modelAttribute="stuForm">
+														modelAttribute="waterForm">
 
 														<c:if
-															test="${!(stuForm.stuId == null || stuForm.stuId == '')}">
-															<form:hidden path="stuId" cssClass="col-xs-12 col-sm-6" />
+															test="${!(waterForm.waterId == null || waterForm.waterId == '')}">
+															<form:hidden path="waterId" cssClass="col-xs-12 col-sm-6" />
 														</c:if>
 
 														<div class="form-group">
-															<form:label path="stuName"
-																cssClass="control-label col-xs-12 col-sm-3 no-padding-right">学员姓名:</form:label>
+															<form:label path="waterType" 
+ 																cssClass="control-label col-xs-12 col-sm-3 no-padding-right">账目类别:</form:label> 
 															<div class="col-xs-12 col-sm-9">
 																<div class="clearfix">
-																	<form:input path="stuName"
-																		cssClass="col-xs-12 col-sm-6" />
-																	<form:errors path="stuName" />
-																</div>
-															</div>
-														</div>
-
-														<div class="space-2"></div>
-														<div class="form-group">
-															<form:label path="sex" 
- 																cssClass="control-label col-xs-12 col-sm-3 no-padding-right">性别:</form:label> 
-															<div class="col-xs-12 col-sm-9">
-																<div class="clearfix">
-																	<form:radiobutton path="sex" value="0" checked="checked" />
-																	男
-																	<form:radiobutton path="sex" value="1"/> 
-																	女
-																</div>
-															</div>
-														</div>
-														<div class="space-2"></div>
-														<div class="form-group">
-															<form:label path="stuAge"
- 																cssClass="control-label col-xs-12 col-sm-3 no-padding-right">年龄:</form:label>
-															<div class="col-xs-12 col-sm-9">
-																<div class="clearfix">
- 																	<form:input path="stuAge" 
- 																		cssClass="col-xs-12 col-sm-6" /> 
- 																	<form:errors path="stuAge" />
-																</div>
-															</div>
-														</div>
-
-														<div class="space-2"></div>
-
-														<div class="form-group">
-															<form:label path="phone"
-																cssClass="control-label col-xs-12 col-sm-3 no-padding-right">手机号:</form:label>
-															<div class="col-xs-12 col-sm-9">
-																<div class="clearfix">
-																	<form:input path="phone" cssClass="col-xs-12 col-sm-6" />
-																	<form:errors path="phone" />
-																</div>
-															</div>
-														</div>
-
-														<div class="space-2"></div>
-
-														<div class="form-group">
-															<form:label path="entranceTime" 
- 																cssClass="control-label col-xs-12 col-sm-3 no-padding-right">入学时间:</form:label> 
-															<div class="col-xs-12 col-sm-9">
-																<div class="clearfix">
- 																	<form:input path="entranceTime" 
- 																		cssClass="datepicker col-xs-12 col-sm-6" /> 
- 																	<form:errors path="entranceTime" /> 
-																</div>
-															</div>
-														</div>
-
-														<div class="space-2"></div>
-
-														<div class="form-group">
- 															<form:label path="education" 
- 																cssClass="control-label col-xs-12 col-sm-3 no-padding-right">学历:</form:label> 
-															<div class="col-xs-12 col-sm-9">
-																<div class="clearfix">
- 																	<form:select path="education" cssClass="col-xs-12 col-sm-6">
- 																		<form:option value="中专">中专</form:option>
- 																		<form:option value="大专">大专</form:option>
- 																		<form:option value="本科">本科</form:option>
- 																		<form:option value="研究生">研究生</form:option>
- 																		<form:option value="博士">博士</form:option>
- 																	</form:select> 
- 																	<form:errors path="education" /> 
-																</div>
-															</div>
-														</div>
-														<div class="space-2"></div>
-
-														<div class="form-group">
- 															<form:label path="graSchool" 
- 																cssClass="control-label col-xs-12 col-sm-3 no-padding-right">毕业院校:</form:label> 
-															<div class="col-xs-12 col-sm-9">
-																<div class="clearfix">
- 																	<form:input path="graSchool" 
- 																		cssClass="col-xs-12 col-sm-6" /> 
- 																	<form:errors path="graSchool" /> 
+																	<form:radiobutton path="waterType" value="0" checked="checked" />
+																	支出
+																	<form:radiobutton path="waterType" value="1"/> 
+																	收入
 																</div>
 															</div>
 														</div>
 														
 														<div class="space-2"></div>
-
 														<div class="form-group">
- 															<form:label path="qq" 
- 																cssClass="control-label col-xs-12 col-sm-3 no-padding-right">QQ:</form:label> 
+															<form:label path="subId"
+ 																cssClass="control-label col-xs-12 col-sm-3 no-padding-right"><span style="color:red">*</span>科目:</form:label>
 															<div class="col-xs-12 col-sm-9">
 																<div class="clearfix">
- 																	<form:input path="qq" 
- 																		cssClass="col-xs-12 col-sm-6" /> 
- 																	<form:errors path="qq" /> 
+ 																	<form:select path="subIdDto" onchange="change_sub()" cssStyle="width:200px">
+ 																		<form:options items="${subs }" itemLabel="subjectName" itemValue="subjectId"/>
+ 																	</form:select>
 																</div>
 															</div>
 														</div>
+														
 														<div class="space-2"></div>
-
 														<div class="form-group">
- 															<form:label path="email" 
- 																cssClass="control-label col-xs-12 col-sm-3 no-padding-right">EMAIL:</form:label> 
+															<form:label path="subDetailId"
+ 																cssClass="control-label col-xs-12 col-sm-3 no-padding-right"><span style="color:red">*</span>科目明细:</form:label>
 															<div class="col-xs-12 col-sm-9">
 																<div class="clearfix">
- 																	<form:input path="email" 
- 																		cssClass="col-xs-12 col-sm-6" /> 
- 																	<form:errors path="email" /> 
+ 																	<form:select path="subDetailIdDto" cssStyle="width:200px">
+ 																		<form:options items="${subDetails }" itemLabel="subjectDetailName" itemValue="subjectDetailId"/>
+ 																	</form:select>
 																</div>
 															</div>
 														</div>
+														
 														<div class="space-2"></div>
-
 														<div class="form-group">
- 															<form:label path="idNumber" 
- 																cssClass="control-label col-xs-12 col-sm-3 no-padding-right">身份证:</form:label> 
+															<form:label path="waterSum"
+ 																cssClass="control-label col-xs-12 col-sm-3 no-padding-right"><span style="color:red">*</span>金额:</form:label>
 															<div class="col-xs-12 col-sm-9">
 																<div class="clearfix">
- 																	<form:input path="idNumber" 
- 																		cssClass="col-xs-12 col-sm-6" /> 
- 																	<form:errors path="idNumber" /> 
+ 																	<form:input path="waterSum" 
+ 																		cssClass="col-xs-12 col-sm-6" onfocus="clearStr()" onkeyup="value=value.replace(/[^\d||.]/g,'')"
+ 																		/> 
+ 																	<span id="waterSumErr" style="color:red"></span>
+																</div>
+															</div>
+														</div>
+														
+														<div class="space-2"></div>
+														<div class="form-group">
+															<form:label path="issupple" 
+ 																cssClass="control-label col-xs-12 col-sm-3 no-padding-right">是否补单:</form:label> 
+															<div class="col-xs-12 col-sm-9">
+																<div class="clearfix">
+																	<form:radiobutton path="issupple" value="0"/>
+																	是
+																	<form:radiobutton path="issupple" value="1" checked="checked"/> 
+																	否
+																</div>
+															</div>
+														</div>
+														
+														<div class="space-2"></div>
+														<div class="form-group">
+															<form:label path="waterDate" 
+ 																cssClass="control-label col-xs-12 col-sm-3 no-padding-right">时间:</form:label> 
+															<div class="col-xs-12 col-sm-9">
+																<div class="clearfix">
+																	<form:input path="waterDate" cssClass="datepicker col-xs-12 col-sm-6" onfocus="clearStr()"/>
+																	<span id="waterDateErr" style="color:red"></span>
+																</div>
+															</div>
+														</div>
+
+														<div class="space-2"></div>
+														<div class="form-group">
+															<form:label path="remark"
+ 																cssClass="control-label col-xs-12 col-sm-3 no-padding-right">备注:</form:label>
+															<div class="col-xs-12 col-sm-9">
+																<div class="clearfix">
+ 																	<form:textarea path="remark" 
+ 																		cssClass="col-xs-12 col-sm-6" />
+ 																	<form:errors path="remark" />
 																</div>
 															</div>
 														</div>
@@ -287,11 +235,11 @@
 													<button class="btn btn-success btn-next" id="submitBtn"
 														data-last="Finish">
 														<c:if
-															test="${stuForm.stuId == null || stuForm.stuId == ''}">
+															test="${waterForm.waterId == null || waterForm.waterId == ''}">
 															添加
 														</c:if>
 														<c:if
-															test="${!(stuForm.stuId == null || stuForm.stuId == '')}">
+															test="${!(waterForm.waterId == null || waterForm.waterId == '')}">
 															修改
 														</c:if>
 														<i class="ace-icon fa fa-arrow-right icon-on-right"></i>
@@ -302,58 +250,6 @@
 										</div>
 										<!-- /.widget-body -->
 									</div>
-									<!-- 
-									<div id="modal-wizard" class="modal">
-										<div class="modal-dialog">
-											<div class="modal-content">
-												<div id="modal-wizard-container">
-													<div class="modal-header">
-														<ul class="steps">
-															<li data-step="1" class="active"><span class="step">1</span>
-																<span class="title">Validation states</span></li>
-
-															<li data-step="2"><span class="step">2</span> <span
-																class="title">Alerts</span></li>
-
-															<li data-step="3"><span class="step">3</span> <span
-																class="title">Payment Info</span></li>
-
-															<li data-step="4"><span class="step">4</span> <span
-																class="title">Other Info</span></li>
-														</ul>
-													</div>
-
-													<div class="modal-body step-content">
-														<div class="step-pane active" data-step="1">
-															<div class="center">
-																<h4 class="blue">Step 1</h4>
-															</div>
-														</div>
-
-														<div class="step-pane" data-step="2">
-															<div class="center">
-																<h4 class="blue">Step 2</h4>
-															</div>
-														</div>
-
-														<div class="step-pane" data-step="3">
-															<div class="center">
-																<h4 class="blue">Step 3</h4>
-															</div>
-														</div>
-
-														<div class="step-pane" data-step="4">
-															<div class="center">
-																<h4 class="blue">Step 4</h4>
-															</div>
-														</div>
-													</div>
-												</div>
-
-											</div>
-										</div>
-									</div>
-									 -->
 									<!-- PAGE CONTENT ENDS -->
 								</div>
 								<!-- /.col -->
@@ -419,6 +315,58 @@
 			<script src="<%=path%>/assets/js/custom/array-utils.js"></script>
 			<!-- inline scripts related to this page -->
 			<script type="text/javascript">
+			function clearStr(){
+				$("#waterDateErr").html("");
+				$("#waterSumErr").html("");
+			}
+			function ck_money(){
+				var myMoney=$("#waterSum").val();
+				if(myMoney=="" || myMoney==null){
+					$("#waterSumErr").html("请添加金额")
+					return false;
+				}
+				return true;
+			}
+			
+			function ck_date(){
+				var myDate=$("#waterDate").val();
+				if(myDate=="" || myDate==null){
+					$("#waterDateErr").html("请填写日期")
+					return false
+				}
+				var nowDate=new Date();
+				var curYear=nowDate.getYear()+1900;
+				var curMonth=nowDate.getMonth()+1;
+				if(curYear==myDate.substring(0,4) && myDate.substring(5,7)==curMonth){
+					return true
+				}
+				$("#waterDateErr").html("日期只能选择当前月份")
+				return false
+			}
+			
+			function change_sub() {
+				var subid=$("#subIdDto").val();
+				$.ajax({
+					"url" : "getSubDetailsList/"+subid+".do",
+					"type" : "post",
+					"contentType" : "application/json;charset=UTF-8",
+					"cache" : false,
+					"dataType":"json",
+					"success":function(result){
+						var subDe=document.getElementById("subDetailIdDto");
+						subDe.innerHTML=""
+						for(var i=0;i<result.length;i++){
+							var newOP=document.createElement("option");
+							newOP.innerHTML=result[i].subjectDetailName;
+							newOP.value=result[i].subjectDetailId;
+							subDe.appendChild(newOP);
+						}
+					},
+					"error":function(){
+						alert("服务器响应失败！")
+					}
+				})
+			}
 				jQuery(function($) {
 					$("#alertDiv a").click(function(){
 						var alertDiv = $("#alertDiv");
@@ -426,15 +374,24 @@
 						alertDiv.find("a").next("span").remove();
 					})
 
-					var listUrl = "stus.do";
-					var addOrUpdateUrl = "stu.do";
+					var listUrl = "fins.do";
+					var addOrUpdateUrl = "water.do";
 					
 					$("#submitBtn")
-							.on("click",
-									function(e) {
+							.on("click",function(e) {
+									var myResult=true;
+									var myResult2=ck_money();
+									var isCheckDate = $("#fillForm input[name='waterId'][type='hidden']").length > 0;
+									if(!isCheckDate){
+										myResult=ck_date();
+									}
+									var ok=myResult && myResult2;
+										if(!ok){
+											return;
+										}
 										console.log($("#fillForm").serialize());
 										console.log(JSON.stringify($("#fillForm").serializeJSON()));
-										var update = $("#fillForm input[name='stuId'][type='hidden']").length > 0;
+										var update = $("#fillForm input[name='waterId'][type='hidden']").length > 0;
 										var method = "post";
 										if (update) {
 											method = "put";
@@ -447,32 +404,17 @@
 													"dataType" : "json",
 													"contentType" : "application/json;charset=UTF-8",
 													"success" : function(result) {
-														if (result.flag === true) {
+														if (result.flag == true) {
 															$("#main").load(listUrl,
 																			function() {
 																				initMain();
 																				var alertDiv = $("#alertDiv");
-																				alertDiv
-																						.removeClass("hidden");
-																				alertDiv
-																						.removeClass("alert-warning");
-																				alertDiv
-																						.removeClass("alert-danger");
-																				alertDiv
-																						.addClass("alert-info");
-																				alertDiv
-																						.find(
-																								"a")
-																						.next(
-																								"span")
-																						.remove();
-																				alertDiv
-																						.find(
-																								"a")
-																						.after(
-																								"<span>"
-																										+ result.msg
-																										+ "<i class='ace-icon glyphicon glyphicon-ok'></i></span>");
+																				alertDiv.removeClass("hidden");
+																				alertDiv.removeClass("alert-warning");
+																				alertDiv.removeClass("alert-danger");
+																				alertDiv.addClass("alert-info");
+																				alertDiv.find("a").next("span").remove();
+																				alertDiv.find("a").after("<span>"+ result.msg+ "<i class='ace-icon glyphicon glyphicon-ok'></i></span>");
 																			});
 														}
 														if (result.flag === 'validation') {
@@ -521,14 +463,12 @@
 													}
 												})
 									});
-
 					$('.datepicker').datepicker({
 						autoclose : true,
 						todayHighlight : true,
 						todayBtn : true,
 						format : "yyyy-mm-dd"
 					})
-					//show datepicker when clicking on the icon
 					.next().on(ace.click_event, function() {
 						$(this).prev().focus();
 					});

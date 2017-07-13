@@ -2,15 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.hotmarzz.oa.dao.EmpDao">
-	<!-- 原版的字段 -->
 	<sql id="empCol">
-		empid,empname,username,userpwd,phone,hiredate,schoolid,deptid,roleid,
-		stationid,assowechat,createuser,createdate,updateuser,updatedate,sex
+		empid,empname,username,userpwd,phone,hiredate,e.schoolid aid1,e.roleid er,
+		assowechat,e.createuser,e.createdate,e.updateuser,e.updatedate,sex
 	</sql>
+	<sql id="roleCol">
+		r.roleid rr,r.rolename
+	</sql>
+	<sql id="slsCol">
+		sls.SCHOOLID aid2,sls.SCHOOLNAME,sls.PROVINCE
+	</sql>
+	
 	<!-- 添加了role权限的字段 -->
 	<sql id="empCol_role">
-		empid,empname,username,userpwd,phone,hiredate,e.roleid er,
-		assowechat,createuser,createdate,updateuser,updatedate,sex,r.roleid rr,r.rolename
+		<include refid="com.hotmarzz.oa.dao.EmpDao.empCol"></include>,
+		<include refid="com.hotmarzz.oa.dao.EmpDao.roleCol"></include>
+	</sql>
+	<!-- 登陆专用 -->
+	<sql id="empCol_role_school">
+		<include refid="com.hotmarzz.oa.dao.EmpDao.empCol"></include>,
+		<include refid="com.hotmarzz.oa.dao.EmpDao.roleCol"></include>,
+		<include refid="com.hotmarzz.oa.dao.EmpDao.slsCol"></include>
 	</sql>
 	
 	<select id="getListPage" parameterType="baseQuery" resultMap="empMap">
@@ -31,10 +43,11 @@
 	
 	<select id="login" parameterType="emp" resultMap="empMap">
 		select 
-		<include refid="com.hotmarzz.oa.dao.EmpDao.empCol_role"/>
-		from o_emp e left outer join o_role r
-		on
-		e.roleid=r.roleid
+		<include refid="com.hotmarzz.oa.dao.EmpDao.empCol_role_school"/>
+		from
+		o_emp e join
+		o_schooldistrict sls on e.schoolid=sls.schoolid join
+		o_role r on e.roleid=r.roleid
 		where
 		userName=#{userName,jdbcType=VARCHAR} and userpwd=#{userPwd,jdbcType=VARCHAR}
 	</select>
@@ -46,7 +59,6 @@
 		<result column="userpwd" property="userPwd"/>
 		<result column="phone" property="phone"/>
 		<result column="hiredate" property="hiredate"/>
-<!-- 		<result column="schoolid" property="schoolDistrict"/> -->
 <!-- 		<result column="deptid" property="dept"/> -->
 <!-- 		<result column="stationid" property="station"/> -->
 		<result column="assoWeChat" property="assoWeChat"/>
@@ -56,6 +68,13 @@
 		<result column="updateUser" property="updateUser"/>
 		<result column="updateDate" property="updateDate"/>
 		
+		<!-- 校区 -->
+		<association property="schoolDistrict" column="aid1" javaType="com.hotmarzz.oa.pojo.SchoolDistrict">
+			<id column="aid2" property="schoolId"/>
+			<result column="schoolName" property="schoolName"/>
+			<result column="province" property="province"/>
+		</association>
+		<!-- 角色 -->
 		<association property="role" column="er" javaType="com.hotmarzz.oa.pojo.Role">
 			<id column="rr" property="roleId"/>
 			<result column="rolename" property="roleName"/>

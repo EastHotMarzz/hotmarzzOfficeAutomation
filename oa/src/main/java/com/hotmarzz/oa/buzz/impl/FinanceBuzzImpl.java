@@ -1,5 +1,6 @@
 package com.hotmarzz.oa.buzz.impl;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -12,9 +13,11 @@ import org.springframework.stereotype.Service;
 import com.hotmarzz.oa.buzz.FinanceBuzz;
 import com.hotmarzz.oa.dao.FinanceDao;
 import com.hotmarzz.oa.pojo.CampusWater;
-import com.hotmarzz.oa.pojo.Student;
+import com.hotmarzz.oa.pojo.CampusWaterDto;
+import com.hotmarzz.oa.pojo.Emp;
 import com.hotmarzz.oa.pojo.Subject;
 import com.hotmarzz.oa.pojo.SubjectDetail;
+import com.hotmarzz.oa.utils.SessionUtils;
 
 @Service
 public class FinanceBuzzImpl implements FinanceBuzz{
@@ -39,7 +42,7 @@ public class FinanceBuzzImpl implements FinanceBuzz{
 		return finDao.getSubsList();
 	}
 	@Override
-	public List<SubjectDetail> getSubDetailsList(int subId) throws Exception {
+	public List<SubjectDetail> getSubDetailsList(Long subId) throws Exception {
 		return finDao.getSubDetailsList(subId);
 	}
 	@Override
@@ -64,6 +67,27 @@ public class FinanceBuzzImpl implements FinanceBuzz{
 	@Override
 	public void delete(Long fid) throws Exception {
 		finDao.delete(fid);
+	}
+	@Override
+	public void add(CampusWaterDto cw) throws Exception {
+		//默认为登录人所在校区
+		cw.setSchoolIdDto(((Emp)(session.getAttribute(SessionUtils.LOGIN_EMP_KEY))).getSchoolDistrict().getSchoolId());
+		//默认流水批次为当前月份
+		Calendar cal=Calendar.getInstance();
+		int month=cal.get(Calendar.MONTH)+1;
+		cw.setWaterBanch(month+"月");
+		//默认经手人为登录人
+		cw.setBrokerage(((Emp)(session.getAttribute(SessionUtils.LOGIN_EMP_KEY))).getEmpName());
+		cw.setCreateUser(((Emp)(session.getAttribute(SessionUtils.LOGIN_EMP_KEY))).getEmpName());
+		finDao.add(cw);
+	}
+	@Override
+	public CampusWater getById(Long wid) throws Exception {
+		return finDao.getById(wid);
+	}
+	@Override
+	public void update(CampusWaterDto cwd) throws Exception {
+		finDao.update(cwd);
 	}
 	
 	

@@ -8,7 +8,7 @@
 	</sql>
 	<sql id="finCol">
 		cw.WATERID,cw.SCHOOLID aid1,cw.SUBJECTID bid1,cw.SUBJECTDETAILID cid1,cw.WATERTYPE,cw.WATERBANCH,cw.WATERSUM,
-		cw.REMARK,cw.WATERDATE,cw.BILLPATH,cw.BROKERAGE,cw.CREATEUSER,cw.CREATEDATE,cw.UPDATEUSER,cw.UPDATEDATE
+		cw.REMARK,cw.WATERDATE,cw.BILLPATH,cw.BROKERAGE,cw.CREATEUSER,cw.CREATEDATE,cw.UPDATEUSER,cw.UPDATEDATE,cw.ISSUPPLE
 	</sql>
 	<sql id="sbCol">
 		sb.SUBJECTID bid2,sb.SUBJECTNAME
@@ -30,7 +30,7 @@
 		select subjectid,subjectname from o_subject
 	</select>
 	
-	<select id="getSubDetailsList" parameterType="int" resultType="subjectDetail">
+	<select id="getSubDetailsList" parameterType="long" resultType="subjectDetail">
 		select 
 		<include refid="com.hotmarzz.oa.dao.FinanceDao.subDetailCol"/>
 		from o_subjectdetail where subjectid=#{subId}
@@ -111,4 +111,67 @@
 	<delete id="delete" parameterType="long">
 		delete from o_campuswater where waterid=#{fid}
 	</delete>
+	
+	<insert id="add" parameterType="campuswaterdto">
+		<selectKey keyProperty="waterId" order="BEFORE" resultType="long">
+			select o_seq.nextval from dual
+		</selectKey>
+		insert into o_campuswater values(
+			#{waterId,jdbcType=NUMERIC},
+			#{schoolIdDto,jdbcType=NUMERIC},
+			#{subIdDto,jdbcType=NUMERIC},
+			#{subDetailIdDto,jdbcType=NUMERIC},
+			#{waterType,jdbcType=NUMERIC},
+			#{waterBanch,jdbcType=VARCHAR},
+			#{waterSum,jdbcType=NUMERIC},
+			<if test="remark !=null">
+			#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="remark ==null">
+				null,
+			</if>
+			#{waterDate,jdbcType=DATE},
+			<if test="billPath !=null">
+			#{billPath,jdbcType=VARCHAR},
+			</if>
+			<if test="billPath ==null">
+				null,
+			</if>
+			#{brokerage,jdbcType=VARCHAR},
+			#{createUser,jdbcType=VARCHAR},
+			<if test="createDate ==null">
+				sysdate,
+			</if>
+			<if test="updateUser !=null">
+			#{updateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="updateUser ==null">
+				null,
+			</if>
+			null,
+			#{issupple,jdbcType=NUMERIC}
+		)
+	</insert>
+	
+	<select id="getById" parameterType="long" resultMap="waterMap">
+		select 
+		<include refid="com.hotmarzz.oa.dao.FinanceDao.waterCol"/>
+		from o_campuswater cw 
+		join (select * from o_subject) sb on cw.subjectid=sb.subjectid
+		join (select * from o_schooldistrict) sls on cw.schoolid=sls.schoolid
+		join (select * from o_subjectdetail) sbd on cw.subjectdetailid=sbd.subjectdetailid
+		where cw.waterid=#{wid}
+	</select>
+	
+	<update id="update" parameterType="campuswaterdto">
+		update o_campuswater set
+		watertype=#{waterType},
+		subjectid=#{subIdDto},
+		subjectdetailid=#{subDetailIdDto},
+		watersum=#{waterSum},
+		issupple=#{issupple},
+		waterdate=#{waterDate},
+		remark=#{remark}
+		where waterid=#{waterId}
+	</update>
 </mapper>

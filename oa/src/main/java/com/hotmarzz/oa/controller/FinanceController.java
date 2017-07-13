@@ -5,11 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,9 +24,13 @@ import com.hotmarzz.basic.utils.JsonUtils;
 import com.hotmarzz.basic.utils.StringUtils;
 import com.hotmarzz.oa.buzz.FinanceBuzz;
 import com.hotmarzz.oa.pojo.CampusWater;
+import com.hotmarzz.oa.pojo.CampusWaterDto;
+import com.hotmarzz.oa.pojo.Emp;
 import com.hotmarzz.oa.pojo.FinanceDto;
+import com.hotmarzz.oa.pojo.SchoolDistrict;
 import com.hotmarzz.oa.pojo.SubjectDetail;
 import com.hotmarzz.oa.utils.FormatDateUtil;
+import com.hotmarzz.oa.utils.SessionUtils;
 
 @Controller
 public class FinanceController {
@@ -83,7 +90,7 @@ public class FinanceController {
 
 	@RequestMapping(value = "getSubDetailsList/{subId}.do", method = RequestMethod.POST)
 	@ResponseBody
-	public String getSubDetailsList(@PathVariable("subId") int subId)
+	public String getSubDetailsList(@PathVariable("subId") Long subId)
 			throws Exception {
 		List<SubjectDetail> subDetails = finBuzz.getSubDetailsList(subId);
 		return JsonUtils.bean2Json(subDetails);
@@ -133,6 +140,45 @@ public class FinanceController {
 		result.put("flag", true);
 		result.put("msg", "success");
 
+		return JsonUtils.bean2Json(result);
+	}
+	
+	@RequestMapping(value="water.do",method=RequestMethod.GET)
+	public String addFilling(Model model,HttpSession session) throws Exception {
+		CampusWaterDto cw=new CampusWaterDto();
+		cw.setSchoolId(((Emp)(session.getAttribute(SessionUtils.LOGIN_EMP_KEY))).getSchoolDistrict());
+		model.addAttribute("waterForm", cw);
+		model.addAttribute("subs", finBuzz.getSubsList());
+		model.addAttribute("subDetails", finBuzz.getSubDetailsList(1l));
+		return "financeResources/water";
+	}
+	
+	@RequestMapping(value = "water.do",method = RequestMethod.POST)
+	@ResponseBody
+	public String add(@RequestBody CampusWaterDto cw) throws Exception {
+		Map<String, Object> result = new HashMap<String, Object>();
+		// 数据校验
+		finBuzz.add(cw);
+		result.put("flag", true);
+		result.put("msg", "添加成功");
+		return JsonUtils.bean2Json(result);
+	}
+	@RequestMapping(value="fin/{fid}.do",method=RequestMethod.GET)
+	public String getById(@PathVariable("fid") Long fid,Model model) throws Exception{
+		CampusWater cw=finBuzz.getById(fid);
+		CampusWaterDto cwd=new CampusWaterDto(cw);
+		model.addAttribute("waterForm", cwd);
+		model.addAttribute("subs", finBuzz.getSubsList());
+		model.addAttribute("subDetails", finBuzz.getSubDetailsList(cwd.getSubIdDto()));
+		return "financeResources/water";
+	}
+	@RequestMapping(value="water.do",method=RequestMethod.PUT)
+	@ResponseBody
+	public String update(@RequestBody CampusWaterDto cwd) throws Exception{
+		Map<String, Object> result = new HashMap<String, Object>();
+		finBuzz.update(cwd);
+		result.put("flag", true);
+		result.put("msg", "修改成功");
 		return JsonUtils.bean2Json(result);
 	}
 }

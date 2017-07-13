@@ -2,6 +2,8 @@ package com.hotmarzz.oa.pojo;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.hotmarzz.basic.dao.BaseQuery;
 
 public class CampusWater extends BaseQuery{
@@ -14,6 +16,7 @@ public class CampusWater extends BaseQuery{
 	private String waterBanch;
 	private Double waterSum;
 	private String remark;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date waterDate;
 	//开始日期
 	private Date startDate;
@@ -25,8 +28,15 @@ public class CampusWater extends BaseQuery{
 	private Date createDate;
 	private String updateUser;
 	private Date updateDate;
+	private Integer issupple;
 	
 	
+	public Integer getIssupple() {
+		return issupple;
+	}
+	public void setIssupple(Integer issupple) {
+		this.issupple = issupple;
+	}
 	public Date getStartDate() {
 		return startDate;
 	}

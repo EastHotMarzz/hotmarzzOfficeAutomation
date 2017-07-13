@@ -80,5 +80,16 @@ public class SchoolDistrict {
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
+	@Override
+	public String toString() {
+		return "SchoolDistrict [schoolId=" + schoolId + ", schoolName="
+				+ schoolName + ", province=" + province + ", teacherQuantity="
+				+ teacherQuantity + ", currentClassQuantity="
+				+ currentClassQuantity + ", currentStuQuantity="
+				+ currentStuQuantity + ", totalStuQuantity=" + totalStuQuantity
+				+ ", createUser=" + createUser + ", createDate=" + createDate
+				+ ", updateUser=" + updateUser + ", updateDate=" + updateDate
+				+ "]";
+	}
 }
 
