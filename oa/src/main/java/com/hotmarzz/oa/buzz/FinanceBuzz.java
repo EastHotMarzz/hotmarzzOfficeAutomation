@@ -66,4 +66,10 @@ public interface FinanceBuzz {
 	 * @throws Exception
 	 */
 	void update(CampusWaterDto cwd) throws Exception;
+	/**
+	 * 获取今年的总收入
+	 * @return
+	 * @throws Exception
+	 */
+	Double getCurrentYearWaterSum(Long schoolId) throws Exception;
 }

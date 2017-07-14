@@ -89,6 +89,10 @@ public class FinanceBuzzImpl implements FinanceBuzz{
 	public void update(CampusWaterDto cwd) throws Exception {
 		finDao.update(cwd);
 	}
+	@Override
+	public Double getCurrentYearWaterSum(Long schoolId) throws Exception {
+		return finDao.getCurrentYearWaterSum(schoolId);
+	}
 	
 	
 }

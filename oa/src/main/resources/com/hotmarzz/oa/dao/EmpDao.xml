@@ -37,7 +37,7 @@
 	<select id="getById" parameterType="baseQuery" resultType="emp">
 		select 
 		<include refid="com.hotmarzz.oa.dao.EmpDao.empCol"/>
-		from o_emp
+		from o_emp e
 		where empid=#{emp.empId,jdbcType=NUMERIC}
 	</select>
 	
@@ -92,9 +92,7 @@
 		<selectKey keyProperty="empId" order="BEFORE" resultType="long">
 			select o_emp_seq.nextval from dual
 		</selectKey>
-		insert into o_emp(
-		<include refid="com.hotmarzz.oa.dao.EmpDao.empCol"/>
-		) values(
+		insert into o_emp values(
 			#{empId,jdbcType=NUMERIC},
 			#{empName,jdbcType=VARCHAR},
 			#{userName,jdbcType=VARCHAR},
@@ -147,7 +145,7 @@
 	<select id="ckOldPwd" parameterType="emp" resultType="emp">
 		select 
 		<include refid="com.hotmarzz.oa.dao.EmpDao.empCol"/>
-		from o_emp
+		from o_emp e
 		where empid=#{empId,jdbcType=NUMERIC} and userpwd=#{userPwd,jdbcType=VARCHAR}
 	</select>
 	

@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +26,6 @@ import com.hotmarzz.oa.pojo.CampusWater;
 import com.hotmarzz.oa.pojo.CampusWaterDto;
 import com.hotmarzz.oa.pojo.Emp;
 import com.hotmarzz.oa.pojo.FinanceDto;
-import com.hotmarzz.oa.pojo.SchoolDistrict;
 import com.hotmarzz.oa.pojo.SubjectDetail;
 import com.hotmarzz.oa.utils.FormatDateUtil;
 import com.hotmarzz.oa.utils.SessionUtils;
@@ -49,7 +47,7 @@ public class FinanceController {
 	}
 
 	@RequestMapping(value = "fins.do", method = RequestMethod.GET)
-	public String getFinPage(Model model, CampusWater cw) throws Exception {
+	public String getFinPage(Model model, CampusWater cw,HttpSession session) throws Exception {
 		String now = FormatDateUtil.getCurrentYearAndMonthStr();
 		String pre = FormatDateUtil.getCurrentYearAndPreMonthStr();
 		FinanceDto fin = new FinanceDto();
@@ -79,7 +77,8 @@ public class FinanceController {
 		fin.setSumExpenditure(dout);
 		fin.setCurCount(din - dout);
 		fin.setPreCount(pin-pout);
-		fin.setSumCount((din-dout)+(pin-pout));
+		Emp loginEmp=(Emp)session.getAttribute(SessionUtils.LOGIN_EMP_KEY);
+		fin.setSumCount(finBuzz.getCurrentYearWaterSum(loginEmp.getSchoolDistrict().getSchoolId()));
 		
 		cw.setWaterType(0);
 		model.addAttribute("subs", finBuzz.getSubsList());

@@ -174,4 +174,10 @@
 		remark=#{remark}
 		where waterid=#{waterId}
 	</update>
+	
+	<select id="getCurrentYearWaterSum" resultType="double" parameterType="long">
+		select t2.myin-t1.myout from
+		(select sum(watersum) myout from o_campuswater where watertype=0 and schoolid=#{schoolId}) t1,
+		(select sum(watersum) myin from o_campuswater where watertype=1  and schoolid=#{schoolId}) t2
+	</select>
 </mapper>

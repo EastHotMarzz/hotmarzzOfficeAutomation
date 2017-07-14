@@ -31,4 +31,6 @@ public interface FinanceDao {
 	CampusWater getById(Long wid) throws Exception;
 	
 	void update(CampusWaterDto cwd) throws Exception;
+	
+	Double getCurrentYearWaterSum(Long schoolId) throws Exception;
 }
