@@ -69,6 +69,7 @@ public class EmpController {
 			model.addAttribute("errMsg","账号或密码有误");
 			return "login";
 		}
+		
 		session.setAttribute(SessionUtils.LOGIN_EMP_KEY, loginEmp);
 		return "main";
 	}

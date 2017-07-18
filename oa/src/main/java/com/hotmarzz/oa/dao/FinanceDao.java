@@ -6,6 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import com.hotmarzz.oa.pojo.CampusWater;
 import com.hotmarzz.oa.pojo.CampusWaterDto;
+import com.hotmarzz.oa.pojo.FinSubject;
+import com.hotmarzz.oa.pojo.FinSubjectDetail;
+import com.hotmarzz.oa.pojo.Financial;
 import com.hotmarzz.oa.pojo.Subject;
 import com.hotmarzz.oa.pojo.SubjectDetail;
 
@@ -33,4 +36,10 @@ public interface FinanceDao {
 	void update(CampusWaterDto cwd) throws Exception;
 	
 	Double getCurrentYearWaterSum(Long schoolId) throws Exception;
+	
+	List<FinSubject> getFinSubsList() throws Exception;
+	
+	List<FinSubjectDetail> getFinSubDetailsList(Long subId) throws Exception;
+	
+	void addFin(Financial fin) throws Exception;
 }

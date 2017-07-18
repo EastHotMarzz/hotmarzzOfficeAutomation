@@ -6,6 +6,9 @@
 	<sql id="subDetailCol">
 		SUBJECTDETAILID,SUBJECTDETAILNAME,DETAILTITLE
 	</sql>
+	<sql id="finSubDetailCol">
+		FINSUBDETAILID,FINSUBDETAILNAME
+	</sql>
 	<sql id="finCol">
 		cw.WATERID,cw.SCHOOLID aid1,cw.SUBJECTID bid1,cw.SUBJECTDETAILID cid1,cw.WATERTYPE,cw.WATERBANCH,cw.WATERSUM,
 		cw.REMARK,cw.WATERDATE,cw.BILLPATH,cw.BROKERAGE,cw.CREATEUSER,cw.CREATEDATE,cw.UPDATEUSER,cw.UPDATEDATE,cw.ISSUPPLE
@@ -30,10 +33,20 @@
 		select subjectid,subjectname from o_subject
 	</select>
 	
+	<select id="getFinSubsList" resultType="finsubject">
+		select finsubjectid,finsubjectname from o_finsubject
+	</select>
+	
 	<select id="getSubDetailsList" parameterType="long" resultType="subjectDetail">
 		select 
 		<include refid="com.hotmarzz.oa.dao.FinanceDao.subDetailCol"/>
 		from o_subjectdetail where subjectid=#{subId}
+	</select>
+	
+	<select id="getFinSubDetailsList" parameterType="long" resultType="finsubjectDetail">
+		select 
+		<include refid="com.hotmarzz.oa.dao.FinanceDao.finSubDetailCol"/>
+		from o_finsubdetail where finsubjectid=#{subId}
 	</select>
 	
 	<select id="getSumIncome" resultType="double">
@@ -180,4 +193,67 @@
 		(select sum(watersum) myout from o_campuswater where watertype=0 and schoolid=#{schoolId}) t1,
 		(select sum(watersum) myin from o_campuswater where watertype=1  and schoolid=#{schoolId}) t2
 	</select>
+	
+	<insert id="addFin" parameterType="financial">
+		<selectKey keyProperty="finappId" order="BEFORE" resultType="long">
+			select o_seq.nextval from dual
+		</selectKey>
+		insert into o_financial values(
+			#{finappId,jdbcType=NUMERIC},
+			#{finappSum,jdbcType=NUMERIC},
+			#{finappDes,jdbcType=VARCHAR},
+			#{finSubjectIdDto,jdbcType=NUMERIC},
+			#{finSubDetIdDto,jdbcType=NUMERIC},
+			#{applyUser,jdbcType=VARCHAR},
+			#{approveUser,jdbcType=VARCHAR},
+			<if test="approveView !=null">
+			#{approveView,jdbcType=VARCHAR},
+			</if>
+			<if test="approveView ==null">
+				null,
+			</if>
+			
+			<if test="appropriationUser !=null">
+			#{appropriationUser,jdbcType=VARCHAR},
+			</if>
+			<if test="appropriationUser ==null">
+				null,
+			</if>
+			
+			<if test="appropriationDate !=null">
+			#{appropriationDate,jdbcType=DATE},
+			</if>
+			<if test="appropriationDate ==null">
+				SYSDATE,
+			</if>
+			
+			<if test="finStatus !=null">
+			#{finStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="finStatus ==null">
+				null,
+			</if>
+			
+			<if test="createUser !=null">
+			#{createUser,jdbcType=VARCHAR},
+			</if>
+			<if test="createUser ==null">
+				null,
+			</if>
+			<if test="createDate !=null">
+				#{createDate,jdbcType=DATE},
+			</if>
+			<if test="createDate ==null">
+				sysdate,
+			</if>
+			<if test="updateUser !=null">
+			#{updateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="updateUser ==null">
+				null,
+			</if>
+			null
+		)
+		
+	</insert>
 </mapper>

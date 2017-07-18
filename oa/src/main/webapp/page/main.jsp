@@ -568,7 +568,7 @@
 									</li>
 									
 									<li class="">
-										<a href="#">
+										<a href="financial.do">
 											<i class="menu-icon fa fa-caret-right"></i>
 											财务申请
 										</a>

@@ -111,28 +111,24 @@
 												<div class="step-pane active" data-step="1">
 													<form:form cssClass="form-horizontal" id="fillForm"
 														modelAttribute="finForm">
-
 														<div class="form-group">
-															<form:label path="waterType" 
- 																cssClass="control-label col-xs-12 col-sm-3 no-padding-right">账目类别:</form:label> 
+															<form:label path="finappSum"
+ 																cssClass="control-label col-xs-12 col-sm-3 no-padding-right"><span style="color:red">*</span>申请资金:</form:label>
 															<div class="col-xs-12 col-sm-9">
 																<div class="clearfix">
-																	<form:radiobutton path="waterType" value="0" checked="checked" />
-																	支出
-																	<form:radiobutton path="waterType" value="1"/> 
-																	收入
+ 																	<form:input path="finappSum" cssStyle="width:200px" onkeyup="value=value.replace(/[^\d||.]/g,'')"/>
 																</div>
 															</div>
 														</div>
 														
 														<div class="space-2"></div>
 														<div class="form-group">
-															<form:label path="subId"
+															<form:label path="finSubjectIdDto"
  																cssClass="control-label col-xs-12 col-sm-3 no-padding-right"><span style="color:red">*</span>科目:</form:label>
 															<div class="col-xs-12 col-sm-9">
 																<div class="clearfix">
- 																	<form:select path="subIdDto" onchange="change_sub()" cssStyle="width:200px">
- 																		<form:options items="${subs }" itemLabel="subjectName" itemValue="subjectId"/>
+ 																	<form:select path="finSubjectIdDto" onchange="change_sub()" cssStyle="width:200px">
+ 																		<form:options items="${subs }" itemLabel="finSubjectName" itemValue="finSubjectId"/>
  																	</form:select>
 																</div>
 															</div>
@@ -140,12 +136,12 @@
 														
 														<div class="space-2"></div>
 														<div class="form-group">
-															<form:label path="subDetailId"
+															<form:label path="finSubDetIdDto"
  																cssClass="control-label col-xs-12 col-sm-3 no-padding-right"><span style="color:red">*</span>科目明细:</form:label>
 															<div class="col-xs-12 col-sm-9">
 																<div class="clearfix">
- 																	<form:select path="subDetailIdDto" cssStyle="width:200px">
- 																		<form:options items="${subDetails }" itemLabel="subjectDetailName" itemValue="subjectDetailId"/>
+ 																	<form:select path="finSubDetIdDto" cssStyle="width:200px">
+ 																		<form:options items="${subDetails }" itemLabel="finSubDetailName" itemValue="finSubDetailId"/>
  																	</form:select>
 																</div>
 															</div>
@@ -153,53 +149,25 @@
 														
 														<div class="space-2"></div>
 														<div class="form-group">
-															<form:label path="waterSum"
- 																cssClass="control-label col-xs-12 col-sm-3 no-padding-right"><span style="color:red">*</span>金额:</form:label>
+															<form:label path="approveUser"
+ 																cssClass="control-label col-xs-12 col-sm-3 no-padding-right">审批人:</form:label>
 															<div class="col-xs-12 col-sm-9">
 																<div class="clearfix">
- 																	<form:input path="waterSum" 
- 																		cssClass="col-xs-12 col-sm-6" onfocus="clearStr()" onkeyup="value=value.replace(/[^\d||.]/g,'')"
- 																		/> 
- 																	<span id="waterSumErr" style="color:red"></span>
-																</div>
-															</div>
-														</div>
-														
-														<div class="space-2"></div>
-														<div class="form-group">
-															<form:label path="issupple" 
- 																cssClass="control-label col-xs-12 col-sm-3 no-padding-right">是否补单:</form:label> 
-															<div class="col-xs-12 col-sm-9">
-																<div class="clearfix">
-																	<form:radiobutton path="issupple" value="0"/>
-																	是
-																	<form:radiobutton path="issupple" value="1" checked="checked"/> 
-																	否
-																</div>
-															</div>
-														</div>
-														
-														<div class="space-2"></div>
-														<div class="form-group">
-															<form:label path="waterDate" 
- 																cssClass="control-label col-xs-12 col-sm-3 no-padding-right">时间:</form:label> 
-															<div class="col-xs-12 col-sm-9">
-																<div class="clearfix">
-																	<form:input path="waterDate" cssClass="datepicker col-xs-12 col-sm-6" onfocus="clearStr()"/>
-																	<span id="waterDateErr" style="color:red"></span>
+ 																	<form:radiobutton path="approveUser" label="赵伟新" value="赵伟新"/>
+ 																	<form:radiobutton path="approveUser" label="陈超群" value="陈超群"/>
+ 																	<form:radiobutton path="approveUser" label="吴政钦" value="吴政钦"/>
 																</div>
 															</div>
 														</div>
 
 														<div class="space-2"></div>
 														<div class="form-group">
-															<form:label path="remark"
- 																cssClass="control-label col-xs-12 col-sm-3 no-padding-right">备注:</form:label>
+															<form:label path="finappDes"
+ 																cssClass="control-label col-xs-12 col-sm-3 no-padding-right">申请描述:</form:label>
 															<div class="col-xs-12 col-sm-9">
 																<div class="clearfix">
- 																	<form:textarea path="remark" 
+ 																	<form:textarea path="finappDes" 
  																		cssClass="col-xs-12 col-sm-6" />
- 																	<form:errors path="remark" />
 																</div>
 															</div>
 														</div>
@@ -210,14 +178,7 @@
 												<div class="wizard-actions">
 													<button class="btn btn-success btn-next" id="submitBtn"
 														data-last="Finish">
-														<c:if
-															test="${waterForm.waterId == null || waterForm.waterId == ''}">
-															添加
-														</c:if>
-														<c:if
-															test="${!(waterForm.waterId == null || waterForm.waterId == '')}">
-															修改
-														</c:if>
+														申请
 														<i class="ace-icon fa fa-arrow-right icon-on-right"></i>
 													</button>
 												</div>
@@ -291,50 +252,21 @@
 			<script src="<%=path%>/assets/js/custom/array-utils.js"></script>
 			<!-- inline scripts related to this page -->
 			<script type="text/javascript">
-			function clearStr(){
-				$("#waterDateErr").html("");
-				$("#waterSumErr").html("");
-			}
-			function ck_money(){
-				var myMoney=$("#waterSum").val();
-				if(myMoney=="" || myMoney==null){
-					$("#waterSumErr").html("请添加金额")
-					return false;
-				}
-				return true;
-			}
-			
-			function ck_date(){
-				var myDate=$("#waterDate").val();
-				if(myDate=="" || myDate==null){
-					$("#waterDateErr").html("请填写日期")
-					return false
-				}
-				var nowDate=new Date();
-				var curYear=nowDate.getYear()+1900;
-				var curMonth=nowDate.getMonth()+1;
-				if(curYear==myDate.substring(0,4) && myDate.substring(5,7)==curMonth){
-					return true
-				}
-				$("#waterDateErr").html("日期只能选择当前月份")
-				return false
-			}
-			
 			function change_sub() {
-				var subid=$("#subIdDto").val();
+				var subid=$("#finSubjectIdDto").val();
 				$.ajax({
-					"url" : "getSubDetailsList/"+subid+".do",
+					"url" : "getFinSubDetailsList/"+subid+".do",
 					"type" : "post",
 					"contentType" : "application/json;charset=UTF-8",
 					"cache" : false,
 					"dataType":"json",
 					"success":function(result){
-						var subDe=document.getElementById("subDetailIdDto");
+						var subDe=document.getElementById("finSubDetIdDto");
 						subDe.innerHTML=""
 						for(var i=0;i<result.length;i++){
 							var newOP=document.createElement("option");
-							newOP.innerHTML=result[i].subjectDetailName;
-							newOP.value=result[i].subjectDetailId;
+							newOP.innerHTML=result[i].finSubDetailName;
+							newOP.value=result[i].finSubDetailId;
 							subDe.appendChild(newOP);
 						}
 					},
@@ -351,27 +283,13 @@
 					})
 
 					var listUrl = "fins.do";
-					var addOrUpdateUrl = "water.do";
+					var addOrUpdateUrl = "financial.do";
 					
 					$("#submitBtn")
 							.on("click",function(e) {
-									var myResult=true;
-									var myResult2=ck_money();
-									var isCheckDate = $("#fillForm input[name='waterId'][type='hidden']").length > 0;
-									if(!isCheckDate){
-										myResult=ck_date();
-									}
-									var ok=myResult && myResult2;
-										if(!ok){
-											return;
-										}
 										console.log($("#fillForm").serialize());
 										console.log(JSON.stringify($("#fillForm").serializeJSON()));
-										var update = $("#fillForm input[name='waterId'][type='hidden']").length > 0;
 										var method = "post";
-										if (update) {
-											method = "put";
-										}
 										var param = $("#fillForm").serializeJSON();
 										$.ajax({
 													"url" : addOrUpdateUrl,
@@ -381,34 +299,7 @@
 													"contentType" : "application/json;charset=UTF-8",
 													"success" : function(result) {
 														if (result.flag == true) {
-															$("#main").load(listUrl,
-																			function() {
-																				initMain();
-																				var alertDiv = $("#alertDiv");
-																				alertDiv.removeClass("hidden");
-																				alertDiv.removeClass("alert-warning");
-																				alertDiv.removeClass("alert-danger");
-																				alertDiv.addClass("alert-info");
-																				alertDiv.find("a").next("span").remove();
-																				alertDiv.find("a").after("<span>"+ result.msg+ "<i class='ace-icon glyphicon glyphicon-ok'></i></span>");
-																			});
-														}
-														if (result.flag === 'validation') {
-															$.each(result.validationMsg,
-																			function(
-																					key,
-																					value) {
-																				var ele = "#"
-																						+ key;
-																				//修复了校验的重复提示问题。
-																				if($("#ok_"+key).html()!=null){
-																					$("#ok_"+key).html(value)
-																				}else{
-																					$(ele).after("<div id='ok_"+key+"' class='help-block col-xs-12 col-sm-reset inline'>"
-																											+ value
-																											+ "</div>");
-																				}
-																			})
+															alert("添加成功！")
 														}
 														if (result.flag === 'exception') {
 															var alertDiv = $("#alertDiv");

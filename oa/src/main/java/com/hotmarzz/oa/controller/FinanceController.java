@@ -25,7 +25,9 @@ import com.hotmarzz.oa.buzz.FinanceBuzz;
 import com.hotmarzz.oa.pojo.CampusWater;
 import com.hotmarzz.oa.pojo.CampusWaterDto;
 import com.hotmarzz.oa.pojo.Emp;
+import com.hotmarzz.oa.pojo.FinSubjectDetail;
 import com.hotmarzz.oa.pojo.FinanceDto;
+import com.hotmarzz.oa.pojo.Financial;
 import com.hotmarzz.oa.pojo.SubjectDetail;
 import com.hotmarzz.oa.utils.FormatDateUtil;
 import com.hotmarzz.oa.utils.SessionUtils;
@@ -47,7 +49,7 @@ public class FinanceController {
 	}
 
 	@RequestMapping(value = "fins.do", method = RequestMethod.GET)
-	public String getFinPage(Model model, CampusWater cw,HttpSession session) throws Exception {
+	public String getWaterPage(Model model, CampusWater cw,HttpSession session) throws Exception {
 		String now = FormatDateUtil.getCurrentYearAndMonthStr();
 		String pre = FormatDateUtil.getCurrentYearAndPreMonthStr();
 		FinanceDto fin = new FinanceDto();
@@ -94,6 +96,15 @@ public class FinanceController {
 		List<SubjectDetail> subDetails = finBuzz.getSubDetailsList(subId);
 		return JsonUtils.bean2Json(subDetails);
 	}
+	
+	@RequestMapping(value = "getFinSubDetailsList/{subId}.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String getFinSubDetailsList(@PathVariable("subId") Long subId)
+			throws Exception {
+		List<FinSubjectDetail> subDetails = finBuzz.getFinSubDetailsList(subId);
+		return JsonUtils.bean2Json(subDetails);
+	}
+	
 	@RequestMapping(value="getFinList.do",method=RequestMethod.POST)
 	@ResponseBody
 	public String getFinList(@RequestBody CampusWater cw) throws Exception{
@@ -178,6 +189,26 @@ public class FinanceController {
 		finBuzz.update(cwd);
 		result.put("flag", true);
 		result.put("msg", "修改成功");
+		return JsonUtils.bean2Json(result);
+	}
+	
+	//------------------------------------------以上是校区流水的模块--------------------------------------------------
+	@RequestMapping(value="financial.do",method=RequestMethod.GET)
+	public String getFinPage(Model model) throws Exception{
+		Financial f=new Financial();
+		f.setApproveUser("赵伟新");
+		model.addAttribute("finForm", f);
+		model.addAttribute("subs", finBuzz.getFinSubsList());
+		model.addAttribute("subDetails", finBuzz.getFinSubDetailsList(1l));
+		return "financeResources/fin";
+	}
+	@RequestMapping(value="financial.do",method=RequestMethod.POST)
+	@ResponseBody
+	public String addFin(@RequestBody Financial fin) throws Exception{
+		Map<String, Object> result = new HashMap<String, Object>();
+		finBuzz.addFin(fin);
+		result.put("flag", true);
+		result.put("msg", "添加成功");
 		return JsonUtils.bean2Json(result);
 	}
 }

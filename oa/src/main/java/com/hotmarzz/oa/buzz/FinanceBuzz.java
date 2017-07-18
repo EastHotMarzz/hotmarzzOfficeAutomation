@@ -4,6 +4,9 @@ import java.util.List;
 
 import com.hotmarzz.oa.pojo.CampusWater;
 import com.hotmarzz.oa.pojo.CampusWaterDto;
+import com.hotmarzz.oa.pojo.FinSubject;
+import com.hotmarzz.oa.pojo.FinSubjectDetail;
+import com.hotmarzz.oa.pojo.Financial;
 import com.hotmarzz.oa.pojo.Subject;
 import com.hotmarzz.oa.pojo.SubjectDetail;
 
@@ -72,4 +75,19 @@ public interface FinanceBuzz {
 	 * @throws Exception
 	 */
 	Double getCurrentYearWaterSum(Long schoolId) throws Exception;
+	/**
+	 * 获取财务申请的科目
+	 * @return
+	 * @throws Exception
+	 */
+	List<FinSubject> getFinSubsList() throws Exception;
+	/**
+	 * 获取财务申请的科目明细
+	 * @param subId
+	 * @return
+	 * @throws Exception
+	 */
+	List<FinSubjectDetail> getFinSubDetailsList(Long subId) throws Exception;
+	
+	void addFin(Financial fin) throws Exception;
 }

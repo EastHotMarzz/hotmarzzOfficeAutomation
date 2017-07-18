@@ -15,6 +15,9 @@ import com.hotmarzz.oa.dao.FinanceDao;
 import com.hotmarzz.oa.pojo.CampusWater;
 import com.hotmarzz.oa.pojo.CampusWaterDto;
 import com.hotmarzz.oa.pojo.Emp;
+import com.hotmarzz.oa.pojo.FinSubject;
+import com.hotmarzz.oa.pojo.FinSubjectDetail;
+import com.hotmarzz.oa.pojo.Financial;
 import com.hotmarzz.oa.pojo.Subject;
 import com.hotmarzz.oa.pojo.SubjectDetail;
 import com.hotmarzz.oa.utils.SessionUtils;
@@ -92,6 +95,28 @@ public class FinanceBuzzImpl implements FinanceBuzz{
 	@Override
 	public Double getCurrentYearWaterSum(Long schoolId) throws Exception {
 		return finDao.getCurrentYearWaterSum(schoolId);
+	}
+	@Override
+	public List<FinSubject> getFinSubsList() throws Exception {
+		return finDao.getFinSubsList();
+	}
+	@Override
+	public List<FinSubjectDetail> getFinSubDetailsList(Long subId)
+			throws Exception {
+		return finDao.getFinSubDetailsList(subId);
+	}
+	
+	
+	@Override
+	public void addFin(Financial fin) throws Exception {
+		//申请人
+		fin.setApplyUser(((Emp)(session.getAttribute(SessionUtils.LOGIN_EMP_KEY))).getEmpName());
+		//创建人
+		fin.setCreateUser(((Emp)(session.getAttribute(SessionUtils.LOGIN_EMP_KEY))).getEmpName());
+		//申请状态
+		fin.setFinStatus("未审核");
+		
+		finDao.addFin(fin);
 	}
 	
 	
