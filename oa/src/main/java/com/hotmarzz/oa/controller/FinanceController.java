@@ -30,6 +30,7 @@ import com.hotmarzz.oa.pojo.FinanceDto;
 import com.hotmarzz.oa.pojo.Financial;
 import com.hotmarzz.oa.pojo.SubjectDetail;
 import com.hotmarzz.oa.utils.FormatDateUtil;
+import com.hotmarzz.oa.utils.FormatNumberUtil;
 import com.hotmarzz.oa.utils.SessionUtils;
 
 @Controller
@@ -75,10 +76,10 @@ public class FinanceController {
 				pout=0.0;
 			}
 		}
-		fin.setSumIncome(din);
-		fin.setSumExpenditure(dout);
-		fin.setCurCount(din - dout);
-		fin.setPreCount(pin-pout);
+		fin.setSumIncome(FormatNumberUtil.formartTwoPoint(din));
+		fin.setSumExpenditure(FormatNumberUtil.formartTwoPoint(dout));
+		fin.setCurCount(FormatNumberUtil.formartTwoPoint(din-dout));
+		fin.setPreCount(FormatNumberUtil.formartTwoPoint(pin-pout));
 		Emp loginEmp=(Emp)session.getAttribute(SessionUtils.LOGIN_EMP_KEY);
 		fin.setSumCount(finBuzz.getCurrentYearWaterSum(loginEmp.getSchoolDistrict().getSchoolId()));
 		
