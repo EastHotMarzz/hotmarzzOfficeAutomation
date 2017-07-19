@@ -28,6 +28,7 @@ import com.hotmarzz.oa.buzz.EmpBuzz;
 import com.hotmarzz.oa.pojo.Emp;
 import com.hotmarzz.oa.pojo.EmpDto;
 import com.hotmarzz.oa.pojo.Role;
+import com.hotmarzz.oa.pojo.SchoolDistrict;
 import com.hotmarzz.oa.utils.Constants;
 import com.hotmarzz.oa.utils.SessionUtils;
 
@@ -48,7 +49,7 @@ public class EmpController {
 	}
 
 	/*
-	 * 登陆成功页面 (现阶段版本没有登陆页面，有待开发登陆之后再使用)
+	 * 登陆成功页面 
 	 */
 	@RequestMapping("main.do")
 	public String getMainPage() throws Exception {
@@ -69,7 +70,6 @@ public class EmpController {
 			model.addAttribute("errMsg","账号或密码有误");
 			return "login";
 		}
-		
 		session.setAttribute(SessionUtils.LOGIN_EMP_KEY, loginEmp);
 		return "main";
 	}
@@ -155,6 +155,10 @@ public class EmpController {
 		Role r=new Role();
 		r.setRoleId(Constants.DEFAULT_EMP_ROLE);
 		emp.setRole(r);
+		//默认校区:南京校区
+		SchoolDistrict sd=new SchoolDistrict();
+		sd.setSchoolId(1l);
+		emp.setSchoolDistrict(sd);
 		
 		empBuzz.add(emp);
 		result.put("flag", true);
@@ -232,6 +236,18 @@ public class EmpController {
 	@RequestMapping(value = "login.do",method=RequestMethod.GET)
 	public String getLoginPage(Model model) throws Exception{
 		model.addAttribute("emp", new Emp());
+		return "login";
+	}
+	/*
+	 * 退出
+	 */
+	@RequestMapping(value = "logout.do",method=RequestMethod.GET)
+	public String logout(HttpSession session,Model model) throws Exception{
+		model.addAttribute("emp", new Emp());
+		Emp e=(Emp) session.getAttribute(SessionUtils.LOGIN_EMP_KEY);
+		if(e!=null){
+			session.removeAttribute(SessionUtils.LOGIN_EMP_KEY);
+		}
 		return "login";
 	}
 	/*

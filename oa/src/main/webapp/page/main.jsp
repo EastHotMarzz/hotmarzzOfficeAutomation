@@ -289,7 +289,7 @@
 							<li class="divider"></li>
 
 							<li>
-								<a href="login.do">
+								<a href="logout.do">
 									<i class="ace-icon fa fa-power-off"></i>
 									退出
 								</a>

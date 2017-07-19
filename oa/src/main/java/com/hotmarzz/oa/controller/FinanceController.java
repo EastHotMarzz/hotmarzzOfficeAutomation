@@ -51,6 +51,11 @@ public class FinanceController {
 
 	@RequestMapping(value = "fins.do", method = RequestMethod.GET)
 	public String getWaterPage(Model model, CampusWater cw,HttpSession session) throws Exception {
+		//权限控制
+		Emp emp=(Emp)session.getAttribute(SessionUtils.LOGIN_EMP_KEY);
+		if(emp==null || (emp.getRole().getRoleId()!=1 && emp.getRole().getRoleId()!=2)){
+			return "permissionDenied";
+		}
 		String now = FormatDateUtil.getCurrentYearAndMonthStr();
 		String pre = FormatDateUtil.getCurrentYearAndPreMonthStr();
 		FinanceDto fin = new FinanceDto();
@@ -145,7 +150,6 @@ public class FinanceController {
 	@ResponseBody
 	public String delete(@PathVariable("fid") Long fid) throws Exception{
 		Map<String, Object> result = new HashMap<String, Object>();
-
 		finBuzz.delete(fid);
 		
 		result.put("flag", true);
@@ -168,7 +172,6 @@ public class FinanceController {
 	@ResponseBody
 	public String add(@RequestBody CampusWaterDto cw) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
-		// 数据校验
 		finBuzz.add(cw);
 		result.put("flag", true);
 		result.put("msg", "添加成功");
@@ -195,7 +198,13 @@ public class FinanceController {
 	
 	//------------------------------------------以上是校区流水的模块--------------------------------------------------
 	@RequestMapping(value="financial.do",method=RequestMethod.GET)
-	public String getFinPage(Model model) throws Exception{
+	public String getFinPage(Model model,HttpSession session) throws Exception{
+		//权限控制
+		Emp emp=(Emp)session.getAttribute(SessionUtils.LOGIN_EMP_KEY);
+		if(emp==null || (emp.getRole().getRoleId()!=1 && emp.getRole().getRoleId()!=2)){
+			return "permissionDenied";
+		}
+		
 		Financial f=new Financial();
 		f.setApproveUser("赵伟新");
 		model.addAttribute("finForm", f);
