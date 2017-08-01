@@ -1,4 +1,4 @@
-package com.hotmarzz.oa.pojo;
+package com.hotmarzz.oa.dto;
 
 import org.hibernate.validator.constraints.NotEmpty;
 

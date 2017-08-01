@@ -153,7 +153,7 @@
  																cssClass="control-label col-xs-12 col-sm-3 no-padding-right">审批人:</form:label>
 															<div class="col-xs-12 col-sm-9">
 																<div class="clearfix">
- 																	<form:radiobutton path="approveUser" label="赵伟新" value="赵伟新"/>
+ 																	<form:radiobutton path="approveUser" label="赵伟欣" value="赵伟欣"/>
  																	<form:radiobutton path="approveUser" label="陈超群" value="陈超群"/>
  																	<form:radiobutton path="approveUser" label="吴政钦" value="吴政钦"/>
 																</div>

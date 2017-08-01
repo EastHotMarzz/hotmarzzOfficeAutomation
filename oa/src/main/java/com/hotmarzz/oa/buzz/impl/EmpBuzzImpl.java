@@ -67,7 +67,6 @@ public class EmpBuzzImpl implements EmpBuzz {
 	@Override
 	public Emp login(Emp emp) throws Exception {
 		emp.setUserPwd(new MD5Utils().getMD5ofStr(emp.getUserPwd()));
-		System.err.println(emp);
 		return empDao.login(emp);
 	}
 	

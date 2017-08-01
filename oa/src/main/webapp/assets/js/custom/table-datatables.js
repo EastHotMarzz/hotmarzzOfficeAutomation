@@ -3,7 +3,6 @@
 	if (paging == undefined){
 		paging = true; 
 	}
-	
 	//initiate dataTables plugin
 	var myTable = $(table)
 	//.wrap("<div class='dataTables_borderWrap' />")   //if you are applying horizontal scrolling (sScrollX)
@@ -328,6 +327,7 @@ var tableToExcel = (function () {
         return s.replace(/{(\w+)}/g,
         function (m, p) { return c[p]; })
     }
+    
     
     return function (table, name) {
         if (!table.nodeType) table = document.getElementById(table)

@@ -254,6 +254,13 @@
 			</if>
 			null
 		)
-		
 	</insert>
+	
+	<select id="getCurrentBillPath" parameterType="long" resultType="string">
+		select billpath from o_campuswater where waterid=#{id}
+	</select>
+	
+	<update id="updateBillPath" parameterType="campuswater">
+		update o_campuswater set billpath=#{billPath} where waterid=#{waterId}
+	</update>
 </mapper>

@@ -1,4 +1,6 @@
-package com.hotmarzz.oa.pojo;
+package com.hotmarzz.oa.dto;
+
+import com.hotmarzz.oa.pojo.CampusWater;
 
 public class CampusWaterDto extends CampusWater{
 	

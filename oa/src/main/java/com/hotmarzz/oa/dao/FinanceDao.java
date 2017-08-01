@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.hotmarzz.oa.dto.CampusWaterDto;
 import com.hotmarzz.oa.pojo.CampusWater;
-import com.hotmarzz.oa.pojo.CampusWaterDto;
 import com.hotmarzz.oa.pojo.FinSubject;
 import com.hotmarzz.oa.pojo.FinSubjectDetail;
 import com.hotmarzz.oa.pojo.Financial;
@@ -42,4 +42,8 @@ public interface FinanceDao {
 	List<FinSubjectDetail> getFinSubDetailsList(Long subId) throws Exception;
 	
 	void addFin(Financial fin) throws Exception;
+	
+	public String getCurrentBillPath(Long id) throws Exception;
+	
+	public void updateBillPath(CampusWater cw) throws Exception;
 }

@@ -1,4 +1,4 @@
-package com.hotmarzz.oa.pojo;
+package com.hotmarzz.oa.dto;
 
 public class FinanceDto {
 

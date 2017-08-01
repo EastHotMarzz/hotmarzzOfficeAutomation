@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
 
 import com.hotmarzz.oa.buzz.FinanceBuzz;
 import com.hotmarzz.oa.dao.FinanceDao;
+import com.hotmarzz.oa.dto.CampusWaterDto;
 import com.hotmarzz.oa.pojo.CampusWater;
-import com.hotmarzz.oa.pojo.CampusWaterDto;
 import com.hotmarzz.oa.pojo.Emp;
 import com.hotmarzz.oa.pojo.FinSubject;
 import com.hotmarzz.oa.pojo.FinSubjectDetail;
@@ -117,6 +117,22 @@ public class FinanceBuzzImpl implements FinanceBuzz{
 		fin.setFinStatus("未审核");
 		
 		finDao.addFin(fin);
+	}
+	@Override
+	public List<CampusWater> getExpList(CampusWater cw) throws Exception {
+		return finDao.getListPage(cw);
+	}
+	
+	
+	@Override
+	public void updateBillPath(CampusWater cw) throws Exception {
+		finDao.updateBillPath(cw);
+	}
+	
+	
+	@Override
+	public String getCurrentBillPath(Long id) throws Exception {
+		return finDao.getCurrentBillPath(id);
 	}
 	
 	
