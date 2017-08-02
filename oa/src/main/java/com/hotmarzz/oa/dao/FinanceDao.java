@@ -19,9 +19,9 @@ public interface FinanceDao {
 	
 	List<SubjectDetail> getSubDetailsList(Long subId) throws Exception;
 	
-	Double getSumIncome(String formatDate) throws Exception;
+	Double getSumIncome(String formatDate,Long sid) throws Exception;
 	
-	Double getSumExpenditure(String formatDate) throws Exception;
+	Double getSumExpenditure(String formatDate,Long sid) throws Exception;
 	
 	List<CampusWater> getListPage(CampusWater cw) throws Exception;
 	

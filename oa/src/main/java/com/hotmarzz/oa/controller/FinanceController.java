@@ -37,6 +37,7 @@ import com.hotmarzz.oa.pojo.CampusWater;
 import com.hotmarzz.oa.pojo.Emp;
 import com.hotmarzz.oa.pojo.FinSubjectDetail;
 import com.hotmarzz.oa.pojo.Financial;
+import com.hotmarzz.oa.pojo.SchoolDistrict;
 import com.hotmarzz.oa.pojo.SubjectDetail;
 import com.hotmarzz.oa.utils.ExcelUtil;
 import com.hotmarzz.oa.utils.FormatDateUtil;
@@ -68,6 +69,7 @@ public class FinanceController {
 				|| (emp.getRole().getRoleId() != 1 && emp.getRole().getRoleId() != 2)) {
 			return "permissionDenied";
 		}
+		
 		String now = FormatDateUtil.getCurrentYearAndMonthStr();
 		String pre = FormatDateUtil.getCurrentYearAndPreMonthStr();
 		FinanceDto fin = new FinanceDto();
@@ -75,11 +77,11 @@ public class FinanceController {
 		Double din = finBuzz.getSumIncome(now);
 		// 当月总支出
 		Double dout = finBuzz.getSumExpenditure(now);
-		// 当月总收入
+		// 上月总收入
 		Double pin = finBuzz.getSumIncome(pre);
-		// 当月总支出
+		// 上月总支出
 		Double pout = finBuzz.getSumExpenditure(pre);
-		
+		//如果没有账单，则置零
 		if (din == null || dout == null || pin == null || pout == null) {
 			if (din == null) {
 				din = 0.0;
@@ -94,7 +96,7 @@ public class FinanceController {
 				pout = 0.0;
 			}
 		}
-		
+		//使用工具，截取到"分"
 		fin.setSumIncome(FormatNumberUtil.formartTwoPoint(din));
 		fin.setSumExpenditure(FormatNumberUtil.formartTwoPoint(dout));
 		fin.setCurCount(FormatNumberUtil.formartTwoPoint(din - dout));
@@ -164,7 +166,7 @@ public class FinanceController {
 						queryParams.get("subDetailId"));
 			}
 		}
-		CampusWater cwResult = finBuzz.getList(cw);
+		CampusWater cwResult = finBuzz.getList(new CampusWaterDto(cw));
 		return JsonUtils.bean2Json(cwResult);
 	}
 

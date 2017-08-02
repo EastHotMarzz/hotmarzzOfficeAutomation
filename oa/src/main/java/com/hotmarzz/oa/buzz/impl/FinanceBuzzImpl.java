@@ -18,6 +18,7 @@ import com.hotmarzz.oa.pojo.Emp;
 import com.hotmarzz.oa.pojo.FinSubject;
 import com.hotmarzz.oa.pojo.FinSubjectDetail;
 import com.hotmarzz.oa.pojo.Financial;
+import com.hotmarzz.oa.pojo.SchoolDistrict;
 import com.hotmarzz.oa.pojo.Subject;
 import com.hotmarzz.oa.pojo.SubjectDetail;
 import com.hotmarzz.oa.utils.SessionUtils;
@@ -50,16 +51,22 @@ public class FinanceBuzzImpl implements FinanceBuzz{
 	}
 	@Override
 	public Double getSumIncome(String formatDate) throws Exception {
-		return finDao.getSumIncome(formatDate);
+		Emp emp=(Emp) session.getAttribute(SessionUtils.LOGIN_EMP_KEY);
+		long sid=emp.getSchoolDistrict().getSchoolId();
+		return finDao.getSumIncome(formatDate,sid);
 	}
 	@Override
 	public Double getSumExpenditure(String formatDate) throws Exception {
-		return finDao.getSumExpenditure(formatDate);
+		Emp emp=(Emp) session.getAttribute(SessionUtils.LOGIN_EMP_KEY);
+		long sid=emp.getSchoolDistrict().getSchoolId();
+		return finDao.getSumExpenditure(formatDate,sid);
 	}
 	
 	
 	@Override
-	public CampusWater getList(CampusWater cw) throws Exception {
+	public CampusWater getList(CampusWaterDto cw) throws Exception {
+		cw.setSchoolIdDto(((Emp)(session.getAttribute(SessionUtils.LOGIN_EMP_KEY))).getSchoolDistrict().getSchoolId());
+		System.err.println("---other---"+cw.getConditions().size());
 		List<CampusWater> us =  finDao.getListPage(cw);
 		int total_count = finDao.getCount(cw);
 		cw.getPag().setTotal_count(total_count);

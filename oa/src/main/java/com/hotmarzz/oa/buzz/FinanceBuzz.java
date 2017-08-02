@@ -43,7 +43,7 @@ public interface FinanceBuzz {
 	 * @return
 	 * @throws Exception
 	 */
-	CampusWater getList(CampusWater cw) throws Exception;
+	CampusWater getList(CampusWaterDto cw) throws Exception;
 	/**
 	 * 导出excel
 	 * @param cw

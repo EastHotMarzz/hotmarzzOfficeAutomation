@@ -52,13 +52,15 @@
 	<select id="getSumIncome" resultType="double">
 		select sum(watersum) from O_CAMPUSWATER 
 		where watertype=1 
-		and (select to_char(WATERDATE,'yyyy-mm') from dual)=#{formatDate}
+		and (select to_char(WATERDATE,'yyyy-mm') from dual)=#{0}
+		and schoolid=#{1}
 	</select>
 	
 	<select id="getSumExpenditure" resultType="double">
 		select sum(watersum) from O_CAMPUSWATER 
 		where watertype=0 
-		and (select to_char(WATERDATE,'yyyy-mm') from dual)=#{formatDate}
+		and (select to_char(WATERDATE,'yyyy-mm') from dual)=#{0}
+		and schoolid=#{1}
 	</select>
 	
 	<select id="getListPage" parameterType="baseQuery" resultMap="waterMap">
@@ -75,6 +77,7 @@
 		<if test="endDate!=null">
 			and waterdate &lt;=#{endDate}
 		</if>
+		and cw.schoolid=#{schoolIdDto,jdbcType=NUMERIC}
 		<include refid="com.hotmarzz.basic.dao.BaseDao.queryByOrders"/>
 	</select>
 	
