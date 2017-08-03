@@ -66,7 +66,6 @@ public class FinanceBuzzImpl implements FinanceBuzz{
 	@Override
 	public CampusWater getList(CampusWaterDto cw) throws Exception {
 		cw.setSchoolIdDto(((Emp)(session.getAttribute(SessionUtils.LOGIN_EMP_KEY))).getSchoolDistrict().getSchoolId());
-		System.err.println("---other---"+cw.getConditions().size());
 		List<CampusWater> us =  finDao.getListPage(cw);
 		int total_count = finDao.getCount(cw);
 		cw.getPag().setTotal_count(total_count);

@@ -69,10 +69,11 @@ public class FinanceController {
 				|| (emp.getRole().getRoleId() != 1 && emp.getRole().getRoleId() != 2)) {
 			return "permissionDenied";
 		}
-		
+
 		String now = FormatDateUtil.getCurrentYearAndMonthStr();
 		String pre = FormatDateUtil.getCurrentYearAndPreMonthStr();
 		FinanceDto fin = new FinanceDto();
+		Emp loginEmp = (Emp) session.getAttribute(SessionUtils.LOGIN_EMP_KEY);
 		// 当月总收入
 		Double din = finBuzz.getSumIncome(now);
 		// 当月总支出
@@ -81,7 +82,10 @@ public class FinanceController {
 		Double pin = finBuzz.getSumIncome(pre);
 		// 上月总支出
 		Double pout = finBuzz.getSumExpenditure(pre);
-		//如果没有账单，则置零
+		// 今年总收入
+		Double sum = finBuzz.getCurrentYearWaterSum(loginEmp
+				.getSchoolDistrict().getSchoolId());
+		// 如果没有账单，则置零
 		if (din == null || dout == null || pin == null || pout == null) {
 			if (din == null) {
 				din = 0.0;
@@ -95,18 +99,19 @@ public class FinanceController {
 			if (pout == null) {
 				pout = 0.0;
 			}
+			if (sum == null) {
+				sum = 0.0;
+			}
 		}
-		//使用工具，截取到"分"
+		// 使用工具，截取到"分"
 		fin.setSumIncome(FormatNumberUtil.formartTwoPoint(din));
 		fin.setSumExpenditure(FormatNumberUtil.formartTwoPoint(dout));
 		fin.setCurCount(FormatNumberUtil.formartTwoPoint(din - dout));
 		fin.setPreCount(FormatNumberUtil.formartTwoPoint(pin - pout));
-		Emp loginEmp = (Emp) session.getAttribute(SessionUtils.LOGIN_EMP_KEY);
-		fin.setSumCount(finBuzz.getCurrentYearWaterSum(loginEmp
-				.getSchoolDistrict().getSchoolId()));
+		fin.setSumCount(FormatNumberUtil.formartTwoPoint(sum));
 
 		cw.setWaterType(0);
-		
+
 		model.addAttribute("subs", finBuzz.getSubsList());
 		model.addAttribute("fin", fin);
 		model.addAttribute("cw", cw);
@@ -269,8 +274,8 @@ public class FinanceController {
 	// 文件上传
 	@RequestMapping(value = "myfileupload/{id}.do")
 	@ResponseBody
-	public String myfile(@PathVariable("id") long id,@RequestParam MultipartFile[] myfiles,
-			HttpServletRequest request)
+	public String myfile(@PathVariable("id") long id,
+			@RequestParam MultipartFile[] myfiles, HttpServletRequest request)
 			throws Exception {
 		String realPath = request.getSession().getServletContext()
 				.getRealPath("/upload");
@@ -279,31 +284,32 @@ public class FinanceController {
 			if (myfile.isEmpty()) {
 				return "请选择文件后上传";
 			} else {
-				//uuid修改文件名
-				UUID uuid=UUID.randomUUID();
+				// uuid修改文件名
+				UUID uuid = UUID.randomUUID();
 				originalFilename = myfile.getOriginalFilename();
-				//判断是否有中文？
+				// 判断是否有中文？
 				Pattern p = Pattern.compile("[\u4e00-\u9fa5]");
-		        Matcher m = p.matcher(originalFilename);
-		        if (m.find()) {
-		        	originalFilename="zw";
-		        }
-				//查看现在billpath
-				String billpath=finBuzz.getCurrentBillPath(id);
-				
-				CampusWater cw=new CampusWater();
+				Matcher m = p.matcher(originalFilename);
+				if (m.find()) {
+					originalFilename = "zw";
+				}
+				// 查看现在billpath
+				String billpath = finBuzz.getCurrentBillPath(id);
+
+				CampusWater cw = new CampusWater();
 				cw.setWaterId(id);
-				//改billPath
-				if(billpath==null || "".equals(billpath.trim())){
-					cw.setBillPath(uuid+"_"+originalFilename);
-				}else{
-					cw.setBillPath(uuid+"_"+originalFilename+";"+billpath);
+				// 改billPath
+				if (billpath == null || "".equals(billpath.trim())) {
+					cw.setBillPath(uuid + "_" + originalFilename);
+				} else {
+					cw.setBillPath(uuid + "_" + originalFilename + ";"
+							+ billpath);
 				}
 				try {
-					//复制文件
+					// 复制文件
 					FileUtils.copyInputStreamToFile(myfile.getInputStream(),
-							new File(realPath, uuid+"_"+originalFilename));
-					//如果没问题再改票据
+							new File(realPath, uuid + "_" + originalFilename));
+					// 如果没问题再改票据
 					finBuzz.updateBillPath(cw);
 				} catch (IOException e) {
 					e.printStackTrace();
