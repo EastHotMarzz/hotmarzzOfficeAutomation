@@ -1,6 +1,7 @@
 package com.hotmarzz.oa.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -67,7 +68,6 @@ public class StudentController {
 			bq.putCondition("stuName", Expression.OP_LIKE,
 					"%" + queryParams.get("stuName") + "%");
 		}
-
 		BaseQuery bqResult = stuBuzz.getList(bq);
 		return JsonUtils.bean2Json(bqResult);
 	}

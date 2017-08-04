@@ -17,7 +17,7 @@ public class Financial {
 	private String approveView;
 	private String appropriationUser;
 	@DateTimeFormat(pattern="yyyy-MM-dd")
-	private Date appropriationDate;
+	private Date appropriationTime;
 	private String finStatus;
 	private String createUser;
 	private Date createDate;
@@ -89,11 +89,11 @@ public class Financial {
 	public void setAppropriationUser(String appropriationUser) {
 		this.appropriationUser = appropriationUser;
 	}
-	public Date getAppropriationDate() {
-		return appropriationDate;
+	public Date getAppropriationTime() {
+		return appropriationTime;
 	}
-	public void setAppropriationDate(Date appropriationDate) {
-		this.appropriationDate = appropriationDate;
+	public void setAppropriationTime(Date appropriationTime) {
+		this.appropriationTime = appropriationTime;
 	}
 	public String getFinStatus() {
 		return finStatus;
@@ -133,8 +133,8 @@ public class Financial {
 				+ finSubDetId + ", finSubDetIdDto=" + finSubDetIdDto
 				+ ", applyUser=" + applyUser + ", approveUser=" + approveUser
 				+ ", approveView=" + approveView + ", appropriationUser="
-				+ appropriationUser + ", appropriationDate="
-				+ appropriationDate + ", finStatus=" + finStatus
+				+ appropriationUser + ", appropriationTime="
+				+ appropriationTime + ", finStatus=" + finStatus
 				+ ", createUser=" + createUser + ", createDate=" + createDate
 				+ ", updateUser=" + updateUser + ", updateDate=" + updateDate
 				+ "]";

@@ -2,6 +2,7 @@ package com.hotmarzz.oa.buzz;
 
 import java.util.List;
 
+import com.hotmarzz.basic.dao.BaseQuery;
 import com.hotmarzz.oa.dto.CampusWaterDto;
 import com.hotmarzz.oa.pojo.CampusWater;
 import com.hotmarzz.oa.pojo.FinSubject;
@@ -111,4 +112,17 @@ public interface FinanceBuzz {
 	 * @throws Exception
 	 */
 	String getCurrentBillPath(Long id) throws Exception;
+	/**
+	 * 财务申请查询申请
+	 * @param bq
+	 * @return
+	 * @throws Exception
+	 */
+	BaseQuery getFinsList(BaseQuery bq) throws Exception;
+	
+	void deleteFin(Long fid) throws Exception;
+	
+	Financial getFinById(Long wid) throws Exception;
+	
+	void updateFin(Financial fin) throws Exception;
 }

@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.hotmarzz.basic.dao.BaseQuery;
 import com.hotmarzz.basic.dao.Expression;
 import com.hotmarzz.basic.utils.JsonUtils;
 import com.hotmarzz.basic.utils.StringUtils;
@@ -231,8 +232,66 @@ public class FinanceController {
 	}
 
 	// ------------------------------------------以上是校区流水的模块--------------------------------------------------
+	@RequestMapping(value = "financial.do", method = RequestMethod.PUT)
+	@ResponseBody
+	public String updateFin(@RequestBody Financial fin) throws Exception {
+		Map<String, Object> result = new HashMap<String, Object>();
+		finBuzz.updateFin(fin);
+		result.put("flag", true);
+		result.put("msg", "修改成功");
+		return JsonUtils.bean2Json(result);
+	}
+	
+	@RequestMapping(value = "financial/{fid}.do", method = RequestMethod.GET)
+	public String getFinById(@PathVariable("fid") Long fid, Model model)
+			throws Exception {
+		Financial fin = finBuzz.getFinById(fid);
+		fin.setFinSubDetIdDto(fin.getFinSubDetId().getFinSubDetailId());
+		model.addAttribute("finForm", fin);
+		model.addAttribute("subs", finBuzz.getFinSubsList());
+		model.addAttribute("subDetails",
+				finBuzz.getFinSubDetailsList(fin.getFinSubjectId().getFinSubjectId()));
+		return "financeResources/fin";
+	}
+	
+	@RequestMapping(value = "financial/{fid}.do", method = RequestMethod.DELETE)
+	@ResponseBody
+	public String deleteFin(@PathVariable("fid") Long fid) throws Exception {
+		Map<String, Object> result = new HashMap<String, Object>();
+		finBuzz.deleteFin(fid);
+		result.put("flag", true);
+		result.put("msg", "success");
+
+		return JsonUtils.bean2Json(result);
+	}
+	
 	@RequestMapping(value = "financial.do", method = RequestMethod.GET)
-	public String getFinPage(Model model, HttpSession session) throws Exception {
+	public String getFinPage(Model model,BaseQuery bq) throws Exception {
+		model.addAttribute("fins", bq);
+		return "financeResources/fins";
+	}
+	//获取所有流水
+	@RequestMapping(value="getFinsList.do",method=RequestMethod.POST)
+	@ResponseBody
+	public String getFinsList(@RequestBody BaseQuery bq) throws Exception{
+		Map<String, Object> queryParams = bq.getQueryParams();
+		if (queryParams.containsKey("applyUser")
+				&& StringUtils.isNotEmpty((String) queryParams.get("applyUser"))) {
+			bq.putCondition("applyUser", Expression.OP_LIKE,
+					"%" + queryParams.get("applyUser") + "%");
+		}
+		if (queryParams.containsKey("finStatus")
+				&& StringUtils.isNotEmpty((String) queryParams.get("finStatus"))) {
+			bq.putCondition("finStatus", Expression.OP_EQ,
+					queryParams.get("finStatus"));
+		}
+		BaseQuery bqResult = finBuzz.getFinsList(bq);
+		return JsonUtils.bean2Json(bqResult);
+	}
+	
+	//跳转添加页面
+	@RequestMapping(value = "add.do", method = RequestMethod.GET)
+	public String getFinancialPage(Model model, HttpSession session) throws Exception {
 		// 权限控制
 		Emp emp = (Emp) session.getAttribute(SessionUtils.LOGIN_EMP_KEY);
 		if (emp == null
@@ -248,6 +307,7 @@ public class FinanceController {
 		return "financeResources/fin";
 	}
 
+	//添加财务申请
 	@RequestMapping(value = "financial.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String addFin(@RequestBody Financial fin) throws Exception {

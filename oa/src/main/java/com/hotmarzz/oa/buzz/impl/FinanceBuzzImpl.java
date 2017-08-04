@@ -1,5 +1,6 @@
 package com.hotmarzz.oa.buzz.impl;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -10,6 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hotmarzz.basic.dao.BaseQuery;
+import com.hotmarzz.basic.dao.Expression;
 import com.hotmarzz.oa.buzz.FinanceBuzz;
 import com.hotmarzz.oa.dao.FinanceDao;
 import com.hotmarzz.oa.dto.CampusWaterDto;
@@ -65,7 +68,8 @@ public class FinanceBuzzImpl implements FinanceBuzz{
 	
 	@Override
 	public CampusWater getList(CampusWaterDto cw) throws Exception {
-		cw.setSchoolIdDto(((Emp)(session.getAttribute(SessionUtils.LOGIN_EMP_KEY))).getSchoolDistrict().getSchoolId());
+//		cw.setSchoolIdDto(((Emp)(session.getAttribute(SessionUtils.LOGIN_EMP_KEY))).getSchoolDistrict().getSchoolId());
+		cw.putCondition("cw.schoolid",Expression.OP_EQ ,((Emp)(session.getAttribute(SessionUtils.LOGIN_EMP_KEY))).getSchoolDistrict().getSchoolId());
 		List<CampusWater> us =  finDao.getListPage(cw);
 		int total_count = finDao.getCount(cw);
 		cw.getPag().setTotal_count(total_count);
@@ -139,6 +143,26 @@ public class FinanceBuzzImpl implements FinanceBuzz{
 	@Override
 	public String getCurrentBillPath(Long id) throws Exception {
 		return finDao.getCurrentBillPath(id);
+	}
+	@Override
+	public BaseQuery getFinsList(BaseQuery bq) throws Exception {
+		List<Financial> fins=finDao.getFinsListPage(bq);
+		int total_count = finDao.getFinsCount(bq);
+		bq.getPag().setTotal_count(total_count);
+		bq.getPag().setPageList(fins);
+		return bq;
+	}
+	@Override
+	public void deleteFin(Long fid) throws Exception {
+		finDao.deleteFin(fid);
+	}
+	@Override
+	public Financial getFinById(Long wid) throws Exception {
+		return finDao.getFinById(wid);
+	}
+	@Override
+	public void updateFin(Financial fin) throws Exception {
+		finDao.updateFin(fin);
 	}
 	
 	
