@@ -2,8 +2,9 @@ package com.hotmarzz.oa.buzz;
 
 import java.util.List;
 
+import com.hotmarzz.basic.dao.BaseQuery;
+import com.hotmarzz.oa.dto.CampusWaterDto;
 import com.hotmarzz.oa.pojo.CampusWater;
-import com.hotmarzz.oa.pojo.CampusWaterDto;
 import com.hotmarzz.oa.pojo.FinSubject;
 import com.hotmarzz.oa.pojo.FinSubjectDetail;
 import com.hotmarzz.oa.pojo.Financial;
@@ -43,7 +44,14 @@ public interface FinanceBuzz {
 	 * @return
 	 * @throws Exception
 	 */
-	CampusWater getList(CampusWater cw) throws Exception;
+	CampusWater getList(CampusWaterDto cw) throws Exception;
+	/**
+	 * 导出excel
+	 * @param cw
+	 * @return
+	 * @throws Exception
+	 */
+	List<CampusWater> getExpList(CampusWater cw) throws Exception;
 	/**
 	 * 删除流水信息
 	 * @param fid
@@ -90,4 +98,31 @@ public interface FinanceBuzz {
 	List<FinSubjectDetail> getFinSubDetailsList(Long subId) throws Exception;
 	
 	void addFin(Financial fin) throws Exception;
+	/**
+	 * 修改对应流水的票据内容
+	 * @param id
+	 * @param billpath
+	 * @throws Exception
+	 */
+	void updateBillPath(CampusWater cw) throws Exception;
+	/**
+	 * 获取当前的流水票据内容
+	 * @param id
+	 * @return
+	 * @throws Exception
+	 */
+	String getCurrentBillPath(Long id) throws Exception;
+	/**
+	 * 财务申请查询申请
+	 * @param bq
+	 * @return
+	 * @throws Exception
+	 */
+	BaseQuery getFinsList(BaseQuery bq) throws Exception;
+	
+	void deleteFin(Long fid) throws Exception;
+	
+	Financial getFinById(Long wid) throws Exception;
+	
+	void updateFin(Financial fin) throws Exception;
 }

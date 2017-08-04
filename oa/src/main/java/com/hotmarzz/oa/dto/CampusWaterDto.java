@@ -1,12 +1,26 @@
-package com.hotmarzz.oa.pojo;
+package com.hotmarzz.oa.dto;
+
+import com.hotmarzz.oa.pojo.CampusWater;
 
 public class CampusWaterDto extends CampusWater{
 	
 	public CampusWaterDto(){}
 	public CampusWaterDto(CampusWater cw){
-		this.schoolIdDto=cw.getSchoolId().getSchoolId();
-		this.subIdDto=cw.getSubId().getSubjectId();
-		this.subDetailIdDto=cw.getSubDetailId().getSubjectDetailId();
+		if(cw.getSchoolId()==null){
+			this.schoolIdDto=null;
+		}else{
+			this.schoolIdDto=cw.getSchoolId().getSchoolId();
+		}
+		if(cw.getSubId()==null){
+			this.subIdDto=null;
+		}else{
+			this.subIdDto=cw.getSubId().getSubjectId();
+		}
+		if(cw.getSubDetailId()==null){
+			this.subDetailIdDto=null;
+		}else{
+			this.subDetailIdDto=cw.getSubDetailId().getSubjectDetailId();
+		}
 		this.setBillPath(cw.getBillPath());
 		this.setBrokerage(cw.getBrokerage());
 		this.setCreateDate(cw.getCreateDate());
@@ -22,6 +36,10 @@ public class CampusWaterDto extends CampusWater{
 		this.setWaterId(cw.getWaterId());
 		this.setWaterSum(cw.getWaterSum());
 		this.setWaterType(cw.getWaterType());
+		this.setConditions(cw.getConditions());
+		this.setPag(cw.getPag());
+		this.setQueryList(cw.getQueryList());
+		this.setQueryParams(cw.getQueryParams());
 	}
 
 	private Long schoolIdDto;

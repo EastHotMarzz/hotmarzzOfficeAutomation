@@ -60,7 +60,6 @@
 </head>
 
 <body class="skin-1">
-
 	<div class="main-content">
 		<div class="main-content-inner">
 			<div class="breadcrumbs ace-save-state" id="breadcrumbs">
@@ -75,8 +74,6 @@
 			<div class="page-content">
 				<div class="ace-settings-container" id="ace-settings-container">
 				</div>
-				<!-- /.ace-settings-container -->
-
 				<div class="page-header">
 					<h1>
 						财务管理 <small> <i class="ace-icon fa fa-angle-double-right"></i>
@@ -86,11 +83,9 @@
 				</div>
 
 				<div id="alertDiv" class="alert alert-warning hidden">
-					<a class="close" href="#">
-							<i class="ace-icon fa fa-times"></i>
+					<a class="close" href="#"> <i class="ace-icon fa fa-times"></i>
 					</a>
 				</div>
-				<!-- /.page-header -->
 
 				<div class="row">
 					<div class="col-sm-12">
@@ -109,9 +104,10 @@
 											</button>
 										</div>
 										<div class="btn-group">
-											<button id="clearButton"
+											<button id="exportButton"
 												class="btn btn-sm btn-success btn-white btn-round">
-												<i class="ace-icon fa fa-mail-forward bigger-110 green"></i> 导出
+												<i class="ace-icon fa fa-mail-forward bigger-110 green"></i>
+												导出
 											</button>
 										</div>
 										<div class="btn-group">
@@ -121,14 +117,12 @@
 												<i class="ace-icon fa fa-search bigger-110 green"></i> 流水查询
 											</button>
 										</div>
-										
-										
 									</div>
 								</div>
 							</div>
 
 							<div class="widget-body">
-								<div class="widget-main" style="height:200px;width:1100px">
+								<div class="widget-main" style="height: 200px; width: 1100px">
 									<form:form id="searchForm" modelAttribute="cw" method="post"
 										cssClass="form-horizontal" role="form">
 										<div class="form-group">
@@ -143,12 +137,14 @@
 											<div
 												style="float: left; width: 200px; height: 30px; margin-left: 20px">
 												<span>开始日期：</span>
-												<form:input path="startDate" cssClass="datepicker" cssStyle="width:100px"/>
+												<form:input path="startDate" cssClass="datepicker"
+													cssStyle="width:100px" />
 											</div>
 											<div
 												style="float: left; width: 200px; height: 30px; margin-left: 20px">
 												<span>结束日期：</span>
-												<form:input path="endDate" cssClass="datepicker" cssStyle="width:100px"/>
+												<form:input path="endDate" cssClass="datepicker"
+													cssStyle="width:100px" />
 											</div>
 											<div
 												style="float: left; width: 200px; height: 30px; margin-left: 20px">
@@ -168,15 +164,16 @@
 														itemLabel="subjectDetailName" itemValue="subjectDetailId" />
 												</form:select>
 											</div>
-											<div style="height:60px;"></div>
-											<div
-												style="width: 1100px; height: 30px; margin-left: 20px;">
+											<div style="height: 60px;"></div>
+											<div style="width: 1100px; height: 30px; margin-left: 20px;">
 												<span class="sp1 well">本月收入：￥</span><span class="sp1 well">${fin.sumIncome }</span>
 												<span class="sp1 well">本月支出：￥</span><span class="sp1 well">${fin.sumExpenditure }</span>
-												<span class="sp1 well">本月结余：￥</span><span class="sp1 well" style="color:green;font-weight: bold">${fin.curCount }</span>
+												<span class="sp1 well">本月结余：￥</span><span class="sp1 well"
+													style="color: green; font-weight: bold">${fin.curCount }</span>
 												<span class="sp1 well">上月结余：￥</span><span class="sp1 well">${fin.preCount }</span>
-												<br><br><br><br>
-												<span class="sp1 well">总结余：￥</span><span class="sp1 well" style="color:green;font-weight: bold;">${fin.sumCount }</span>
+												<br> <br> <br> <br> <span
+													class="sp1 well">总结余：￥</span><span class="sp1 well"
+													style="color: green; font-weight: bold;">${fin.sumCount }</span>
 											</div>
 
 											<form:hidden id="current_page" path="pag.current_page" />
@@ -193,7 +190,6 @@
 					<!-- /.col -->
 				</div>
 				<!-- /.row -->
-
 				<div class="row">
 					<div class="col-sm-12">
 						<div class="widget-box">
@@ -230,17 +226,23 @@
 			<!-- /.page-content -->
 		</div>
 	</div>
-	<!-- /.main-content -->
-
-	<!-- /.main-container -->
-
-	<!-- basic scripts -->
+	<!-- 尝试票据 -->
+	<form id="fm_reset">
+	<input type="file" id="myBlogImage" name="myfiles"
+		style="display: none" />
+	</form>
+	<input type="text" id="file_id" style="display: none">
+	<!-- 尝试票据end -->
 
 	<!--[if !IE]> -->
 	<script src="assets/js/jquery-2.1.4.min.js"></script>
-
 	<!-- <![endif]-->
-
+	<%
+		String path = request.getContextPath();
+	%>
+	<script src="<%=path%>/assets/js/tools/jquery.serializejson.min.js"></script>
+	<script src="<%=path%>/assets/js/custom/array-utils.js"></script>
+	<script src="<%=path%>/assets/js/ajaxfileupload.js"></script>
 	<!--[if IE]>
 <script src="assets/js/jquery-1.11.3.min.js"></script>
 <![endif]-->
@@ -260,44 +262,83 @@
 	<script src="assets/js/buttons.print.min.js"></script>
 	<script src="assets/js/buttons.colVis.min.js"></script>
 	<script src="assets/js/dataTables.select.min.js"></script>
-	<!-- inline scripts related to this page -->
 	<script type="text/javascript">
+		var input = document.getElementById("myBlogImage");
+		if (typeof FileReader === 'undefined') {
+			alert("您的浏览器不支持此功能，请更换为chrome浏览器")
+		} else {
+			input.addEventListener('change', readFile, false);
+		}
+		function readFile() {
+			var file = this.files[0];
+			if (!/image\/\w+/.test(file.type)) {
+				alert("文件必须为图片！");
+				return false;
+			}
+			var idd = $("#file_id").val();
+			$.ajaxFileUpload({
+				url : 'myfileupload/' + idd + '.do',
+				secureuri : false, 
+				fileElementId : 'myBlogImage', //文件选择框的id属性
+				dataType : 'text', 
+				success : function(msg) { 
+					if ("ok" == msg) {
+						//重新加载条件查询
+						$("#searchButton").click();
+						//每次重新绑定才有效
+						var input = document.getElementById("myBlogImage");
+						input.addEventListener('change', readFile, false);
+					} else {
+						alert(msg)
+					}
+				},
+				error : function(data, status, e) { 
+					alert('图片上传失败，请稍后重试！！');
+				}
+			});
+		}
+
+		function addBill(idd) {
+			$("#file_id").attr("value", idd);
+			$("#myBlogImage").click();
+		}
+
 		function change_sub() {
-			var subid=$("#subId").val();
+			var subid = $("#subId").val();
 			$.ajax({
-				"url" : "getSubDetailsList/"+subid+".do",
+				"url" : "getSubDetailsList/" + subid + ".do",
 				"type" : "post",
 				"contentType" : "application/json;charset=UTF-8",
 				"cache" : false,
-				"dataType":"json",
-				"success":function(result){
-					var subDe=document.getElementById("subDetailId");
-					subDe.innerHTML=""
-					if(result==null || result.length==0){
-						var newOP=document.createElement("option");
-						newOP.innerHTML="全部";
-						newOP.value=0;
+				"dataType" : "json",
+				"success" : function(result) {
+					var subDe = document.getElementById("subDetailId");
+					subDe.innerHTML = ""
+					if (result == null || result.length == 0) {
+						var newOP = document.createElement("option");
+						newOP.innerHTML = "全部";
+						newOP.value = 0;
 						subDe.appendChild(newOP);
 					}
-					for(var i=0;i<result.length;i++){
-						var newOP=document.createElement("option");
-						newOP.innerHTML=result[i].subjectDetailName;
-						newOP.value=result[i].subjectDetailId;
+					for (var i = 0; i < result.length; i++) {
+						var newOP = document.createElement("option");
+						newOP.innerHTML = result[i].subjectDetailName;
+						newOP.value = result[i].subjectDetailId;
 						subDe.appendChild(newOP);
 					}
 				},
-				"error":function(){
+				"error" : function() {
 					alert("服务器响应失败！")
 				}
 			})
 		}
 		jQuery(function($) {
-			$("#alertDiv a").click(function(){
+			$("#alertDiv a").click(function() {
 				var alertDiv = $("#alertDiv");
 				alertDiv.addClass("hidden");
 				alertDiv.find("a").next("span").remove();
 			})
-			
+
 			var bq = {
 				'pag' : {
 					'current_page' : '1',
@@ -344,27 +385,26 @@
 				//添加收支类型
 				bq.queryParams.waterType = $('input:radio:checked').val();
 				//开始时间
-				if($(":input[name='startDate']")!=null&&$(":input[name='startDate']")!=undefined){
-					bq.queryParams.startDate = $(":input[name='startDate']").val();
+				if ($(":input[name='startDate']") != null
+						&& $(":input[name='startDate']") != undefined) {
+					bq.queryParams.startDate = $(":input[name='startDate']")
+							.val();
 				}
 				//结束时间
-				if($(":input[name='endDate']")!=null&&$(":input[name='endDate']")!=undefined){
+				if ($(":input[name='endDate']") != null
+						&& $(":input[name='endDate']") != undefined) {
 					bq.queryParams.endDate = $(":input[name='endDate']").val();
 				}
 				//科目
 				bq.queryParams.subId = $("#subId").val();
 				//科目明细
 				bq.queryParams.subDetailId = $("#subDetailId").val();
-				
+
 				return JSON.stringify(bq);
 			}
 
 			var writeParams = function(result) {
-// 				$(":input[name='queryParams[empName]']").val(
-// 						result.queryParams.empName);
-// 				$(":input[name='queryParams[hiredate]']").val(
-// 						result.queryParams.hiredate);
-				
+
 				$(":input[name='pag.current_page']").val(
 						result.pag.current_page);
 				$(":input[name='pag.total_page']").val(result.pag.total_page);
@@ -374,10 +414,12 @@
 					{
 						data : "schoolId.schoolName",
 						title : "校区"
-					},{
+					},
+					{
 						data : "subId.subjectName",
 						title : "科目"
-					},{
+					},
+					{
 						data : "subDetailId.subjectDetailName",
 						title : "科目明细"
 					},
@@ -391,7 +433,8 @@
 								return "收入";
 							}
 						}
-					},{
+					},
+					{
 						data : "waterBanch",
 						title : "批次"
 					},
@@ -404,15 +447,34 @@
 						title : "备注"
 					},
 					{
-						data : "billPath",
 						title : "票据",
-						render : function(data, type, full, meta) {
-							return "<img style='width:40px;height:30px' src='"+data+"'><button style='width:75px;height:25px'>票据添加</button>";
+						data : function(data1, type, val, meta) {
+							var idd = data1['waterId'];
+							var billpath = data1['billPath'];
+							if (billpath == null || billpath.trim() == "") {
+								return "<button onclick='addBill("
+										+ idd
+										+ ")' style='width:75px;height:25px'>票据添加</button>";
+							} else {
+								var str = data1['billPath'];
+								var arr = str.split(";");
+
+								var re = "<button onclick='addBill("
+										+ idd
+										+ ")' style='width:75px;height:25px'>票据添加</button>";
+								for (var i = 0; i < arr.length; i++) {
+									re = "<img style='width:40px;height:30px' src='"+encodeURI(encodeURI("upload/" + arr[i]))+"'>"
+											+ re;
+								}
+								return re;
+							}
 						}
-					},{
+					},
+					{
 						data : "brokerage",
 						title : "经手人"
-					},{
+					},
+					{
 						data : "waterDate",
 						title : "时间",
 						render : function(data, type, full, meta) {
@@ -514,7 +576,8 @@
 																				result) {
 																			if (result.msg == 'success') {
 																				var href = "fins.do";
-																				$("#main")
+																				$(
+																						"#main")
 																						.load(
 																								href,
 																								function() {
@@ -671,9 +734,20 @@
 				mainTable.fnDraw();
 			})
 
-			$("#clearButton").on("click", function() {
-				$("#searchForm input").each(function() {
-					$(this).val("");
+			$("#exportButton").on("click", function() {
+				$.ajax({
+					type : "get",
+					url : "exp.do",
+					contentType : "application/json;charset=UTF-8",
+					cache : false,
+					dataType : "json",
+					success : function(result) {
+						if (result.flag == true) {
+							alert(result.msg)
+						} else {
+							alert("导出失败")
+						}
+					}
 				})
 			})
 

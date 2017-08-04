@@ -111,6 +111,12 @@
 												<div class="step-pane active" data-step="1">
 													<form:form cssClass="form-horizontal" id="fillForm"
 														modelAttribute="finForm">
+														
+														<c:if
+															test="${!(finForm.finappId == null || finForm.finappId == '')}">
+															<form:hidden path="finappId" cssClass="col-xs-12 col-sm-6" />
+														</c:if>
+														
 														<div class="form-group">
 															<form:label path="finappSum"
  																cssClass="control-label col-xs-12 col-sm-3 no-padding-right"><span style="color:red">*</span>申请资金:</form:label>
@@ -153,7 +159,7 @@
  																cssClass="control-label col-xs-12 col-sm-3 no-padding-right">审批人:</form:label>
 															<div class="col-xs-12 col-sm-9">
 																<div class="clearfix">
- 																	<form:radiobutton path="approveUser" label="赵伟新" value="赵伟新"/>
+ 																	<form:radiobutton path="approveUser" label="赵伟欣" value="赵伟欣"/>
  																	<form:radiobutton path="approveUser" label="陈超群" value="陈超群"/>
  																	<form:radiobutton path="approveUser" label="吴政钦" value="吴政钦"/>
 																</div>
@@ -178,7 +184,14 @@
 												<div class="wizard-actions">
 													<button class="btn btn-success btn-next" id="submitBtn"
 														data-last="Finish">
-														申请
+														<c:if
+															test="${!(finForm.finappId == null || finForm.finappId == '')}">
+															修改
+														</c:if>
+														<c:if
+															test="${!(finForm.finappId == null || finForm.finappId == '')}">
+															申请
+														</c:if>
 														<i class="ace-icon fa fa-arrow-right icon-on-right"></i>
 													</button>
 												</div>
@@ -282,14 +295,21 @@
 						alertDiv.find("a").next("span").remove();
 					})
 
-					var listUrl = "fins.do";
 					var addOrUpdateUrl = "financial.do";
 					
 					$("#submitBtn")
 							.on("click",function(e) {
+										if($("#finappSum").val().trim()==""){
+											alert("请输入金额")
+											return false;
+										}
 										console.log($("#fillForm").serialize());
 										console.log(JSON.stringify($("#fillForm").serializeJSON()));
+										var update = $("#fillForm input[name='finappId'][type='hidden']").length > 0;
 										var method = "post";
+										if (update) {
+											method = "put";
+										}
 										var param = $("#fillForm").serializeJSON();
 										$.ajax({
 													"url" : addOrUpdateUrl,
@@ -299,7 +319,32 @@
 													"contentType" : "application/json;charset=UTF-8",
 													"success" : function(result) {
 														if (result.flag == true) {
-															alert("添加成功！")
+															$("#main").load("financial.do",
+																	function() {
+																		initMain();
+																		var alertDiv = $("#alertDiv");
+																		alertDiv
+																				.removeClass("hidden");
+																		alertDiv
+																				.removeClass("alert-warning");
+																		alertDiv
+																				.removeClass("alert-danger");
+																		alertDiv
+																				.addClass("alert-info");
+																		alertDiv
+																				.find(
+																						"a")
+																				.next(
+																						"span")
+																				.remove();
+																		alertDiv
+																				.find(
+																						"a")
+																				.after(
+																						"<span>"
+																								+ "申请成功"
+																								+ "<i class='ace-icon glyphicon glyphicon-ok'></i></span>");
+																	});
 														}
 														if (result.flag === 'exception') {
 															var alertDiv = $("#alertDiv");

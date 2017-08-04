@@ -4,8 +4,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.hotmarzz.basic.dao.BaseQuery;
+import com.hotmarzz.oa.dto.CampusWaterDto;
 import com.hotmarzz.oa.pojo.CampusWater;
-import com.hotmarzz.oa.pojo.CampusWaterDto;
 import com.hotmarzz.oa.pojo.FinSubject;
 import com.hotmarzz.oa.pojo.FinSubjectDetail;
 import com.hotmarzz.oa.pojo.Financial;
@@ -19,9 +20,9 @@ public interface FinanceDao {
 	
 	List<SubjectDetail> getSubDetailsList(Long subId) throws Exception;
 	
-	Double getSumIncome(String formatDate) throws Exception;
+	Double getSumIncome(String formatDate,Long sid) throws Exception;
 	
-	Double getSumExpenditure(String formatDate) throws Exception;
+	Double getSumExpenditure(String formatDate,Long sid) throws Exception;
 	
 	List<CampusWater> getListPage(CampusWater cw) throws Exception;
 	
@@ -42,4 +43,18 @@ public interface FinanceDao {
 	List<FinSubjectDetail> getFinSubDetailsList(Long subId) throws Exception;
 	
 	void addFin(Financial fin) throws Exception;
+	
+	public String getCurrentBillPath(Long id) throws Exception;
+	
+	public void updateBillPath(CampusWater cw) throws Exception;
+	
+	List<Financial> getFinsListPage(BaseQuery bq) throws Exception ;
+	
+	int getFinsCount(BaseQuery bq) throws Exception;
+	
+	void deleteFin(Long fid) throws Exception;
+	
+	Financial getFinById(Long wid) throws Exception;
+	
+	void updateFin(Financial fin) throws Exception;
 }
