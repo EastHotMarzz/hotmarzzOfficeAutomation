@@ -12,7 +12,7 @@
 		<springversion>4.1.9.RELEASE</springversion>
 		<mybatisversion>3.3.0</mybatisversion>
 		<junitversion>4.11</junitversion>
-   </properties>		
+  </properties>		
   
   <dependencies>
   		<dependency>

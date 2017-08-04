@@ -1,0 +1,1 @@
+alter table O_EMP drop(roleid);

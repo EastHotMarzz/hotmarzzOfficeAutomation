@@ -1,6 +1,7 @@
 package com.hotmarzz.oa.pojo;
 
 import java.util.Date;
+import java.util.List;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -18,7 +19,6 @@ public class Emp {
 	private Date hiredate;
 	private SchoolDistrict schoolDistrict;
 	private Dept dept;
-	private Role role;
 	private Station station;
 	private Integer assoWeChat = 1;
 	private String createUser;
@@ -27,7 +27,10 @@ public class Emp {
 	private Date updateDate;
 	
 	private Integer sex;
-	
+	//权限操作
+	//简单期间，集中到Emp中
+	private List<Role> roles;
+	private Long[] roleIds;
 	public Integer getSex() {
 		return sex;
 	}
@@ -82,12 +85,6 @@ public class Emp {
 	public void setDept(Dept dept) {
 		this.dept = dept;
 	}
-	public Role getRole() {
-		return role;
-	}
-	public void setRole(Role role) {
-		this.role = role;
-	}
 	public Station getStation() {
 		return station;
 	}
@@ -124,13 +121,24 @@ public class Emp {
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
+	public List<Role> getRoles() {
+		return roles;
+	}
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
+	public Long[] getRoleIds() {
+		return roleIds;
+	}
+	public void setRoleIds(Long[] roleIds) {
+		this.roleIds = roleIds;
+	}
 	@Override
 	public String toString() {
 		return "Emp [empId=" + empId + ", empName=" + empName + ", userName="
 				+ userName + ", userPwd=" + userPwd + ", phone=" + phone
 				+ ", hiredate=" + hiredate + ", schoolDistrict="
-				+ schoolDistrict + ", dept=" + dept + ", role=" + role
-				+ ", station=" + station + ", assoWeChat=" + assoWeChat
+				+ schoolDistrict + ", dept=" + dept + ", station=" + station + ", assoWeChat=" + assoWeChat
 				+ ", createUser=" + createUser + ", createDate=" + createDate
 				+ ", updateUser=" + updateUser + ", updateDate=" + updateDate
 				+ ", sex=" + sex + "]";

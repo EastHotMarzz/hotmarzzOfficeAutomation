@@ -1,6 +1,7 @@
 package com.hotmarzz.oa.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -25,11 +26,14 @@ import com.hotmarzz.basic.utils.DateUtils;
 import com.hotmarzz.basic.utils.JsonUtils;
 import com.hotmarzz.basic.utils.StringUtils;
 import com.hotmarzz.oa.buzz.EmpBuzz;
+import com.hotmarzz.oa.buzz.ResourceBuzz;
+import com.hotmarzz.oa.buzz.RoleBuzz;
+import com.hotmarzz.oa.dto.ResourceDto;
 import com.hotmarzz.oa.pojo.Emp;
 import com.hotmarzz.oa.pojo.EmpDto;
+import com.hotmarzz.oa.pojo.Resource;
 import com.hotmarzz.oa.pojo.Role;
 import com.hotmarzz.oa.pojo.SchoolDistrict;
-import com.hotmarzz.oa.utils.Constants;
 import com.hotmarzz.oa.utils.SessionUtils;
 
 @Controller
@@ -38,6 +42,8 @@ public class EmpController {
 	private Logger logger = LoggerFactory.getLogger(EmpController.class);
 
 	private EmpBuzz empBuzz;
+	private RoleBuzz roleBuzz;
+	private ResourceBuzz resourceBuzz;
 
 	public EmpBuzz getEmpBuzz() {
 		return empBuzz;
@@ -46,6 +52,22 @@ public class EmpController {
 	@Autowired
 	public void setEmpBuzz(EmpBuzz empBuzz) {
 		this.empBuzz = empBuzz;
+	}
+	
+	public RoleBuzz getRoleBuzz() {
+		return roleBuzz;
+	}
+	@Autowired
+	public void setRoleBuzz(RoleBuzz roleBuzz) {
+		this.roleBuzz = roleBuzz;
+	}
+	
+	public ResourceBuzz getResourceBuzz() {
+		return resourceBuzz;
+	}
+	@Autowired
+	public void setResourceBuzz(ResourceBuzz resourceBuzz) {
+		this.resourceBuzz = resourceBuzz;
 	}
 
 	/*
@@ -70,7 +92,10 @@ public class EmpController {
 			model.addAttribute("errMsg","账号或密码有误");
 			return "login";
 		}
+		List<Resource> res = empBuzz.getMenusOfEmp(loginEmp);
+		List<ResourceDto> treeMenus = resourceBuzz.getTreeMenus(res);
 		session.setAttribute(SessionUtils.LOGIN_EMP_KEY, loginEmp);
+		model.addAttribute("treeMenus", treeMenus);
 		return "main";
 	}
 
@@ -78,23 +103,12 @@ public class EmpController {
 	 * 跳转到员工页面
 	 */
 	@RequestMapping(value = "emps.do")
-	public String getEmpPage(Model model, BaseQuery bq,HttpSession session) {
+	public String getEmpPage(Model model, BaseQuery bq) throws Exception {
 		model.addAttribute("bq", bq);
-		//权限控制
-		Emp emp=(Emp)session.getAttribute(SessionUtils.LOGIN_EMP_KEY);
-		if(emp==null || (emp.getRole().getRoleId()!=1 && emp.getRole().getRoleId()!=2)){
-			return "permissionDenied";
-		}
+		model.addAttribute("roles", roleBuzz.getAll());
 		return "humanResources/emps";
 	}
 	
-	//待会删除
-	@RequestMapping(value = "depts.do")
-	public String getDeptPage(Model model, BaseQuery bq) {
-		model.addAttribute("bq", bq);
-		return "humanResources/depts";
-	}
-
 	/*
 	 * 查询员工
 	 */
@@ -119,6 +133,10 @@ public class EmpController {
 			bq.putCondition("hiredate", Expression.OP_LE, DateUtils
 					.parseSmallTime((String) (queryParams.get("hiredate"))));
 		}
+//		if (queryParams.containsKey("roleId")
+//				&& StringUtils.isNotEmpty((String) queryParams.get("roleId"))) {
+//			bq.putCondition("roleId", Expression.OP_EQ, Long.valueOf((String)queryParams.get("roleId")));
+//		}
 		BaseQuery bqResult = empBuzz.getList(bq);
 		return JsonUtils.bean2Json(bqResult);
 	}
@@ -127,8 +145,9 @@ public class EmpController {
 	 * 跳转添加员工页面
 	 */
 	@RequestMapping(value = "emp.do", method = RequestMethod.GET)
-	public String addFilling(Model model) {
+	public String addFilling(Model model) throws Exception {
 		model.addAttribute("empForm", new Emp());
+		model.addAttribute("roles", roleBuzz.getAll());
 		return "humanResources/emp";
 	}
 
@@ -151,11 +170,6 @@ public class EmpController {
 			result.put("validationMsg", validationMsg);
 			return JsonUtils.bean2Json(result);
 		}
-		//默认权限：最低权限
-		Role r=new Role();
-		r.setRoleId(Constants.DEFAULT_EMP_ROLE);
-		emp.setRole(r);
-		//默认校区:南京校区
 		SchoolDistrict sd=new SchoolDistrict();
 		sd.setSchoolId(1l);
 		emp.setSchoolDistrict(sd);
@@ -195,6 +209,10 @@ public class EmpController {
 			throws Exception {
 		Emp emp = empBuzz.getById(id);
 		model.addAttribute("empForm", emp);
+		model.addAttribute("roles", roleBuzz.getAll());
+		for(Role r:emp.getRoles()){
+			logger.debug(r.getRoleId()+"");
+		}
 		return "humanResources/emp";
 	}
 

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -128,7 +128,7 @@
 											<form:label path="queryParams[empName]"
 												cssClass="col-sm-1 control-label no-padding-right">员工姓名</form:label>
 
-											<div class="col-sm-3">
+											<div class="col-sm-4  col-md-3">
 												<form:input id="form-field-1" path="queryParams[empName]"
 													placeholder="员工姓名" cssClass="col-xs-10 col-sm-5" />
 											</div>
@@ -136,19 +136,30 @@
 											<form:label path="queryParams[userName]"
 												cssClass="col-sm-1 control-label no-padding-right">用户名</form:label>
 
-											<div class="col-sm-3">
+											<div class="col-sm-4  col-md-3">
 												<form:input id="form-field-1" path="queryParams[userName]"
 													placeholder="用户名" cssClass="col-xs-10 col-sm-5" />
 											</div>
-
 											<form:label path="queryParams[hiredate]"
 												cssClass="col-sm-1 control-label no-padding-right">入职时间早于</form:label>
 
-											<div class="col-sm-3">
+											<div class="col-sm-4  col-md-3">
 												<form:input id="form-field-2" path="queryParams[hiredate]"
 													placeholder="入职时间早于" cssClass="datepicker" />
 											</div>
-											
+											<!-- 
+											<br/>
+											<form:label path="queryParams[roleId]"
+												cssClass="col-sm-1 control-label no-padding-left">角色</form:label>
+	
+											<div class="col-sm-4  col-md-3">
+												<form:select id="form-field-2" path="queryParams[roleId]">
+													<c:forEach items="${roles }" var="role">
+														<form:option value="${role.roleId }">${role.roleName }</form:option>
+													</c:forEach>
+												</form:select>
+											</div>
+											 -->
 											<form:hidden id="current_page" path="pag.current_page" />
 											<form:hidden id="total_page" path="pag.total_page" />
 										</div>
@@ -295,6 +306,10 @@
 					bq.queryParams.hiredate = $(
 					":input[name='queryParams[hiredate]']").val();
 				}
+				if($(":input[name='queryParams[roleId]']")!=null&&$(":input[name='queryParams[roleId]']")!=undefined){
+					bq.queryParams.roleId = $(
+					":input[name='queryParams[roleId]']").val();
+				}
 				return JSON.stringify(bq);
 			}
 
@@ -306,6 +321,8 @@
 						result.queryParams.empName);
 				$(":input[name='queryParams[hiredate]']").val(
 						result.queryParams.hiredate);
+				$(":input[name='queryParams[roleId]']").val(
+						result.queryParams.roleId);
 				$(":input[name='pag.current_page']").val(
 						result.pag.current_page);
 				$(":input[name='pag.total_page']").val(result.pag.total_page);
@@ -352,13 +369,23 @@
 						}
 					},
 					{
-						data : "role",
+						data : "roles",
 						title : "所属角色",
 						render : function(data, type, full, meta) {
+							var roleNames = '';
 							if(data!=null){
-								return data.roleName;
+								var i = 0;
+								$.each(data,function(index,item){
+									i++;
+									if(i%2==0){
+										roleNames += item.roleName + ",<br/>" 
+									}else{
+										roleNames += item.roleName + ","
+									}
+									
+								})
 							}
-							return '';
+							return roleNames;
 						}
 					},
 					{

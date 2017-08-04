@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hotmarzz.oa.dao.MenuGrantDao">
+	
+	<sql id="menuGrantCol">
+		roleid,resourceid,CREATEUSER,CREATEDATE,
+		UPDATEUSER,UPDATEDATE,resourcetype
+	</sql>
+	
+	<resultMap type="menuGrant" id="menuGrantMap">
+		<association property="role" column="roleid" javaType="role" select="com.hotmarzz.oa.dao.RoleDao.getById"/>
+		<association property="resource" column="resourceid" javaType="resource" select="com.hotmarzz.oa.dao.ResourceDao.getMenuById"/>
+ 	</resultMap>
+ 	
+	<select id="getAll" parameterType="baseQuery" resultMap="menuGrantMap">
+		select 
+		<include refid="com.hotmarzz.oa.dao.MenuGrantDao.menuGrantCol"/>
+		 from o_role_resource where resourcetype='menu' 
+		 <if test="conditions!=null and conditions.size()>0">
+		 		and 
+				<foreach collection="conditions" item="c" separator="and">
+					${c.name} ${c.op} #{c.value}
+				</foreach>
+		 </if>
+	</select>
+	
+	<insert id="insert" parameterType="menuGrant">
+		insert into o_role_resource(
+		<include refid="com.hotmarzz.oa.dao.MenuGrantDao.menuGrantCol"/>
+		) values(
+			#{role.roleId,jdbcType=NUMERIC},
+			#{resource.resourceId,jdbcType=VARCHAR},
+			#{createUser,jdbcType=VARCHAR},
+			#{createDate,jdbcType=VARCHAR},
+			#{updateUser,jdbcType=VARCHAR},
+			#{updateDate,jdbcType=TIMESTAMP},
+			'menu'
+		)
+	</insert>	
+	
+	<select id="getMenusByRole" parameterType="long" resultType="resource">
+		select <include refid="com.hotmarzz.oa.dao.ResourceDao.menuResource"/> 
+		from o_resource where resourceid in 
+		(select resourceid from o_role_resource where roleid=#{roleId,jdbcType=NUMERIC} and resourcetype='menu')
+	</select>
+	
+	<delete id="deleteByRole" parameterType="long">
+		delete from o_role_resource where roleid=#{roleId,jdbcType=NUMERIC} and resourcetype='menu'
+	</delete>
+</mapper>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hotmarzz.oa.dao.ResourceDao">
+	
+	<sql id="menuResource">
+		resourceid,resourcetype,remark,menuname,
+		menupath,menuicon,menusort,menulev,
+		CREATEUSER,CREATEDATE,UPDATEUSER,UPDATEDATE
+	</sql>
+	
+	<sql id="parentMenuResource">
+		resourceid,resourcetype,remark,menuname,
+		parentmenu,menupath,menuicon,menusort,menulev,
+		createuser,createdate,updateuser,updatedate
+	</sql>
+	
+	<sql id="roleMenuCol">
+		roleid,resourceid,createuser,createdate,updateuser,updatedate,resourcetype
+	</sql>
+	
+	<resultMap type="resource" id="basicMenuMap">
+		<id property="resourceId" column="resourceid"/>
+		<result property="resourceType" column="resourcetype"/>
+		<result property="remark" column="remark"/>
+		<result property="menuPath" column="menupath"/>
+		<result property="menuIcon" column="menuicon"/>
+		<result property="menuSort" column="menusort"/>
+		<result property="menuLev" column="menulev"/>
+		<result property="create_date" column="create_date"/>
+		<result property="create_user" column="create_user"/>
+		<result property="update_date" column="update_date"/>
+		<result property="update_user" column="update_user"/>
+	</resultMap>
+	
+	<resultMap type="resource" id="parentMenuMap" extends="com.hotmarzz.oa.dao.ResourceDao.basicMenuMap">
+		<association property="parentMenu" column="parentmenu" javaType="resource" select="getParentMenu"/>
+	</resultMap>
+	
+	<select id="getParentMenu" resultType="resource">
+		select <include refid="com.hotmarzz.oa.dao.ResourceDao.parentMenuResource"/> 
+		from o_resource where resourcetype='menu' and resourceid = #{resourceId,jdbcType=NUMERIC}
+	</select>
+	
+	<select id="getMenuById" parameterType="long" resultType="resource">
+		select 
+		<include refid="com.hotmarzz.oa.dao.ResourceDao.menuResource"/> 
+		from o_resource where resourcetype='menu' and resourceid = #{resourceId,jdbcType=NUMERIC}
+	</select>
+	
+	<select id="getParentMenus" resultMap="parentMenuMap">
+		select <include refid="com.hotmarzz.oa.dao.ResourceDao.parentMenuResource"/> 
+		from o_resource where resourcetype='menu'
+	</select>
+	
+	<select id="getParentMenuById" parameterType="long" resultMap="parentMenuMap">
+		select 
+		<include refid="com.hotmarzz.oa.dao.ResourceDao.parentMenuResource"/> 
+		from o_resource where resourcetype='menu' and resourceid = #{resourceId,jdbcType=NUMERIC}
+	</select>
+	
+	<resultMap type="roleResourceLink" id="roleParentMenuMap">
+		<association property="role" column="roleid" javaType="role" select="com.hotmarzz.oa.dao.RoleDao.getById"/>
+		<association property="resource" column="resourceid" javaType="resource" select="getParentMenuById"/>
+	</resultMap>
+	
+	<select id="getRoleMenuList" resultMap="roleParentMenuMap">
+		select <include refid="com.hotmarzz.oa.dao.ResourceDao.roleMenuCol"/> 
+		from o_role_resource where resourcetype='menu'
+	</select>
+</mapper>

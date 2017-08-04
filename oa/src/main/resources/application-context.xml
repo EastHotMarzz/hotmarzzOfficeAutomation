@@ -51,7 +51,7 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:mybatis.cfg.xml"/>
 		<property name="mapperLocations" value="classpath:com/hotmarzz/oa/dao/*.xml" />
-		<property name="typeAliasesPackage" value="com.hotmarzz.oa.pojo,com.hotmarzz.basic.dao"/>
+		<property name="typeAliasesPackage" value="com.hotmarzz.oa.pojo,com.hotmarzz.oa.dto,com.hotmarzz.basic.dao"/>
 	</bean>
 
 	<!-- 扫包 -->

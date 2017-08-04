@@ -1212,3 +1212,445 @@ COMMENT ON COLUMN "HOTMARZZ"."O_FINSUBJECT"."UPDATEDATE" IS '修改时间';
 -- ----------------------------
 INSERT INTO "HOTMARZZ"."O_FINSUBJECT" VALUES ('1', '公司拨款', null, null, null, null);
 INSERT INTO "HOTMARZZ"."O_FINSUBJECT" VALUES ('2', '其它', null, null, null, null);
+
+
+
+
+
+-- ---------
+-- 权限处理
+-- update 2017-8-2
+create sequence o_role_seq start with 100;
+
+/*
+Navicat Oracle Data Transfer
+Oracle Client Version : 11.2.0.1.0
+
+Source Server         : hotMarzz_OA
+Source Server Version : 110200
+Source Host           : localhost:1521
+Source Schema         : HOTMARZZ
+
+Target Server Type    : ORACLE
+Target Server Version : 110200
+File Encoding         : 65001
+
+Date: 2017-08-04 20:45:36
+*/
+
+
+-- ----------------------------
+-- Table structure for O_ROLE
+-- ----------------------------
+DROP TABLE "HOTMARZZ"."O_ROLE";
+CREATE TABLE "HOTMARZZ"."O_ROLE" (
+"ROLEID" NUMBER NOT NULL ,
+"ROLENAME" VARCHAR2(50 BYTE) NULL ,
+"REMARK" VARCHAR2(500 BYTE) NULL ,
+"CREATEUSER" VARCHAR2(50 BYTE) NULL ,
+"CREATEDATE" DATE NULL ,
+"UPDATEUSER" VARCHAR2(50 BYTE) NULL ,
+"UPDATEDATE" DATE NULL 
+)
+LOGGING
+NOCOMPRESS
+NOCACHE
+
+;
+COMMENT ON COLUMN "HOTMARZZ"."O_ROLE"."ROLEID" IS '角色id';
+COMMENT ON COLUMN "HOTMARZZ"."O_ROLE"."ROLENAME" IS '角色名称';
+
+-- ----------------------------
+-- Records of O_ROLE
+-- ----------------------------
+INSERT INTO "HOTMARZZ"."O_ROLE" VALUES ('4', '校区就业老师', null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_ROLE" VALUES ('5', '校区就业经理', null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_ROLE" VALUES ('6', '校区财务', null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_ROLE" VALUES ('7', '校区教务', null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_ROLE" VALUES ('8', '教学检查员', null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_ROLE" VALUES ('9', '校区人力', null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_ROLE" VALUES ('10', '后台教师', null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_ROLE" VALUES ('11', '后台助教', null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_ROLE" VALUES ('1', '系统管理员', null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_ROLE" VALUES ('2', '校区行政', null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_ROLE" VALUES ('3', '校区咨询师', null, null, null, null, null);
+
+-- ----------------------------
+-- Indexes structure for table O_ROLE
+-- ----------------------------
+
+-- ----------------------------
+-- Checks structure for table O_ROLE
+-- ----------------------------
+ALTER TABLE "HOTMARZZ"."O_ROLE" ADD CHECK ("ROLEID" IS NOT NULL);
+
+-- ----------------------------
+-- Primary Key structure for table O_ROLE
+-- ----------------------------
+ALTER TABLE "HOTMARZZ"."O_ROLE" ADD PRIMARY KEY ("ROLEID");
+
+/*
+Navicat Oracle Data Transfer
+Oracle Client Version : 11.2.0.1.0
+
+Source Server         : hotMarzz_OA
+Source Server Version : 110200
+Source Host           : localhost:1521
+Source Schema         : HOTMARZZ
+
+Target Server Type    : ORACLE
+Target Server Version : 110200
+File Encoding         : 65001
+
+Date: 2017-08-04 20:46:02
+*/
+
+
+-- ----------------------------
+-- Table structure for O_RESOURCE
+-- ----------------------------
+DROP TABLE "HOTMARZZ"."O_RESOURCE";
+CREATE TABLE "HOTMARZZ"."O_RESOURCE" (
+"RESOURCEID" NUMBER NOT NULL ,
+"RESOURCETYPE" VARCHAR2(50 BYTE) NULL ,
+"REMARK" VARCHAR2(500 BYTE) NULL ,
+"MENUNAME" VARCHAR2(50 BYTE) NULL ,
+"PARENTMENU" NUMBER NULL ,
+"MENUPATH" VARCHAR2(255 BYTE) NULL ,
+"MENUICON" VARCHAR2(255 BYTE) NULL ,
+"MENUSORT" VARCHAR2(255 BYTE) NULL ,
+"MENULEV" NUMBER(2) NULL ,
+"FUNCTIONNAME" VARCHAR2(50 BYTE) NULL ,
+"BELONGMENU" VARCHAR2(50 BYTE) NULL ,
+"CREATEUSER" VARCHAR2(50 BYTE) NULL ,
+"CREATEDATE" DATE NULL ,
+"UPDATEUSER" VARCHAR2(50 BYTE) NULL ,
+"UPDATEDATE" DATE NULL 
+)
+LOGGING
+NOCOMPRESS
+NOCACHE
+
+;
+
+-- ----------------------------
+-- Records of O_RESOURCE
+-- ----------------------------
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('1', 'menu', null, '人力资源管理', null, null, null, '1', '1', null, null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('2', 'menu', null, '教务管理', null, null, null, '2', '1', null, null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('3', 'menu', null, '学员管理', null, null, null, '3', '1', null, null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('4', 'menu', null, '统计管理', null, null, null, '4', '1', null, null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('5', 'menu', null, '招生咨询', null, null, null, '5', '1', null, null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('6', 'menu', null, '就业管理', null, null, null, '6', '1', null, null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('7', 'menu', null, '财务流水管理', null, null, null, '7', '1', null, null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('8', 'menu', null, '规章制度', null, null, null, '8', '1', null, null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('9', 'menu', null, '教师评估', null, null, null, '9', '1', null, null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('10', 'menu', null, '文件管理', null, null, null, '10', '1', null, null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('11', 'menu', null, '系统权限管理', null, null, null, '11', '1', null, null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('12', 'menu', null, '公司员工管理', '1', 'emps.do', null, '1', '2', null, null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('13', 'menu', null, '部门岗位管理', '1', '#', null, '2', '2', null, null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('14', 'menu', null, '校区管理', '2', '#', null, '1', '2', null, null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('15', 'menu', null, '班级管理', '2', '#', null, '2', '2', null, null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('16', 'menu', null, '教师管理', '2', '#', null, '3', '2', null, null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('17', 'menu', null, '基本信息管理', '3', 'stus.do', null, '1', '2', null, null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('18', 'menu', null, '贷款信息管理', '3', '#', null, '2', '2', null, null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('19', 'menu', null, '现金缴费管理', '3', '#', null, '3', '2', null, null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('20', 'menu', null, '保险信息', '3', '#', null, '4', '2', null, null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('21', 'menu', null, '补贴申请', '3', '#', null, '5', '2', null, null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('22', 'menu', null, '成绩管理', '3', '#', null, '6', '2', null, null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('23', 'menu', null, '申请记录', '3', '#', null, '7', '2', null, null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('24', 'menu', null, '教学质量统计', '4', '#', null, '1', '2', null, null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('25', 'menu', null, '学员基本信息统计', '4', '#', null, '2', '2', null, null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('26', 'menu', null, '校区电话量统计', '5', '#', null, '1', '2', null, null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('27', 'menu', null, '安排面试/就业', '6', '#', null, '1', '2', null, null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('28', 'menu', null, '学生就业管理', '6', '#', null, '2', '2', null, null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('29', 'menu', null, '学员就业统计', '6', '#', null, '3', '2', null, null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('30', 'menu', null, '合作公司管理', '6', '#', null, '4', '2', null, null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('31', 'menu', null, '分配就业老师', '6', '#', null, '5', '2', null, null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('32', 'menu', null, '就业专员工作统计', '6', '#', null, '6', '2', null, null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('33', 'menu', null, '班级就业统计', '6', '#', null, '7', '2', null, null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('34', 'menu', null, '特殊学员管理', '6', '#', null, '8', '2', null, null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('35', 'menu', null, '就业审核', '6', '#', null, '9', '2', null, null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('36', 'menu', null, '校区流水', '7', 'fins.do', null, '1', '2', null, null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('37', 'menu', null, '财务申请', '7', 'financial.do', null, '2', '2', null, null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('38', 'menu', null, '维护规章制度', '8', '#', null, '1', '2', null, null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('39', 'menu', null, '查看规章制度', '8', '#', null, '2', '2', null, null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('40', 'menu', null, '领导评分', '9', '#', null, '1', '2', null, null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('41', 'menu', null, '满意度问卷', '9', '#', null, '2', '2', null, null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('42', 'menu', null, '教员阶段考核', '9', '#', null, '3', '2', null, null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('43', 'menu', null, '文件夹列表', '10', '#', null, '1', '2', null, null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('45', 'function', null, null, null, null, null, null, null, '公司员工添加', '公司员工管理', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('44', 'function', null, null, null, null, null, null, null, '公司员工查询', '公司员工管理', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('46', 'function', null, null, null, null, null, null, null, '公司员工修改', '公司员工管理', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('47', 'function', null, null, null, null, null, null, null, '公司员工删除', '公司员工管理', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('48', 'function', null, null, null, null, null, null, null, '学员基本信息查询', '学员基本信息管理', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('49', 'function', null, null, null, null, null, null, null, '学员基本信息添加', '学员基本信息管理', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('50', 'function', null, null, null, null, null, null, null, '学员基本信息修改', '学员基本信息管理', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('51', 'function', null, null, null, null, null, null, null, '学员基本信息删除', '学员基本信息管理', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('52', 'function', null, null, null, null, null, null, null, '校区流水查询', '校区流水管理', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('53', 'function', null, null, null, null, null, null, null, '校区流水添加', '校区流水管理', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('54', 'function', null, null, null, null, null, null, null, '校区流水修改', '校区流水管理', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('55', 'function', null, null, null, null, null, null, null, '校区流水删除', '校区流水管理', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('56', 'function', null, null, null, null, null, null, null, '流水票据上传', '校区流水管理', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('57', 'function', null, null, null, null, null, null, null, '校区流水导出', '校区流水管理', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('58', 'function', null, null, null, null, null, null, null, '财务申请', '财务申请管理', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('59', 'function', null, null, null, null, null, null, null, '财务审批', '财务申请管理', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('60', 'function', null, null, null, null, null, null, null, '财务审批查询', '财务申请管理', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('61', 'function', null, null, null, null, null, null, null, '角色查询', '角色管理', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('62', 'function', null, null, null, null, null, null, null, '角色添加', '角色管理', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('63', 'function', null, null, null, null, null, null, null, '角色修改', '角色管理', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('64', 'function', null, null, null, null, null, null, null, '角色删除', '角色管理', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('65', 'function', null, null, null, null, null, null, null, '菜单授权添加', '菜单授权管理', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('66', 'function', null, null, null, null, null, null, null, '菜单授权修改', '菜单授权管理', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('67', 'function', null, null, null, null, null, null, null, '功能授权添加', '功能授权管理', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('68', 'function', null, null, null, null, null, null, null, '功能授权修改', '功能授权管理', null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('69', 'menu', null, '角色管理', '11', 'roles.do', null, '1', '2', null, null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('70', 'menu', null, '菜单授权管理', '11', 'menuGrants.do', null, '2', '2', null, null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_RESOURCE" VALUES ('71', 'menu', null, '功能授权管理', '11', 'functionGrants.do', null, '3', '2', null, null, null, null, null, null);
+
+-- ----------------------------
+-- Indexes structure for table O_RESOURCE
+-- ----------------------------
+
+-- ----------------------------
+-- Checks structure for table O_RESOURCE
+-- ----------------------------
+ALTER TABLE "HOTMARZZ"."O_RESOURCE" ADD CHECK ("RESOURCEID" IS NOT NULL);
+
+-- ----------------------------
+-- Primary Key structure for table O_RESOURCE
+-- ----------------------------
+ALTER TABLE "HOTMARZZ"."O_RESOURCE" ADD PRIMARY KEY ("RESOURCEID");
+
+/*
+Navicat Oracle Data Transfer
+Oracle Client Version : 11.2.0.1.0
+
+Source Server         : hotMarzz_OA
+Source Server Version : 110200
+Source Host           : localhost:1521
+Source Schema         : HOTMARZZ
+
+Target Server Type    : ORACLE
+Target Server Version : 110200
+File Encoding         : 65001
+
+Date: 2017-08-04 20:47:07
+*/
+
+
+-- ----------------------------
+-- Table structure for O_ROLE_RESOURCE
+-- ----------------------------
+DROP TABLE "HOTMARZZ"."O_ROLE_RESOURCE";
+CREATE TABLE "HOTMARZZ"."O_ROLE_RESOURCE" (
+"ROLEID" NUMBER NOT NULL ,
+"RESOURCEID" NUMBER NOT NULL ,
+"CREATEUSER" VARCHAR2(50 BYTE) NULL ,
+"CREATEDATE" DATE NULL ,
+"UPDATEUSER" VARCHAR2(50 BYTE) NULL ,
+"UPDATEDATE" DATE NULL ,
+"RESOURCETYPE" VARCHAR2(50 BYTE) NULL 
+)
+LOGGING
+NOCOMPRESS
+NOCACHE
+
+;
+
+-- ----------------------------
+-- Records of O_ROLE_RESOURCE
+-- ----------------------------
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('3', '3', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('3', '17', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('3', '18', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('3', '19', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('3', '20', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('3', '21', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('3', '22', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('3', '23', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('3', '5', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('3', '26', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('4', '6', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('4', '27', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('4', '28', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('4', '29', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('4', '30', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('4', '31', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('4', '32', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('4', '33', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('4', '34', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('4', '35', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('4', '8', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('4', '38', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('4', '39', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('6', '7', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('6', '36', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('6', '37', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('8', '9', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('8', '40', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('8', '41', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('8', '42', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('10', '9', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('10', '40', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('10', '41', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('10', '42', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('10', '10', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('10', '43', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('11', '3', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('11', '17', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('11', '18', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('11', '19', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('11', '20', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('11', '21', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('11', '22', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('11', '23', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('12', '1', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('12', '12', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('12', '13', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('13', '1', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('13', '12', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('13', '13', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('2', '12', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('2', '13', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('2', '2', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('2', '14', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('2', '15', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('2', '1', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('2', '16', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('2', '8', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('2', '38', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('2', '39', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('7', '2', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('7', '14', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('7', '15', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('7', '16', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('7', '3', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('7', '17', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('7', '18', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('7', '19', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('7', '20', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('7', '21', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('7', '22', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('7', '23', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('7', '4', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('7', '24', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('7', '25', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('1', '1', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('1', '12', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('1', '13', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('1', '2', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('1', '14', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('1', '15', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('1', '16', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('1', '3', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('1', '17', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('1', '18', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('1', '19', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('1', '20', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('1', '21', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('1', '22', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('1', '23', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('1', '4', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('1', '24', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('1', '25', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('1', '5', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('1', '26', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('1', '6', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('1', '27', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('1', '28', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('1', '29', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('1', '30', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('1', '31', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('1', '32', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('1', '33', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('1', '34', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('1', '35', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('1', '7', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('1', '36', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('1', '37', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('1', '8', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('1', '38', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('1', '39', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('1', '9', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('1', '40', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('1', '41', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('1', '42', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('1', '10', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('1', '43', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('1', '11', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('1', '69', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('1', '70', null, null, null, null, 'menu');
+INSERT INTO "HOTMARZZ"."O_ROLE_RESOURCE" VALUES ('1', '71', null, null, null, null, 'menu');
+
+-- ----------------------------
+-- Indexes structure for table O_ROLE_RESOURCE
+-- ----------------------------
+
+-- ----------------------------
+-- Checks structure for table O_ROLE_RESOURCE
+-- ----------------------------
+ALTER TABLE "HOTMARZZ"."O_ROLE_RESOURCE" ADD CHECK ("ROLEID" IS NOT NULL);
+ALTER TABLE "HOTMARZZ"."O_ROLE_RESOURCE" ADD CHECK ("RESOURCEID" IS NOT NULL);
+
+-- ----------------------------
+-- Primary Key structure for table O_ROLE_RESOURCE
+-- ----------------------------
+ALTER TABLE "HOTMARZZ"."O_ROLE_RESOURCE" ADD PRIMARY KEY ("ROLEID", "RESOURCEID");
+
+/*
+Navicat Oracle Data Transfer
+Oracle Client Version : 11.2.0.1.0
+
+Source Server         : hotMarzz_OA
+Source Server Version : 110200
+Source Host           : localhost:1521
+Source Schema         : HOTMARZZ
+
+Target Server Type    : ORACLE
+Target Server Version : 110200
+File Encoding         : 65001
+
+Date: 2017-08-04 20:48:20
+*/
+
+
+-- ----------------------------
+-- Table structure for O_EMP_ROLE
+-- ----------------------------
+DROP TABLE "HOTMARZZ"."O_EMP_ROLE";
+CREATE TABLE "HOTMARZZ"."O_EMP_ROLE" (
+"EMPID" NUMBER NOT NULL ,
+"ROLEID" NUMBER NOT NULL ,
+"CREATEUSER" VARCHAR2(50 BYTE) NULL ,
+"CREATEDATE" DATE NULL ,
+"UPDATEUSER" VARCHAR2(50 BYTE) NULL ,
+"UPDATEDATE" DATE NULL 
+)
+LOGGING
+NOCOMPRESS
+NOCACHE
+
+;
+COMMENT ON COLUMN "HOTMARZZ"."O_EMP_ROLE"."EMPID" IS 'emp id';
+COMMENT ON COLUMN "HOTMARZZ"."O_EMP_ROLE"."ROLEID" IS 'role id';
+COMMENT ON COLUMN "HOTMARZZ"."O_EMP_ROLE"."CREATEUSER" IS '创建人';
+COMMENT ON COLUMN "HOTMARZZ"."O_EMP_ROLE"."CREATEDATE" IS '创建时间';
+COMMENT ON COLUMN "HOTMARZZ"."O_EMP_ROLE"."UPDATEUSER" IS '修改人';
+COMMENT ON COLUMN "HOTMARZZ"."O_EMP_ROLE"."UPDATEDATE" IS '修改时间';
+
+-- ----------------------------
+-- Indexes structure for table O_EMP_ROLE
+-- ----------------------------
+
+-- ----------------------------
+-- Checks structure for table O_EMP_ROLE
+-- ----------------------------
+ALTER TABLE "HOTMARZZ"."O_EMP_ROLE" ADD CHECK ("EMPID" IS NOT NULL);
+ALTER TABLE "HOTMARZZ"."O_EMP_ROLE" ADD CHECK ("ROLEID" IS NOT NULL);
+
+-- ----------------------------
+-- Primary Key structure for table O_EMP_ROLE
+-- ----------------------------
+ALTER TABLE "HOTMARZZ"."O_EMP_ROLE" ADD PRIMARY KEY ("EMPID", "ROLEID");
+
