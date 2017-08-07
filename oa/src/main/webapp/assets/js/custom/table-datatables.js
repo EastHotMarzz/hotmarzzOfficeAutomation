@@ -324,6 +324,7 @@ var tableToExcel = (function () {
     template = '<html><head><meta charset="UTF-8"></head><body><p id="headTitle" class="text-center" style="font-weight:bold;font-size:200%;font-family:KaiTi;">{p}</p><table border="1" cellspacing="1">{table}</table></body></html>',
     base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) },
     format = function (s, c) {
+    	
         return s.replace(/{(\w+)}/g,
         function (m, p) { return c[p]; })
     }
