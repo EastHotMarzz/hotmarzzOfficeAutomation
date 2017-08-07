@@ -62,15 +62,7 @@ public class FinanceController {
 	}
 
 	@RequestMapping(value = "fins.do", method = RequestMethod.GET)
-	public String getWaterPage(Model model, CampusWater cw, HttpSession session)
-			throws Exception {
-		// 权限控制
-		Emp emp = (Emp) session.getAttribute(SessionUtils.LOGIN_EMP_KEY);
-		if (emp == null
-				|| (emp.getRole().getRoleId() != 1 && emp.getRole().getRoleId() != 2)) {
-			return "permissionDenied";
-		}
-
+	public String getWaterPage(Model model, CampusWater cw,HttpSession session) throws Exception {
 		String now = FormatDateUtil.getCurrentYearAndMonthStr();
 		String pre = FormatDateUtil.getCurrentYearAndPreMonthStr();
 		FinanceDto fin = new FinanceDto();
@@ -292,13 +284,6 @@ public class FinanceController {
 	//跳转添加页面
 	@RequestMapping(value = "add.do", method = RequestMethod.GET)
 	public String getFinancialPage(Model model, HttpSession session) throws Exception {
-		// 权限控制
-		Emp emp = (Emp) session.getAttribute(SessionUtils.LOGIN_EMP_KEY);
-		if (emp == null
-				|| (emp.getRole().getRoleId() != 1 && emp.getRole().getRoleId() != 2)) {
-			return "permissionDenied";
-		}
-
 		Financial f = new Financial();
 		f.setApproveUser("赵伟欣");
 		model.addAttribute("finForm", f);

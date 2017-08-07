@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 
 import com.hotmarzz.basic.dao.BaseQuery;
 import com.hotmarzz.oa.pojo.Emp;
+import com.hotmarzz.oa.pojo.EmpRoleLink;
+import com.hotmarzz.oa.pojo.Role;
 
 @Repository
 public interface EmpDao {
@@ -42,4 +44,11 @@ public interface EmpDao {
 	Emp ckOldPwd(Emp emp) throws Exception;
 	
 	void updatePwd(Emp emp) throws Exception;
+	
+	List<Role> getRolesByEmp(Long empId) throws Exception;
+
+	void insertEmpRoleLink(EmpRoleLink empRoleLink) throws Exception;
+	
+	//删除EmpRoleLinke
+	void deleteERLByEmp(Long empId) throws Exception;
 }

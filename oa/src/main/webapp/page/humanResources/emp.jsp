@@ -212,7 +212,30 @@
 																</div>
 															</div>
 														</div>
-
+														
+														<div class="form-group">
+															<form:label path="roleIds"
+																cssClass="control-label col-xs-12 col-sm-3 no-padding-right">角色:</form:label>
+															<div class="col-xs-12 col-sm-9">
+																<div class="clearfix">
+																	
+																	<c:forEach items="${roles }" var="role" varStatus="status">
+																			<form:checkbox path="roleIds" label="${role.roleName }" value="${role.roleId }"/>
+																			<c:if test="${(status.index+1)%3 ==0 }">
+																				<br/>
+																			</c:if>
+																	</c:forEach>
+																	
+																	<c:if test="${!(empForm.empId == null || empForm.empId == '')}">
+																		<c:forEach items="${empForm.roles }" var="role">
+																			<input type="hidden" name="selectedRoles" value="${role.roleId }"/>
+																		</c:forEach>
+																	</c:if>
+																	<form:errors path="roleIds" />
+																</div>
+															</div>
+														</div>
+														
 														<div class="form-group">
 															<form:label path="dept"
 																cssClass="control-label col-xs-12 col-sm-3 no-padding-right">所属部门:</form:label>
@@ -251,58 +274,6 @@
 										</div>
 										<!-- /.widget-body -->
 									</div>
-									<!-- 
-									<div id="modal-wizard" class="modal">
-										<div class="modal-dialog">
-											<div class="modal-content">
-												<div id="modal-wizard-container">
-													<div class="modal-header">
-														<ul class="steps">
-															<li data-step="1" class="active"><span class="step">1</span>
-																<span class="title">Validation states</span></li>
-
-															<li data-step="2"><span class="step">2</span> <span
-																class="title">Alerts</span></li>
-
-															<li data-step="3"><span class="step">3</span> <span
-																class="title">Payment Info</span></li>
-
-															<li data-step="4"><span class="step">4</span> <span
-																class="title">Other Info</span></li>
-														</ul>
-													</div>
-
-													<div class="modal-body step-content">
-														<div class="step-pane active" data-step="1">
-															<div class="center">
-																<h4 class="blue">Step 1</h4>
-															</div>
-														</div>
-
-														<div class="step-pane" data-step="2">
-															<div class="center">
-																<h4 class="blue">Step 2</h4>
-															</div>
-														</div>
-
-														<div class="step-pane" data-step="3">
-															<div class="center">
-																<h4 class="blue">Step 3</h4>
-															</div>
-														</div>
-
-														<div class="step-pane" data-step="4">
-															<div class="center">
-																<h4 class="blue">Step 4</h4>
-															</div>
-														</div>
-													</div>
-												</div>
-
-											</div>
-										</div>
-									</div>
-									 -->
 									<!-- PAGE CONTENT ENDS -->
 								</div>
 								<!-- /.col -->
@@ -367,29 +338,31 @@
 			<!-- serializeJSON -->
 			<script src="<%=path%>/assets/js/tools/jquery.serializejson.min.js"></script>
 			<script src="<%=path%>/assets/js/custom/array-utils.js"></script>
+			<script src="<%=path%>/assets/js/custom/checkbox-utils.js"></script>
 			<!-- inline scripts related to this page -->
 			<script type="text/javascript">
 				jQuery(function($) {
-
+					selectChe('roleIds','selectedRoles');
+					
 					var listUrl = "emps.do";
 					var addOrUpdateUrl = "emp.do";
 
 					$("#submitBtn")
 							.on("click",
 									function(e) {
-										console.log($("#fillForm").serialize());
-										console.log(JSON.stringify($("#fillForm").serializeJSON()));
+										debugger
 										var update = $("#fillForm input[name='empId'][type='hidden']").length > 0;
 										var method = "post";
 										if (update) {
 											method = "put";
-// 											addOrUpdateUrl = "../"
-// 													+ addOrUpdateUrl;
-// 											listUrl = "../" + listUrl;
-// 											alert(addOrUpdateUrl)
-// 											alert(listUrl)
 										}
+										var roleIdsEle =  $("#fillForm input[name='roleIds'][type='checkbox']:checked");
+										var roleIds = [];
+										$.each(roleIdsEle,function(index,e){
+											roleIds.push($(e).val());
+										})
 										var param = $("#fillForm").serializeJSON();
+										param['roleIds'] = roleIds;
 										$.ajax({
 													"url" : addOrUpdateUrl,
 													"method" : method,
@@ -397,7 +370,6 @@
 													"dataType" : "json",
 													"contentType" : "application/json;charset=UTF-8",
 													"success" : function(result) {
-														debugger
 														if (result.flag === true) {
 															$("#main").load(listUrl,
 																			function() {
@@ -489,7 +461,8 @@
 						var href = $(this).attr("href");
 						$("#main").load(listUrl);
 					})
-
+					
+					
 				})
 			</script>
 </body>

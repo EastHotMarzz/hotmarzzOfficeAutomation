@@ -316,6 +316,7 @@
 
 
 			<ul class="nav nav-list">
+				
 				<li class="active">
 					<a href="#">
 						<i class="menu-icon fa fa-tachometer"></i>
@@ -325,353 +326,31 @@
 					</a>
 					<b class="arrow"></b>
 				</li>
-				
-					<li class="">
-						<a href="#" class="dropdown-toggle">
-							<i class="menu-icon fa fa-desktop"></i>
-							<span class="menu-text">
-								人力资源管理
-							</span>
-							<b class="arrow fa fa-angle-down"></b>
-						</a>
-						<b class="arrow"></b>
-							<ul class="submenu">
+				<c:if test="${! empty treeMenus}">
+					<c:forEach items="${treeMenus }" var="m1">
+						<li class="">
+							<a href="#" class="dropdown-toggle">
+								<i class="menu-icon fa fa-desktop"></i>
+								<span class="menu-text">
+									${m1.menu.menuName }
+								</span>
+								<b class="arrow fa fa-angle-down"></b>
+							</a>
+							<b class="arrow"></b>
+							<c:if test="${! empty m1.childrenMenus }">
+								<ul class="submenu">
+								<c:forEach items="${m1.childrenMenus }" var="m2">
 									<li class="">
-										<a href="emps.do">
+										<a href="${m2.menuPath }">
 											<i class="menu-icon fa fa-caret-right"></i>
-											公司员工管理
+											${m2.menuName }
 										</a>
 									</li>
-									
-									<li class="">
-										<a href="depts.do">
-											<i class="menu-icon fa fa-caret-right"></i>
-											部门岗位管理
-										</a>
-									</li>
-							</ul>
-					</li>
-					
-					<li class="">
-						<a href="#" class="dropdown-toggle">
-							<i class="menu-icon fa fa-desktop"></i>
-							<span class="menu-text">
-								教务管理
-							</span>
-							<b class="arrow fa fa-angle-down"></b>
-						</a>
-						<b class="arrow"></b>
-						
-							<ul class="submenu">
-									<li class="">
-										<a href="schools.do">
-											<i class="menu-icon fa fa-caret-right"></i>
-											校区管理
-										</a>
-									</li>
-									
-									<li class="">
-										<a href="#">
-											<i class="menu-icon fa fa-caret-right"></i>
-											班级管理
-										</a>
-									</li>
-									
-									<li class="">
-										<a href="#">
-											<i class="menu-icon fa fa-caret-right"></i>
-											教师管理
-										</a>
-									</li>
-							</ul>
-					</li>
-					
-					<!-- --------------------------学员管理------------------------------- -->
-					<li class="">
-						<a href="#" class="dropdown-toggle">
-							<i class="menu-icon fa fa-desktop"></i>
-							<span class="menu-text">
-								学员管理
-							</span>
-							<b class="arrow fa fa-angle-down"></b>
-						</a>
-						<b class="arrow"></b>
-							<ul class="submenu">
-									<li class="">
-										<a href="stus.do">
-											<i class="menu-icon fa fa-caret-right"></i>
-											基本信息管理
-										</a>
-									</li>
-									
-									<li class="">
-										<a href="#">
-											<i class="menu-icon fa fa-caret-right"></i>
-											异动信息管理
-										</a>
-									</li>
-									
-									<li class="">
-										<a href="#">
-											<i class="menu-icon fa fa-caret-right"></i>
-											贷款信息管理
-										</a>
-									</li>
-									
-									<li class="">
-										<a href="#">
-											<i class="menu-icon fa fa-caret-right"></i>
-											现金缴费管理
-										</a>
-									</li>
-									
-									<li class="">
-										<a href="#">
-											<i class="menu-icon fa fa-caret-right"></i>
-											保险信息
-										</a>
-									</li>
-									
-									<li class="">
-										<a href="#">
-											<i class="menu-icon fa fa-caret-right"></i>
-											补贴申请
-										</a>
-									</li>
-									
-									<li class="">
-										<a href="#">
-											<i class="menu-icon fa fa-caret-right"></i>
-											成绩管理
-										</a>
-									</li>
-									
-									<li class="">
-										<a href="#">
-											<i class="menu-icon fa fa-caret-right"></i>
-											申请记录
-										</a>
-									</li>
-							</ul>
-					</li>
-					
-					
-					<li class="">
-						<a href="#" class="dropdown-toggle">
-							<i class="menu-icon fa fa-desktop"></i>
-							<span class="menu-text">
-								统计管理
-							</span>
-							<b class="arrow fa fa-angle-down"></b>
-						</a>
-						<b class="arrow"></b>
-						
-							<ul class="submenu">
-									<li class="">
-										<a href="#">
-											<i class="menu-icon fa fa-caret-right"></i>
-											教学质量统计
-										</a>
-									</li>
-									
-									<li class="">
-										<a href="#">
-											<i class="menu-icon fa fa-caret-right"></i>
-											学员基本信息统计
-										</a>
-									</li>
-									
-							</ul>
-					</li>
-					
-					
-					<li class="">
-						<a href="#" class="dropdown-toggle">
-							<i class="menu-icon fa fa-desktop"></i>
-							<span class="menu-text">
-								招生咨询
-							</span>
-							<b class="arrow fa fa-angle-down"></b>
-						</a>
-						<b class="arrow"></b>
-						
-							<ul class="submenu">
-									<li class="">
-										<a href="#">
-											<i class="menu-icon fa fa-caret-right"></i>
-											校区电话量统计
-										</a>
-									</li>
-									
-							</ul>
-					</li>
-					
-					
-					<li class="">
-						<a href="#" class="dropdown-toggle">
-							<i class="menu-icon fa fa-desktop"></i>
-							<span class="menu-text">
-								就业管理
-							</span>
-							<b class="arrow fa fa-angle-down"></b>
-						</a>
-						<b class="arrow"></b>
-						
-							<ul class="submenu">
-									<li class="">
-										<a href="#">
-											<i class="menu-icon fa fa-caret-right"></i>
-											分配就业老师
-										</a>
-									</li>
-									
-									<li class="">
-										<a href="#">
-											<i class="menu-icon fa fa-caret-right"></i>
-											班级就业统计
-										</a>
-									</li>
-									
-									<li class="">
-										<a href="#">
-											<i class="menu-icon fa fa-caret-right"></i>
-											特殊学员管理
-										</a>
-									</li>
-									
-									<li class="">
-										<a href="#">
-											<i class="menu-icon fa fa-caret-right"></i>
-											就业审核
-										</a>
-									</li>
-							</ul>
-					</li>
-					
-					
-					<li class="">
-						<a href="#" class="dropdown-toggle">
-							<i class="menu-icon fa fa-desktop"></i>
-							<span class="menu-text">
-								财务流水管理
-							</span>
-							<b class="arrow fa fa-angle-down"></b>
-						</a>
-						<b class="arrow"></b>
-						
-							<ul class="submenu">
-									<li class="">
-										<a href="fins.do" id="xqls">
-											<i class="menu-icon fa fa-caret-right"></i>
-											校区流水
-										</a>
-									</li>
-									
-									<li class="">
-										<a href="financial.do">
-											<i class="menu-icon fa fa-caret-right"></i>
-											财务申请
-										</a>
-									</li>
-									
-							</ul>
-					</li>
-					
-					<li class="">
-						<a href="#" class="dropdown-toggle">
-							<i class="menu-icon fa fa-desktop"></i>
-							<span class="menu-text">
-								规章制度
-							</span>
-							<b class="arrow fa fa-angle-down"></b>
-						</a>
-						<b class="arrow"></b>
-						
-							<ul class="submenu">
-									<li class="">
-										<a href="#">
-											<i class="menu-icon fa fa-caret-right"></i>
-											维护规章制度
-										</a>
-									</li>
-									
-									<li class="">
-										<a href="#">
-											<i class="menu-icon fa fa-caret-right"></i>
-											查看规章制度
-										</a>
-									</li>
-									
-							</ul>
-					</li>
-					
-					<li class="">
-						<a href="#" class="dropdown-toggle">
-							<i class="menu-icon fa fa-desktop"></i>
-							<span class="menu-text">
-								教师评估
-							</span>
-							<b class="arrow fa fa-angle-down"></b>
-						</a>
-						<b class="arrow"></b>
-						
-							<ul class="submenu">
-									<li class="">
-										<a href="#">
-											<i class="menu-icon fa fa-caret-right"></i>
-											领导评分
-										</a>
-									</li>
-									
-									<li class="">
-										<a href="#">
-											<i class="menu-icon fa fa-caret-right"></i>
-											满意度问卷
-										</a>
-									</li>
-									
-									<li class="">
-										<a href="#">
-											<i class="menu-icon fa fa-caret-right"></i>
-											教员阶段考核
-										</a>
-									</li>
-							</ul>
-					</li>
-					<!-- 
-					<li class="">
-						<a href="#" class="dropdown-toggle">
-							<i class="menu-icon fa fa-desktop"></i>
-							<span class="menu-text">
-								教务管理
-							</span>
-							<b class="arrow fa fa-angle-down"></b>
-						</a>
-						<b class="arrow"></b>
-						
-							<ul class="submenu">
-									<li class="">
-										<a href="#">
-											<i class="menu-icon fa fa-caret-right"></i>
-											公司员工管理
-										</a>
-										
-										<b class="arrow"></b>
-											<ul class="submenu">
-												<li class="">
-													<a href="#" >
-														<i class="menu-icon fa fa-caret-right"></i>
-														三级菜单名
-													</a>
-													<b class="arrow"></b>
-												</li>
-											</ul>
-										 
-									</li>
-							</ul>
-					</li>
-					-->
-					
+								</c:forEach>
+								</ul>
+							</c:if>
+					</c:forEach>
+				</c:if>
 			</ul>
 			<!-- /.nav-list -->
 			<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">

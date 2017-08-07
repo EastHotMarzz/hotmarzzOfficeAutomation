@@ -1,7 +1,10 @@
 package com.hotmarzz.oa.buzz;
 
+import java.util.List;
+
 import com.hotmarzz.basic.dao.BaseQuery;
 import com.hotmarzz.oa.pojo.Emp;
+import com.hotmarzz.oa.pojo.Resource;
 
 public interface EmpBuzz {
 	/**
@@ -53,4 +56,8 @@ public interface EmpBuzz {
 	 * @throws Exception
 	 */
 	void updatePwd(Emp emp) throws Exception;
+
+	//void addEmpRoleLink(EmpRoleLink empRoleLink) throws Exception;
+
+	List<Resource> getMenusOfEmp(Emp emp) throws Exception;
 }

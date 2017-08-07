@@ -345,7 +345,6 @@
 									data : "locked",
 									title : "锁定",
 									render : function(data, type, full, meta) {
-										debugger
 										if ("0" == data) {
 											return "已锁定";
 										} else {
