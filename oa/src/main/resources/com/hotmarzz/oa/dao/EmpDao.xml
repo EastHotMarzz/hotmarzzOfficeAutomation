@@ -30,11 +30,15 @@
 		select r.roleid roleid,rolename,r.remark remark,r.createuser createuser,r.createdate createdate,r.updateuser updateuser,r.updatedate updatedate
 		 from o_role r join o_emp_role e on r.roleid=e.roleid where empid = #{empId,jdbcType=NUMERIC}
 	</select>
+	
+	<select id="getSchoolByEmp" parameterType="long" resultType="schoolDistrict">
+		select s.* from O_SCHOOLDISTRICT s join O_EMP e on e.schoolid=s.schoolid where empid= #{empId,jdbcType=NUMERIC}
+	</select>
 
 	<resultMap type="emp" id="empMap" extends="com.hotmarzz.oa.dao.EmpDao.basicEmpMap">
 		<collection property="roles" column="empid" ofType="role" select="getRolesByEmp"/>
+		<collection property="schoolDistrict" column="empid" ofType="schoolDistrict" select="getSchoolByEmp"/>
 	</resultMap>
-	
 	
 	 
 	<select id="getListPage" parameterType="baseQuery" resultMap="empMap">
