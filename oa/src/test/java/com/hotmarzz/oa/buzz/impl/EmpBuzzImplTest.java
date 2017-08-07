@@ -45,7 +45,7 @@ public class EmpBuzzImplTest {
 		s.setStationId(1l);
 		emp.setDept(d);
 		emp.setSchoolDistrict(sd);
-		emp.setRole(r);
+//		emp.setRole(r);
 		emp.setStation(s);
 		emp.setAssoWeChat(1);
 		empBuzz.add(emp);
