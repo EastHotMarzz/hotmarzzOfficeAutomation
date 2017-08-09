@@ -1,4 +1,5 @@
 create sequence o_seq;
+create sequence o_emp_seq;
 select o_seq.nextval from dual;
 select o_seq.nextval from dual;
 select o_seq.nextval from dual;

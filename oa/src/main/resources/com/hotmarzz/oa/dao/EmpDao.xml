@@ -59,7 +59,7 @@
 		select 
 		<include refid="com.hotmarzz.oa.dao.EmpDao.empCol"/>
 		from o_emp where  
-		userName=#{userName,jdbcType=VARCHAR} and userpwd=#{userPwd,jdbcType=VARCHAR}
+		userName=#{userName,jdbcType=VARCHAR} and userPwd=#{userPwd,jdbcType=VARCHAR}
 	</select>
 	
 	<select id="getCount" parameterType="baseQuery" resultType="int">

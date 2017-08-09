@@ -78,7 +78,7 @@
 											</h4>
 
 											<div class="space-6"></div>
-											<span style="color:red;font-weight: bold;"><%=errMsg %><span>
+											<span style="color:red;font-weight: bold;"><%=errMsg %></span>
 											<form:form commandName="emp" method="post" action="login.do">
 												<fieldset>
 													<label class="block clearfix">

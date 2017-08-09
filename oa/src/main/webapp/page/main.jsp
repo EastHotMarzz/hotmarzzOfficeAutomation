@@ -362,7 +362,7 @@
 		<div id="main" style="float:left;"></div>
 		
 
-		<div class="footer">
+		<div class="footer" style="float:left;clear:left;">
 			<div class="footer-inner">
 				<div class="footer-content">
 					<span class="bigger-120"> <span class="blue bolder">东方黑玛</span>
