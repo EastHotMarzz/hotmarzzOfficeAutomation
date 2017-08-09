@@ -203,18 +203,22 @@
 			<if test="billPath ==null">
 				null,
 			</if>
+			
 			#{brokerage,jdbcType=VARCHAR},
+			
 			#{createUser,jdbcType=VARCHAR},
-			<if test="createDate ==null">
-				sysdate,
-			</if>
+			
+			sysdate,
+			
 			<if test="updateUser !=null">
 			#{updateUser,jdbcType=VARCHAR},
 			</if>
 			<if test="updateUser ==null">
 				null,
 			</if>
+			
 			null,
+			
 			#{issupple,jdbcType=NUMERIC}
 		)
 	</insert>
