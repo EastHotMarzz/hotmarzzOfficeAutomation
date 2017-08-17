@@ -11,14 +11,14 @@
      http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
      http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
      http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
-	
+
 	<mvc:default-servlet-handler />
 	<mvc:annotation-driven />
 
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/**"/>
-			<bean class="com.hotmarzz.oa.plugin.interceptor.LoginInterceptor"/>
+			<mvc:mapping path="/**" />
+			<bean class="com.hotmarzz.oa.plugin.interceptor.LoginInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
 
@@ -36,14 +36,14 @@
 		<property name="prefix" value="/page/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
-<!-- 文件上传 -->
-<bean id="multipartResolver"
-	class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-	<!-- 最大尺寸(单位：k) -->
-	<property name="maxUploadSize" value="10240000000"></property>
-	<!-- 默认编码集 -->
-	<property name="defaultEncoding" value="UTF-8"></property>
-</bean>
+	<!-- 文件上传 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 最大尺寸(单位：k) -->
+		<property name="maxUploadSize" value="10240000000"></property>
+		<!-- 默认编码集 -->
+		<property name="defaultEncoding" value="UTF-8"></property>
+	</bean>
 	<bean
 		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
 		<property name="messageConverters">
