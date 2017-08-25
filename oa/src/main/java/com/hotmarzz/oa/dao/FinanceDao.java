@@ -2,11 +2,14 @@ package com.hotmarzz.oa.dao;
 
 import java.util.List;
 
+import org.junit.Test;
 import org.springframework.stereotype.Repository;
 
 import com.hotmarzz.basic.dao.BaseQuery;
 import com.hotmarzz.oa.dto.CampusWaterDto;
+import com.hotmarzz.oa.dto.EmpDto2;
 import com.hotmarzz.oa.pojo.CampusWater;
+import com.hotmarzz.oa.pojo.Emp;
 import com.hotmarzz.oa.pojo.FinSubject;
 import com.hotmarzz.oa.pojo.FinSubjectDetail;
 import com.hotmarzz.oa.pojo.Financial;
@@ -57,4 +60,10 @@ public interface FinanceDao {
 	Financial getFinById(Long wid) throws Exception;
 	
 	void updateFin(Financial fin) throws Exception;
+	
+	void updateSP(Financial fin) throws Exception;
+	
+	void updateBK(Financial fin) throws Exception;
+	
+	List<EmpDto2> getFinEmps(long sid) throws Exception;
 }

@@ -25,6 +25,10 @@
 		<result column="updateUser" property="updateUser"/>
 		<result column="updateDate" property="updateDate"/>
 	</resultMap>
+	<resultMap type="emp" id="empMap" extends="com.hotmarzz.oa.dao.EmpDao.basicEmpMap">
+		<collection property="roles" column="empid" ofType="role" select="getRolesByEmp"/>
+		<collection property="schoolDistrict" column="empid" ofType="schoolDistrict" select="getSchoolByEmp"/>
+	</resultMap>
 	
 	<select id="getRolesByEmp" parameterType="long" resultType="role">
 		select r.roleid roleid,rolename,r.remark remark,r.createuser createuser,r.createdate createdate,r.updateuser updateuser,r.updatedate updatedate
@@ -35,10 +39,6 @@
 		select s.* from O_SCHOOLDISTRICT s join O_EMP e on e.schoolid=s.schoolid where empid= #{empId,jdbcType=NUMERIC}
 	</select>
 
-	<resultMap type="emp" id="empMap" extends="com.hotmarzz.oa.dao.EmpDao.basicEmpMap">
-		<collection property="roles" column="empid" ofType="role" select="getRolesByEmp"/>
-		<collection property="schoolDistrict" column="empid" ofType="schoolDistrict" select="getSchoolByEmp"/>
-	</resultMap>
 	
 	 
 	<select id="getListPage" parameterType="baseQuery" resultMap="empMap">

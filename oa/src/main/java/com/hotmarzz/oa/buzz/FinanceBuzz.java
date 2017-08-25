@@ -4,7 +4,9 @@ import java.util.List;
 
 import com.hotmarzz.basic.dao.BaseQuery;
 import com.hotmarzz.oa.dto.CampusWaterDto;
+import com.hotmarzz.oa.dto.EmpDto2;
 import com.hotmarzz.oa.pojo.CampusWater;
+import com.hotmarzz.oa.pojo.Emp;
 import com.hotmarzz.oa.pojo.FinSubject;
 import com.hotmarzz.oa.pojo.FinSubjectDetail;
 import com.hotmarzz.oa.pojo.Financial;
@@ -125,4 +127,9 @@ public interface FinanceBuzz {
 	Financial getFinById(Long wid) throws Exception;
 	
 	void updateFin(Financial fin) throws Exception;
+	
+	void updateSP(Financial fin) throws Exception;
+	void updateBK(Financial fin) throws Exception;
+	
+	List<EmpDto2> getFinEmps() throws Exception;
 }

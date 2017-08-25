@@ -254,6 +254,19 @@
 		finappDes=#{finappDes}
 		where finappId=#{finappId}
 	</update>
+	<update id="updateSP">
+		update o_financial set
+		finStatus=#{finStatus},
+		approveView=#{approveView}
+		where finappId=#{finappId}
+	</update>
+	<update id="updateBK">
+		update o_financial set
+		finappSum=#{finappSum},
+		appropriationUser=#{appropriationUser},
+		finStatus='已拨款'
+		where finappId=#{finappId}
+	</update>
 	
 	<select id="getCurrentYearWaterSum" resultType="double" parameterType="long">
 		select t2.myin-t1.myout from
@@ -354,5 +367,13 @@
 		join (select * from o_finsubject) sb on f.FINSUBJECTID=sb.FINSUBJECTID
 		join (select * from o_finsubdetail) sbd on f.FINSUBDETID=sbd.FINSUBDETAILID
 		where f.FINAPPID=#{wid}
+	</select>
+	
+	<select id="getFinEmps" parameterType="long" resultType="empdto2">
+		select empid,empname from o_emp where empid in(
+select empid from O_EMP_ROLE er join o_role r 
+on er.roleid=r.roleid
+and r.rolename='校区财务'
+) and schoolid=#{sid}
 	</select>
 </mapper>
