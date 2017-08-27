@@ -61,7 +61,7 @@
 </head>
 
 <body class="skin-1">
-	
+	<span style="display: none" id="sp_login">${login_emp.empName }</span>
 	<div class="main-content">
 		<div class="main-content-inner">
 			<div class="breadcrumbs ace-save-state" id="breadcrumbs">
@@ -340,17 +340,51 @@
 						title : "拨款金额"
 					},
 					{
-						data : "finStatus",
+						data : function(row, type, val, meta) {
+							var status = row['finStatus'];
+							return status;
+						},
 						title : "拨款状态"
+					},
+					{
+						data : function(row, type, val, meta) {
+							var users = row['approveUser'];
+							var us=users.split(",");
+							var sp_login=$("#sp_login").html();
+							var result=false;
+							for(var i=0;i<us.length;i++){
+								if(us[i]==sp_login){
+									result=true;
+								}
+							}
+							var id=row['finappId'];
+							//-----------
+							var status = row['finStatus'];
+							var result2=(status=="未审核");
+							var result3=(status=="通过");
+							
+							if(result && result2){
+								return "<a href='sp/"+id+".do' class='sp green'>财务审批</a>";
+							}else if(result && result3){
+								return "<a href='zbbk/"+id+".do' class='sp green'>准备拨款</a>";
+							}
+							return "";
+						},
+						title : "审批"
 					},
 					{
 						title : "操作",
 						data : function( row, type, val, meta ) {
 							var id = row['finappId'];
-							var str = "<a class='update blue' href='financial/"+id+".do' data-toggle='modal'>修改</a>"
-									+ "&nbsp;&nbsp;"
-									+ "<a class='dele red' href='financial/"+id+".do' data-toggle='modal'>删除</a>";
-							
+							var status = row['finStatus'];
+							var str="";
+							if(status=="通过"){
+								str="<a class='dele red' href='financial/"+id+".do' data-toggle='modal'>删除</a>";
+							}else if(status=="未审核"){
+								str = "<a class='update blue' href='financial/"+id+".do' data-toggle='modal'>修改</a>"
+										+ "&nbsp;&nbsp;"
+										+ "<a class='dele red' href='financial/"+id+".do' data-toggle='modal'>删除</a>";
+							}
 							return str;
 						}
 					} ];
@@ -402,6 +436,12 @@
 								},
 								//监听datatables buttons事件
 								"drawCallback" : function(settings, json) {
+									//通过
+									$(".sp").on("click",function(e){
+										e.preventDefault();
+										var url = $(this).prop("href");
+										$("#main").load(url,initMain);
+									})
 									//修改
 									$(".update").on("click", function(e) {
 										e.preventDefault();

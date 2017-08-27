@@ -16,6 +16,7 @@ import com.hotmarzz.basic.dao.Expression;
 import com.hotmarzz.oa.buzz.FinanceBuzz;
 import com.hotmarzz.oa.dao.FinanceDao;
 import com.hotmarzz.oa.dto.CampusWaterDto;
+import com.hotmarzz.oa.dto.EmpDto2;
 import com.hotmarzz.oa.pojo.CampusWater;
 import com.hotmarzz.oa.pojo.Emp;
 import com.hotmarzz.oa.pojo.FinSubject;
@@ -163,6 +164,20 @@ public class FinanceBuzzImpl implements FinanceBuzz{
 	@Override
 	public void updateFin(Financial fin) throws Exception {
 		finDao.updateFin(fin);
+	}
+	@Override
+	public void updateSP(Financial fin) throws Exception {
+		finDao.updateSP(fin);
+	}
+	@Override
+	public void updateBK(Financial fin) throws Exception {
+		finDao.updateBK(fin);
+	}
+	@Override
+	public List<EmpDto2> getFinEmps() throws Exception {
+		long schoolid=((Emp)(session.getAttribute(SessionUtils.LOGIN_EMP_KEY))).getSchoolDistrict().getSchoolId();
+		List<EmpDto2> emps=finDao.getFinEmps(schoolid);
+		return emps;
 	}
 	
 	

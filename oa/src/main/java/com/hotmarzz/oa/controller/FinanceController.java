@@ -239,6 +239,7 @@ public class FinanceController {
 			throws Exception {
 		Financial fin = finBuzz.getFinById(fid);
 		fin.setFinSubDetIdDto(fin.getFinSubDetId().getFinSubDetailId());
+		model.addAttribute("finemps", finBuzz.getFinEmps());
 		model.addAttribute("finForm", fin);
 		model.addAttribute("subs", finBuzz.getFinSubsList());
 		model.addAttribute("subDetails",
@@ -285,7 +286,7 @@ public class FinanceController {
 	@RequestMapping(value = "add.do", method = RequestMethod.GET)
 	public String getFinancialPage(Model model, HttpSession session) throws Exception {
 		Financial f = new Financial();
-		f.setApproveUser("赵伟欣");
+		model.addAttribute("finemps", finBuzz.getFinEmps());
 		model.addAttribute("finForm", f);
 		model.addAttribute("subs", finBuzz.getFinSubsList());
 		model.addAttribute("subDetails", finBuzz.getFinSubDetailsList(1l));
@@ -363,5 +364,44 @@ public class FinanceController {
 			}
 		}
 		return "ok";
+	}
+	
+	//---------------------------------
+	@RequestMapping(value = "sp/{fid}.do", method = RequestMethod.GET)
+	public String gotoSP(@PathVariable("fid") Long fid, Model model)
+			throws Exception {
+		Financial fin = finBuzz.getFinById(fid);
+		fin.setFinSubDetIdDto(fin.getFinSubDetId().getFinSubDetailId());
+		model.addAttribute("finForm", fin);
+		model.addAttribute("subs", finBuzz.getFinSubsList());
+		model.addAttribute("subDetails",
+				finBuzz.getFinSubDetailsList(fin.getFinSubjectId().getFinSubjectId()));
+		return "financeResources/sp";
+	}
+	@RequestMapping(value = "sp.do", method = RequestMethod.PUT)
+	@ResponseBody
+	public String updateSP(@RequestBody Financial fin) throws Exception {
+		Map<String, Object> result = new HashMap<String, Object>();
+		finBuzz.updateSP(fin);
+		result.put("flag", true);
+		result.put("msg", "审批成功");
+		return JsonUtils.bean2Json(result);
+	}
+	//=======
+	@RequestMapping(value = "zbbk/{fid}.do", method = RequestMethod.GET)
+	public String gotoBK(@PathVariable("fid") Long fid, Model model)
+			throws Exception {
+		Financial fin = finBuzz.getFinById(fid);
+		model.addAttribute("finForm", fin);
+		return "financeResources/zbbk";
+	}
+	@RequestMapping(value = "zbbk.do", method = RequestMethod.PUT)
+	@ResponseBody
+	public String updateBK(@RequestBody Financial fin) throws Exception {
+		Map<String, Object> result = new HashMap<String, Object>();
+		finBuzz.updateBK(fin);
+		result.put("flag", true);
+		result.put("msg", "拨款成功");
+		return JsonUtils.bean2Json(result);
 	}
 }

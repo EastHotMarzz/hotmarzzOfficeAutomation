@@ -11,7 +11,7 @@
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta charset="utf-8" />
-<title>财务申请 - 东方黑玛oa系统</title>
+<title>财务拨款 - 东方黑玛oa系统</title>
 
 <meta name="description" content="Static &amp; Dynamic Tables" />
 <meta name="viewport"
@@ -69,7 +69,7 @@
 						<li><i class="ace-icon fa fa-home home-icon"></i> <a href="#">东方黑玛oa系统</a>
 						</li>
 						<li class="active">
-						财务申请
+						财务拨款
 					</ul>
 					<!-- /.breadcrumb -->
 				</div>
@@ -77,8 +77,8 @@
 				<div class="page-content">
 					<div class="page-header">
 						<h1>
-							财务申请 <small> <i class="ace-icon fa fa-angle-double-right"></i>
-								财务申请
+							财务拨款 <small> <i class="ace-icon fa fa-angle-double-right"></i>
+								财务拨款
 							</small>
 						</h1>
 					</div>
@@ -98,7 +98,7 @@
 							<div class="widget-box">
 								<div class="widget-header widget-header-blue widget-header-flat">
 									<h4 class="widget-title lighter">
-										财务申请
+										财务拨款
 									</h4>
 
 									<div class="widget-toolbar"></div>
@@ -119,60 +119,22 @@
 														
 														<div class="form-group">
 															<form:label path="finappSum"
- 																cssClass="control-label col-xs-12 col-sm-3 no-padding-right"><span style="color:red">*</span>申请资金:</form:label>
+ 																cssClass="control-label col-xs-12 col-sm-3 no-padding-right"><span style="color:red">*</span>实际拨款金额:</form:label>
 															<div class="col-xs-12 col-sm-9">
 																<div class="clearfix">
  																	<form:input path="finappSum" cssStyle="width:200px" onkeyup="value=value.replace(/[^\d||.]/g,'')"/>
 																</div>
 															</div>
 														</div>
-														
-														<div class="space-2"></div>
-														<div class="form-group">
-															<form:label path="finSubjectIdDto"
- 																cssClass="control-label col-xs-12 col-sm-3 no-padding-right"><span style="color:red">*</span>科目:</form:label>
-															<div class="col-xs-12 col-sm-9">
-																<div class="clearfix">
- 																	<form:select path="finSubjectIdDto" onchange="change_sub()" cssStyle="width:200px">
- 																		<form:options items="${subs }" itemLabel="finSubjectName" itemValue="finSubjectId"/>
- 																	</form:select>
-																</div>
-															</div>
-														</div>
-														
-														<div class="space-2"></div>
-														<div class="form-group">
-															<form:label path="finSubDetIdDto"
- 																cssClass="control-label col-xs-12 col-sm-3 no-padding-right"><span style="color:red">*</span>科目明细:</form:label>
-															<div class="col-xs-12 col-sm-9">
-																<div class="clearfix">
- 																	<form:select path="finSubDetIdDto" cssStyle="width:200px">
- 																		<form:options items="${subDetails }" itemLabel="finSubDetailName" itemValue="finSubDetailId"/>
- 																	</form:select>
-																</div>
-															</div>
-														</div>
-														
-														<div class="space-2"></div>
-														<div class="form-group">
-															<form:label path="approveUser"
- 																cssClass="control-label col-xs-12 col-sm-3 no-padding-right">审批人:</form:label>
-															<div class="col-xs-12 col-sm-9">
-																<div class="clearfix">
-																	<form:checkboxes path="" items="${finemps }" cssClass="ckbox" itemLabel="empname" itemValue="empname"/>
-																</div>
-															</div>
-															<form:input cssStyle="display:none" path="approveUser" id="in_app"/>
-														</div>
 
 														<div class="space-2"></div>
 														<div class="form-group">
-															<form:label path="finappDes"
- 																cssClass="control-label col-xs-12 col-sm-3 no-padding-right">申请描述:</form:label>
+															<form:label path="appropriationUser"
+ 																cssClass="control-label col-xs-12 col-sm-3 no-padding-right">拨款人:</form:label>
 															<div class="col-xs-12 col-sm-9">
 																<div class="clearfix">
- 																	<form:textarea path="finappDes" 
- 																		cssClass="col-xs-12 col-sm-6" />
+ 																	<form:input path="appropriationUser" 
+ 																		cssClass="col-xs-12 col-sm-6" placeholder="请填写线下拨款人名字"/>
 																</div>
 															</div>
 														</div>
@@ -185,11 +147,7 @@
 														data-last="Finish">
 														<c:if
 															test="${!(finForm.finappId == null || finForm.finappId == '')}">
-															修改
-														</c:if>
-														<c:if
-															test="${(finForm.finappId == null || finForm.finappId == '')}">
-															申请
+															拨款
 														</c:if>
 														<i class="ace-icon fa fa-arrow-right icon-on-right"></i>
 													</button>
@@ -264,70 +222,17 @@
 			<script src="<%=path%>/assets/js/custom/array-utils.js"></script>
 			<!-- inline scripts related to this page -->
 			<script type="text/javascript">
-			function fuzhiCKB(){
-				var cks=$(".ckbox");
-				var str=$("#in_app").val();
-				var ss=str.split(",");
-				for(var i=0;i<ss.length;i++){
-					for(var j=0;j<cks.length;j++){
-						if(cks[j].value==ss[i]){
-							cks[j].checked =true;
-						}
-					}
-					
-				}
-				
-			}
-			
-			function addstr(){
-				var cks=$(".ckbox");
-				var arr=[];
-				for(var i=0;i<cks.length;i++){
-					if(cks[i].checked){
-						arr.push(cks[i].value)
-					}
-				}
-				$("#in_app").val(arr);
-			}
-			
-			
-			function change_sub() {
-				var subid=$("#finSubjectIdDto").val();
-				$.ajax({
-					"url" : "getFinSubDetailsList/"+subid+".do",
-					"type" : "post",
-					"contentType" : "application/json;charset=UTF-8",
-					"cache" : false,
-					"dataType":"json",
-					"success":function(result){
-						var subDe=document.getElementById("finSubDetIdDto");
-						subDe.innerHTML=""
-						for(var i=0;i<result.length;i++){
-							var newOP=document.createElement("option");
-							newOP.innerHTML=result[i].finSubDetailName;
-							newOP.value=result[i].finSubDetailId;
-							subDe.appendChild(newOP);
-						}
-					},
-					"error":function(){
-						alert("服务器响应失败！")
-					}
-				})
-			}
 				jQuery(function($) {
-					fuzhiCKB();
-					
 					$("#alertDiv a").click(function(){
 						var alertDiv = $("#alertDiv");
 						alertDiv.addClass("hidden");
 						alertDiv.find("a").next("span").remove();
 					})
 
-					var addOrUpdateUrl = "financial.do";
+					var addOrUpdateUrl = "zbbk.do";
 					
 					$("#submitBtn")
 							.on("click",function(e) {
-								addstr();
 										if($("#finappSum").val().trim()==""){
 											alert("请输入金额")
 											return false;
@@ -335,10 +240,7 @@
 										console.log($("#fillForm").serialize());
 										console.log(JSON.stringify($("#fillForm").serializeJSON()));
 										var update = $("#fillForm input[name='finappId'][type='hidden']").length > 0;
-										var method = "post";
-										if (update) {
-											method = "put";
-										}
+										method = "put";
 										var param = $("#fillForm").serializeJSON();
 										$.ajax({
 													"url" : addOrUpdateUrl,
@@ -371,7 +273,7 @@
 																						"a")
 																				.after(
 																						"<span>"
-																								+ "申请成功"
+																								+ "拨款成功"
 																								+ "<i class='ace-icon glyphicon glyphicon-ok'></i></span>");
 																	});
 														}
