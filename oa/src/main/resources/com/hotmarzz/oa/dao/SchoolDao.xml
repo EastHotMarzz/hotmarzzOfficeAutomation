@@ -3,11 +3,20 @@
 
 <mapper namespace="com.hotmarzz.oa.dao.SchoolDao">
 	
-	<sql id="schoolCol">
-		SCHOOLID,SCHOOLNAME,PROVINCE,TEACHERQUANTITY,CURRENTCLASSQUANTITY,CURRENTSTUQUANTITY,TOTALSTUQUANTITY,
-		CREATEUSER,CREATEDATE,UPDATEUSER,UPDATEDATE
-	</sql>
-	
+	<resultMap type="schooldistrict" id="SchoolMap">
+		<id column="schoolid" property="schoolId"/>
+		<result column="schoolname" property="schoolName"/>
+		<result column="province" property="province"/>
+		<result column="teacherQuantity" property="teacherQuantity"/>
+		<result column="currentClassQuantity" property="currentClassQuantity"/>
+		<result column="currentStuQuantity" property="currentStuQuantity"/>
+		<result column="totalStuQuantity" property="totalStuQuantity"/>
+		<result column="createUser" property="createUser"/>
+		<result column="createDate" property="createDate"/>
+		<result column="updateUser" property="updateUser"/>
+		<result column="updateDate" property="updateDate"/>
+	</resultMap>
+
 	<select id="getListPage" parameterType="baseQuery" resultType="schoolDistrict">
 		select 
 		<include refid="com.hotmarzz.oa.dao.SchoolDao.schoolCol"/>
@@ -21,5 +30,85 @@
 		<include refid="com.hotmarzz.basic.dao.BaseDao.queryByConditions"/>
 	</select>
 	
+	<sql id="schoolCol">
+		schoolid,schoolname,province,teacherQuantity,currentClassQuantity,currentStuQuantity,
+		totalStuQuantity,createUser,createDate,updateUser,updateDate
+	</sql>
 	
+	<insert id="addSchool">
+		<selectKey keyProperty="schoolId" order="BEFORE" resultType="long">
+			select o_schooldistrict_seq.nextval from dual
+		</selectKey>
+		insert into O_SCHOOLDISTRICT(<include refid="com.hotmarzz.oa.dao.SchoolDao.schoolCol"/>) values(
+			#{schoolId,jdbcType=NUMERIC},
+			#{schoolName,jdbcType=VARCHAR},
+			#{province,jdbcType=VARCHAR},
+			<if test="teacherQuantity !=null">
+				#{teacherQuantity,jdbcType=NUMERIC},
+			</if>
+			<if test="teacherQuantity ==null">
+				100,
+			</if>
+			<if test="currentClassQuantity !=null">
+				#{currentClassQuantity,jdbcType=NUMERIC},
+			</if>
+			<if test="currentClassQuantity ==null">
+				100,
+			</if>
+			<if test="currentStuQuantity !=null">
+				#{currentStuQuantity,jdbcType=NUMERIC},
+			</if>
+			<if test="currentStuQuantity ==null">
+				100,
+			</if>
+			<if test="totalStuQuantity !=null">
+				#{totalStuQuantity,jdbcType=NUMERIC},
+			</if>
+			<if test="totalStuQuantity ==null">
+				100,
+			</if>
+			#{createUser,jdbcType=VARCHAR},
+			#{createDate,jdbcType=TIMESTAMP },
+			#{updateUser,jdbcType=VARCHAR},
+			#{updateDate,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	
+	<select id="getById" parameterType="baseQuery" resultMap="SchoolMap">
+		select 
+		<include refid="com.hotmarzz.oa.dao.SchoolDao.schoolCol"/>
+		from o_schooldistrict 
+		where schoolid=#{school.schoolId,jdbcType=NUMERIC}
+	</select> 
+	
+	<update id="update" parameterType="schooldistrict">
+		update o_schooldistrict set schoolname=#{schoolName,jdbcType=VARCHAR},province=#{province,jdbcType=VARCHAR}
+		where schoolid=#{schoolId,jdbcType=NUMERIC}
+	</update>
+	
+	<delete id="delete" parameterType="java.lang.Long">
+		delete from o_schooldistrict where schoolid = #{schoolId,jdbcType=NUMERIC} 
+	</delete>
+	
+	<!-- <sql id="schCol">
+		schoolid,schoolname,province
+	</sql> -->
+	
+	
+	<resultMap id="SchoolDistrictMap" type="com.hotmarzz.oa.pojo.SchoolDistrict" >
+		<result column="schoolid" property="schoolId" jdbcType="NUMERIC" javaType="java.lang.Long" />
+		<result column="schoolname" property="schoolName" jdbcType="VARCHAR" javaType="java.lang.String" />
+		<result column="province" property="province" jdbcType="VARCHAR" javaType="java.lang.String" />
+	</resultMap>
+	
+	<select id="getAll" resultMap="SchoolDistrictMap">
+		select 
+		<include refid="com.hotmarzz.oa.dao.SchoolDao.schoolCol"/>
+		 from o_schooldistrict
+	</select>
+	
+	<!-- <select id="getAll" resultType="schoolDistrict">
+		select <include refid="com.hotmarzz.oa.dao.SchoolDao.schoolCol"/> 
+		from o_schooldistrict
+	</select> -->
 </mapper>

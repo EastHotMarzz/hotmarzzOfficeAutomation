@@ -3,16 +3,27 @@ package com.hotmarzz.oa.pojo;
 import java.util.Date;
 
 public class SchoolDistrict {
+	//校区id
 	private Long schoolId;
+	//校区名称
 	private String schoolName;
+	//所属省份
 	private String province;
+	//教师数量
 	private Integer teacherQuantity;
+	//当前开班数
 	private Integer currentClassQuantity;
+	//当前学员数
 	private Integer currentStuQuantity;
+	//学生总数
 	private Integer totalStuQuantity;
+	//创建人
 	private String createUser;
+	//创建时间
 	private Date createDate;
+	//修改人
 	private String updateUser;
+	//修改时间
 	private Date updateDate;
 	public Long getSchoolId() {
 		return schoolId;

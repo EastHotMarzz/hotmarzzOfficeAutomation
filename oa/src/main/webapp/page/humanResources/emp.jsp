@@ -236,21 +236,23 @@
 															</div>
 														</div>
 														
+									
+														
 														<div class="form-group">
-															<form:label path="dept"
-																cssClass="control-label col-xs-12 col-sm-3 no-padding-right">所属部门:</form:label>
+															<form:label path="schoolId"
+																cssClass="control-label col-xs-12 col-sm-3 no-padding-right">所属校区:</form:label>
 															<div class="col-xs-12 col-sm-9">
 																<div class="clearfix">
-																	<form:select path="dept.deptId"
+																	<form:select path="schoolId"
 																		cssClass="col-xs-12 col-sm-6">
-																		<form:options items="${depts}" itemLabel="deptName"
-																			itemValue="deptId" />
+																		<form:options items="${schools}" itemLabel="schoolName"
+																			itemValue="schoolId" />
 																	</form:select>
-																	<form:errors path="dept.deptId" />
+																	<form:errors path="schoolId" />
 																</div>
 															</div>
 														</div>
-
+														
 													</form:form>
 												</div>
 
@@ -343,7 +345,7 @@
 			<script type="text/javascript">
 				jQuery(function($) {
 					selectChe('roleIds','selectedRoles');
-					
+					selectChe('schoolId','schoolId');
 					var listUrl = "emps.do";
 					var addOrUpdateUrl = "emp.do";
 
@@ -358,11 +360,13 @@
 										}
 										var roleIdsEle =  $("#fillForm input[name='roleIds'][type='checkbox']:checked");
 										var roleIds = [];
+										var schoolId = $("#fillForm input[name='schoolDistrict'][type='select']:checked");
 										$.each(roleIdsEle,function(index,e){
 											roleIds.push($(e).val());
 										})
 										var param = $("#fillForm").serializeJSON();
 										param['roleIds'] = roleIds;
+										param['schoolDistrict'] = schoolId;
 										$.ajax({
 													"url" : addOrUpdateUrl,
 													"method" : method,

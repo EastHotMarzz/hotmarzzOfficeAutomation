@@ -1,19 +1,24 @@
 package com.hotmarzz.oa.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.junit.runner.Request;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +33,7 @@ import com.hotmarzz.basic.utils.StringUtils;
 import com.hotmarzz.oa.buzz.EmpBuzz;
 import com.hotmarzz.oa.buzz.ResourceBuzz;
 import com.hotmarzz.oa.buzz.RoleBuzz;
+import com.hotmarzz.oa.buzz.SchoolBuzz;
 import com.hotmarzz.oa.dto.ResourceDto;
 import com.hotmarzz.oa.pojo.Emp;
 import com.hotmarzz.oa.pojo.Resource;
@@ -43,7 +49,18 @@ public class EmpController {
 
 	private EmpBuzz empBuzz;
 	private RoleBuzz roleBuzz;
+	private SchoolBuzz schoolBuzz;
 	private ResourceBuzz resourceBuzz;
+
+	
+	public SchoolBuzz getSchoolBuzz() {
+		return schoolBuzz;
+	}
+
+	@Autowired
+	public void setSchoolBuzz(SchoolBuzz schoolBuzz) {
+		this.schoolBuzz = schoolBuzz;
+	}
 
 	public EmpBuzz getEmpBuzz() {
 		return empBuzz;
@@ -146,6 +163,16 @@ public class EmpController {
 	 */
 	@RequestMapping(value = "emp.do", method = RequestMethod.GET)
 	public String addFilling(Model model) throws Exception {
+//		SchoolDistrict s = new SchoolDistrict();
+//		SchoolDistrict s1 = new SchoolDistrict();
+//		s.setSchoolId(1l);
+//		s.setSchoolName("南京校区");
+//		s1.setSchoolId(2l);
+//		s1.setSchoolName("大庆校区");
+//		List<SchoolDistrict> sd = new ArrayList<SchoolDistrict>();
+//		sd.add(s);
+//		sd.add(s1);
+		model.addAttribute("schools", schoolBuzz.getAll());
 		model.addAttribute("empForm", new Emp());
 		model.addAttribute("roles", roleBuzz.getAll());
 		return "humanResources/emp";
@@ -170,10 +197,10 @@ public class EmpController {
 			result.put("validationMsg", validationMsg);
 			return JsonUtils.bean2Json(result);
 		}
-		SchoolDistrict sd=new SchoolDistrict();
-		sd.setSchoolId(1l);
+//		SchoolDistrict sd=new SchoolDistrict();
+//		sd.setSchoolId(1l);
+		SchoolDistrict sd = schoolBuzz.getById(emp.getSchoolId());
 		emp.setSchoolDistrict(sd);
-		
 		empBuzz.add(emp);
 		result.put("flag", true);
 		result.put("msg", "添加成功");
@@ -208,6 +235,12 @@ public class EmpController {
 	public String updateFilling(@PathVariable("id") Long id, Model model)
 			throws Exception {
 		Emp emp = empBuzz.getById(id);
+//		SchoolDistrict sd = schoolBuzz.getById(emp.getSchoolId());
+//		emp.setSchoolDistrict(sd);
+		List<SchoolDistrict> schools = new ArrayList<SchoolDistrict>();
+		schools = schoolBuzz.getAll();
+		model.addAttribute("schoolId", emp.getSchoolId());
+		model.addAttribute("schools",schools);
 		model.addAttribute("empForm", emp);
 		model.addAttribute("roles", roleBuzz.getAll());
 		for(Role r:emp.getRoles()){
@@ -241,7 +274,6 @@ public class EmpController {
 			result.put("validationMsg", validationMsg);
 			return JsonUtils.bean2Json(result);
 		}
-
 		empBuzz.update(emp);
 		result.put("flag", true);
 		result.put("msg", "修改成功");

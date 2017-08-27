@@ -1,5 +1,6 @@
 package com.hotmarzz.oa.buzz.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -40,6 +41,52 @@ public class SchoolBuzzImpl implements SchoolBuzz {
 		bq.getPag().setTotal_count(total_count);
 		bq.getPag().setPageList(us);
 		return bq;
+	}
+	/**
+	 * 新增校区信息
+	 */
+	@Override
+	public void add(SchoolDistrict sd) throws Exception {
+		// TODO Auto-generated method stub
+		schoolDao.addSchool(sd);
+	}
+	/**
+	 * 根据ID获取校区信息
+	 */
+	@Override
+	public SchoolDistrict getById(Long id) throws Exception {
+		// TODO Auto-generated method stub
+		SchoolDistrict sd = schoolDao.getById(id);
+		return sd;
+	}
+
+	/**
+	 * 修改校区信息
+	 */
+	@Override
+	public void update(SchoolDistrict sd) throws Exception {
+		// TODO Auto-generated method stub
+		schoolDao.update(sd);
+	}
+	
+	/**
+	 * 删除校区
+	 */
+	@Override
+	public void delete(Long id) throws Exception {
+		// TODO Auto-generated method stub
+		schoolDao.delete(id);
+	}
+	
+	/**
+	 * 查询校区信息
+	 */
+	@Override
+	public List<SchoolDistrict> getAll() throws Exception {
+		// TODO Auto-generated method stub
+		List<SchoolDistrict> list = new ArrayList<SchoolDistrict>();
+		list = schoolDao.getAll();
+		return list;
 	}
 	
 }

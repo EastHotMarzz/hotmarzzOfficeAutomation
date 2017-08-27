@@ -169,7 +169,7 @@
 										<div class="btn-group">
 											<button id="addButton"
 												class="btn btn-sm btn-success btn-white btn-round"
-												value="emp.do">
+												value="school.do">
 												<i class="ace-icon fa fa-plus bigger-110 green"></i> 校区添加
 											</button>
 											<div class="tableTools-container"></div>

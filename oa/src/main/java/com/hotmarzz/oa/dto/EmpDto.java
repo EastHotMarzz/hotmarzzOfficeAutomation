@@ -18,6 +18,7 @@ public class EmpDto {
 		return "EmpDto [empId=" + empId + ", oldPwd=" + oldPwd + ", newPwd="
 				+ newPwd + ", ckNewPwd=" + ckNewPwd + "]";
 	}
+
 	public Long getEmpId() {
 		return empId;
 	}

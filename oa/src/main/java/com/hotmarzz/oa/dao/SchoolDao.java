@@ -13,4 +13,14 @@ public interface SchoolDao {
 	List<SchoolDistrict> getListPage(BaseQuery bq);
 	
 	int getCount(BaseQuery bq);
+	
+	void addSchool(SchoolDistrict sd);
+	
+	SchoolDistrict getById(Long schoolId);
+	
+	void update(SchoolDistrict sd);
+	
+	void delete(Long schoolId);
+	
+	List<SchoolDistrict> getAll();
 }

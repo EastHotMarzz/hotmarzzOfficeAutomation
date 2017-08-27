@@ -1,5 +1,6 @@
 create sequence o_seq;
 create sequence o_emp_seq;
+create sequence O_SCHOOLDISTRICT_seq;
 select o_seq.nextval from dual;
 select o_seq.nextval from dual;
 select o_seq.nextval from dual;

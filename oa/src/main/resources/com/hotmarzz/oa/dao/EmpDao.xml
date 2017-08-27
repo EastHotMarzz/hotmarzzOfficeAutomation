@@ -112,7 +112,7 @@
 	
 	<update id="update" parameterType="emp">
 		update o_emp set empname=#{empName,jdbcType=VARCHAR},username=#{userName,jdbcType=VARCHAR},
-		phone=#{phone,jdbcType=VARCHAR},hiredate=#{hiredate,jdbcType=DATE} where empid=#{empId,jdbcType=NUMERIC}
+		phone=#{phone,jdbcType=VARCHAR},schoolid=#{schoolId,jdbcType=NUMERIC},hiredate=#{hiredate,jdbcType=DATE} where empid=#{empId,jdbcType=NUMERIC}
 	</update>
 	
 	<select id="ckOldPwd" parameterType="emp" resultType="emp">
