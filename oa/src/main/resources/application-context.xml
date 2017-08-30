@@ -31,7 +31,7 @@
 		<property name="locations">
 			<list>
 				<!-- jdbc配置 -->
-				<value>classpath:pdb.properties</value>
+				<value>classpath:db.properties</value>
 			</list>
 		</property>
 	</bean>
