@@ -34,5 +34,5 @@ public interface StudentBuzz {
 	 * 为锁定时间，早于当前时间与指定时间差的学生解锁
 	 * @throws Exception
 	 */
-	void updateUnlockForStus() throws Exception;
+	void scheduleUpdateUnlockForStus() throws Exception;
 }

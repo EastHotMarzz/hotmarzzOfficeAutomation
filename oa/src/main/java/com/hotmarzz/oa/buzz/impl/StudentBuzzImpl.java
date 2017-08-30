@@ -124,7 +124,7 @@ public class StudentBuzzImpl implements StudentBuzz {
 	
 	@Override
 	@Scheduled(cron = "0 0 0/1 * * ?")
-	public void updateUnlockForStus() throws Exception {
+	public void scheduleUpdateUnlockForStus() throws Exception {
 		Date now = new Date();
 		Date before = new Date(now.getTime()-MILLI_SECOND_OF_UNLOCK_INTERVAL);
 		stuDao.unlockAllByLockTime(before);
