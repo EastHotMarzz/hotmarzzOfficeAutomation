@@ -193,8 +193,6 @@ public class EmpController {
 			result.put("validationMsg", validationMsg);
 			return JsonUtils.bean2Json(result);
 		}
-//		System.out.println(emp.getSchoolDistrict().getSchoolId());
-//		emp.setSchoolDistrict(empBuzz.getSchoolByEmp(emp.getEmpId()));
 		empBuzz.add(emp);
 		result.put("flag", true);
 		result.put("msg", "添加成功");
@@ -229,10 +227,9 @@ public class EmpController {
 	public String updateFilling(@PathVariable("id") Long id, Model model)
 			throws Exception {
 		Emp emp = empBuzz.getById(id);
-//		SchoolDistrict sd = schoolBuzz.getById(emp.getSchoolId());
-//		emp.setSchoolDistrict(sd);
 		List<SchoolDistrict> schools = new ArrayList<SchoolDistrict>();
 		schools = schoolBuzz.getAll();
+		emp.setSchoolDistrict(empBuzz.getSchoolByEmp(id));
 		model.addAttribute("schoolDistrict",schools);
 		model.addAttribute("empForm", emp);
 		model.addAttribute("roles", roleBuzz.getAll());
@@ -267,7 +264,6 @@ public class EmpController {
 			result.put("validationMsg", validationMsg);
 			return JsonUtils.bean2Json(result);
 		}
-		Long schoolId = emp.getSchoolDistrict().getSchoolId();
 		empBuzz.update(emp);
 		result.put("flag", true);
 		result.put("msg", "修改成功");
