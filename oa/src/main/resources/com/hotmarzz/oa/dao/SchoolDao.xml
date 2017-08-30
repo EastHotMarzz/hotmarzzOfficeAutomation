@@ -90,10 +90,6 @@
 		delete from o_schooldistrict where schoolid = #{schoolId,jdbcType=NUMERIC} 
 	</delete>
 	
-	<!-- <sql id="schCol">
-		schoolid,schoolname,province
-	</sql> -->
-	
 	
 	<resultMap id="SchoolDistrictMap" type="com.hotmarzz.oa.pojo.SchoolDistrict" >
 		<result column="schoolid" property="schoolId" jdbcType="NUMERIC" javaType="java.lang.Long" />
@@ -107,8 +103,4 @@
 		 from o_schooldistrict
 	</select>
 	
-	<!-- <select id="getAll" resultType="schoolDistrict">
-		select <include refid="com.hotmarzz.oa.dao.SchoolDao.schoolCol"/> 
-		from o_schooldistrict
-	</select> -->
 </mapper>

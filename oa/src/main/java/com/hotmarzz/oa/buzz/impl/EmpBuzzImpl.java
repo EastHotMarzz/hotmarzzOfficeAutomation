@@ -17,6 +17,7 @@ import com.hotmarzz.oa.pojo.EmpRoleLink;
 import com.hotmarzz.oa.pojo.Resource;
 import com.hotmarzz.oa.pojo.Role;
 import com.hotmarzz.oa.pojo.RoleResourceLink;
+import com.hotmarzz.oa.pojo.SchoolDistrict;
 import com.hotmarzz.oa.utils.Constants;
 
 @Service
@@ -152,6 +153,12 @@ public class EmpBuzzImpl implements EmpBuzz {
 			}
 		}
 		return res;
+	}
+	@Override
+	public SchoolDistrict getSchoolByEmp(Long empId) throws Exception {
+		// TODO Auto-generated method stub
+		empDao.getSchoolByEmp(empId);
+		return null;
 	}
 
 }

@@ -25,18 +25,12 @@ public class Emp {
 	private Date createDate;
 	private String updateUser;
 	private Date updateDate;
-	private Long schoolId;
 	private Integer sex;
+	
 	//权限操作
 	//简单期间，集中到Emp中
 	private List<Role> roles;
 	private Long[] roleIds;
-	public Long getSchoolId() {
-		return schoolId;
-	}
-	public void setSchoolId(Long schoolId) {
-		this.schoolId = schoolId;
-	}
 	public Integer getSex() {
 		return sex;
 	}

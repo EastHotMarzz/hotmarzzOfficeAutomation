@@ -5,6 +5,7 @@ import java.util.List;
 import com.hotmarzz.basic.dao.BaseQuery;
 import com.hotmarzz.oa.pojo.Emp;
 import com.hotmarzz.oa.pojo.Resource;
+import com.hotmarzz.oa.pojo.SchoolDistrict;
 
 public interface EmpBuzz {
 	/**
@@ -60,4 +61,6 @@ public interface EmpBuzz {
 	//void addEmpRoleLink(EmpRoleLink empRoleLink) throws Exception;
 
 	List<Resource> getMenusOfEmp(Emp emp) throws Exception;
+	
+	SchoolDistrict getSchoolByEmp(Long empId) throws Exception;
 }

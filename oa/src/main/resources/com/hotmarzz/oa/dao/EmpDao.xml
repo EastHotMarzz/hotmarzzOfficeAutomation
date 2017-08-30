@@ -26,6 +26,7 @@
 		<result column="updateDate" property="updateDate"/>
 	</resultMap>
 	<resultMap type="emp" id="empMap" extends="com.hotmarzz.oa.dao.EmpDao.basicEmpMap">
+		<association property="schoolDistrict" column="empid" select="getSchoolByEmp"/>
 		<collection property="roles" column="empid" ofType="role" select="getRolesByEmp"/>
 		<collection property="schoolDistrict" column="empid" ofType="schoolDistrict" select="getSchoolByEmp"/>
 	</resultMap>
@@ -112,7 +113,7 @@
 	
 	<update id="update" parameterType="emp">
 		update o_emp set empname=#{empName,jdbcType=VARCHAR},username=#{userName,jdbcType=VARCHAR},
-		phone=#{phone,jdbcType=VARCHAR},schoolid=#{schoolId,jdbcType=NUMERIC},hiredate=#{hiredate,jdbcType=DATE} where empid=#{empId,jdbcType=NUMERIC}
+		phone=#{phone,jdbcType=VARCHAR},schoolid=#{schoolDistrict.schoolId,jdbcType=NUMERIC},hiredate=#{hiredate,jdbcType=DATE} where empid=#{empId,jdbcType=NUMERIC}
 	</update>
 	
 	<select id="ckOldPwd" parameterType="emp" resultType="emp">

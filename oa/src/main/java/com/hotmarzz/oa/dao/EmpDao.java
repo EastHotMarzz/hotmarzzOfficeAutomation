@@ -8,6 +8,7 @@ import com.hotmarzz.basic.dao.BaseQuery;
 import com.hotmarzz.oa.pojo.Emp;
 import com.hotmarzz.oa.pojo.EmpRoleLink;
 import com.hotmarzz.oa.pojo.Role;
+import com.hotmarzz.oa.pojo.SchoolDistrict;
 
 @Repository
 public interface EmpDao {
@@ -51,4 +52,6 @@ public interface EmpDao {
 	
 	//删除EmpRoleLinke
 	void deleteERLByEmp(Long empId) throws Exception;
+	//根据用户ID查询所在校区信息
+	SchoolDistrict getSchoolByEmp(Long empid) throws Exception;
 }
