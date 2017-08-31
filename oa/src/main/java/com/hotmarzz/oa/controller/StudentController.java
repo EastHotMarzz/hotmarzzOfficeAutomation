@@ -24,6 +24,7 @@ import com.hotmarzz.basic.dao.BaseQuery;
 import com.hotmarzz.basic.dao.Expression;
 import com.hotmarzz.basic.utils.JsonUtils;
 import com.hotmarzz.basic.utils.StringUtils;
+import com.hotmarzz.oa.anno.FormToken;
 import com.hotmarzz.oa.buzz.StudentBuzz;
 import com.hotmarzz.oa.exception.StudentLockException;
 import com.hotmarzz.oa.exception.StudentRepeatException;
@@ -75,6 +76,7 @@ public class StudentController {
 	/*
 	 * 跳转添加员工页面
 	 */
+	@FormToken(save=true)
 	@RequestMapping(value = "stu.do", method = RequestMethod.GET)
 	public String addFilling(Model model) {
 		model.addAttribute("stuForm", new Student());
@@ -84,6 +86,7 @@ public class StudentController {
 	/*
 	 * 添加学员
 	 */
+	@FormToken(remove=true)
 	@RequestMapping(value = "stu.do", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
 	public @ResponseBody String add(@RequestBody @Valid Student stu,
 			BindingResult results) throws Exception {
@@ -125,6 +128,7 @@ public class StudentController {
 	/*
 	 * 修改前获取信息并且跳转页面
 	 */
+	@FormToken(save=true)
 	@RequestMapping(value = "stu/{id}.do", method = RequestMethod.GET)
 	public String updateFilling(@PathVariable("id") Long id, Model model) throws Exception {
 		Student stu = stuBuzz.getById(id);
@@ -135,6 +139,7 @@ public class StudentController {
 	/*
 	 * 修改学员
 	 */
+	@FormToken(remove=true)
 	@RequestMapping(value = "stu.do", method = RequestMethod.PUT)
 	@ResponseBody
 	public String update(@RequestBody @Valid Student stu, BindingResult results)

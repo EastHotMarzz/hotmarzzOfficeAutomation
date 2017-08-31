@@ -279,6 +279,8 @@
 																</div>
 															</div>
 														</div>
+														
+														<input type="hidden" name="formToken" value="${formToken}" />
 													</form:form>
 												</div>
 
@@ -428,7 +430,6 @@
 
 					var listUrl = "stus.do";
 					var addOrUpdateUrl = "stu.do";
-					
 					$("#submitBtn")
 							.on("click",
 									function(e) {
@@ -440,6 +441,7 @@
 											method = "put";
 										}
 										var param = $("#fillForm").serializeJSON();
+										addOrUpdateUrl = addOrUpdateUrl+"?formToken="+param.formToken;
 										$.ajax({
 													"url" : addOrUpdateUrl,
 													"method" : method,
@@ -447,6 +449,7 @@
 													"dataType" : "json",
 													"contentType" : "application/json;charset=UTF-8",
 													"success" : function(result) {
+														debugger
 														if (result.flag === true) {
 															$("#main").load(listUrl,
 																			function() {

@@ -5,44 +5,29 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.hotmarzz.oa.controller.EmpController;
 import com.hotmarzz.oa.pojo.Emp;
 import com.hotmarzz.oa.utils.SessionUtils;
 
-public class LoginInterceptor implements HandlerInterceptor{
+public class LoginInterceptor extends HandlerInterceptorAdapter{
 	
-	private Logger logger = LoggerFactory.getLogger(EmpController.class);
+	private Logger logger = LoggerFactory.getLogger(LoginInterceptor.class);
 	
 	@Override
-	public void afterCompletion(HttpServletRequest req,
-			HttpServletResponse resp, Object handler, Exception exception)
-			throws Exception {
-		logger.debug("视图已返回，执行afterCompletion()方法");
-	}
-
-	@Override
-	public void postHandle(HttpServletRequest req, HttpServletResponse resp,
-			Object handler, ModelAndView mav) throws Exception {
-		logger.debug("controller已执行，得到mav对象，但是还没有返回视图");
-	}
-
-	@Override
-	public boolean preHandle(HttpServletRequest req, HttpServletResponse resp,
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
 			Object handler) throws Exception {
-		logger.debug("还没执行handler");
-		HttpSession se = req.getSession();
+		logger.debug("in login intercetor ,还没执行handler");
+		HttpSession se = request.getSession();
 		Emp emp = (Emp) se.getAttribute(SessionUtils.LOGIN_EMP_KEY);
-		String url = req.getRequestURI();
+		String url = request.getRequestURI();
 		if(emp != null){
 			return true;
 		}else{
 			if(url.contains("login.do")){
 				return true;
 			}else{
-				resp.sendRedirect("login.do");
+				response.sendRedirect("login.do");
 				return false;
 			}
 		}

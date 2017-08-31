@@ -20,6 +20,10 @@
 			<mvc:mapping path="/**" />
 			<bean class="com.hotmarzz.oa.plugin.interceptor.LoginInterceptor" />
 		</mvc:interceptor>
+		<mvc:interceptor>  
+            <mvc:mapping path="/**"/>  
+            <bean class="com.hotmarzz.oa.plugin.interceptor.TokenInterceptor"/>  
+        </mvc:interceptor>
 	</mvc:interceptors>
 
 	<context:component-scan base-package="com.hotmarzz.oa"
