@@ -1,7 +1,6 @@
 package com.hotmarzz.oa.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -35,9 +34,9 @@ import com.hotmarzz.oa.utils.JSONConstrants;
 public class StudentController {
 
 	private Logger logger = LoggerFactory.getLogger(StudentController.class);
-
+	
 	private StudentBuzz stuBuzz;
-
+	
 	public StudentBuzz getStuBuzz() {
 		return stuBuzz;
 	}
@@ -46,7 +45,12 @@ public class StudentController {
 	public void setStuBuzz(StudentBuzz stuBuzz) {
 		this.stuBuzz = stuBuzz;
 	}
-
+	
+//	@InitBinder
+//    public void initBinder (WebDataBinder binder){
+//        System.out.println();
+//    }
+	
 	/*
 	 * 跳转学生页面
 	 */
@@ -62,7 +66,7 @@ public class StudentController {
 	@RequestMapping(value = "getStuList.do", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public String getStuList(@RequestBody BaseQuery bq) throws Exception {
-
+		
 		Map<String, Object> queryParams = bq.getQueryParams();
 		if (queryParams.containsKey("stuName")
 				&& StringUtils.isNotEmpty((String) queryParams.get("stuName"))) {
@@ -103,6 +107,7 @@ public class StudentController {
 			result.put("validationMsg", validationMsg);
 			return JsonUtils.bean2Json(result);
 		}
+		stu.setStuName(stu.getStuName().trim());
 		stuBuzz.add(stu);
 		result.put("flag", true);
 		result.put("msg", "添加成功");

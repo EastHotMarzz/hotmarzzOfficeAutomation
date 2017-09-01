@@ -13,7 +13,7 @@
      http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
 	<mvc:default-servlet-handler />
-	<mvc:annotation-driven />
+	<mvc:annotation-driven conversion-service="conversionService"/>
 
 	<mvc:interceptors>
 		<mvc:interceptor>
@@ -65,4 +65,12 @@
 			</list>
 		</property>
 	</bean>
+	<!-- 注册类型转换器 -->
+	<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">  
+	    <property name="formatters">  
+	       <set>  
+	           
+	        </set>  
+	    </property>  
+	</bean> 
 </beans>
