@@ -316,7 +316,13 @@
 					},
 					{
 						data : "approveUser",
-						title : "审批人"
+						title : "审批人",
+						render : function(data, type, full, meta) {
+							if(data==null){
+								return "无"
+							}
+							return data;
+						}
 					},
 					{
 						data : "appropriationUser",
@@ -349,6 +355,9 @@
 					{
 						data : function(row, type, val, meta) {
 							var users = row['approveUser'];
+							if(users==null){
+								return "";
+							}
 							var us=users.split(",");
 							var sp_login=$("#sp_login").html();
 							var result=false;
