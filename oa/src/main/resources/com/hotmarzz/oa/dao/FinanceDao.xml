@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.hotmarzz.oa.dao.FinanceDao">
-	
+
 	<sql id="subDetailCol">
 		SUBJECTDETAILID,SUBJECTDETAILNAME,DETAILTITLE
 	</sql>
@@ -10,13 +10,15 @@
 		FINSUBDETAILID,FINSUBDETAILNAME
 	</sql>
 	<sql id="finCol">
-		cw.WATERID,cw.SCHOOLID aid1,cw.SUBJECTID bid1,cw.SUBJECTDETAILID cid1,cw.WATERTYPE,cw.WATERBANCH,cw.WATERSUM,
+		cw.WATERID,cw.SCHOOLID aid1,cw.SUBJECTID
+		bid1,cw.SUBJECTDETAILID cid1,cw.WATERTYPE,cw.WATERBANCH,cw.WATERSUM,
 		cw.REMARK,cw.WATERDATE,cw.BILLPATH,cw.BROKERAGE,cw.CREATEUSER,cw.CREATEDATE,cw.UPDATEUSER,cw.UPDATEDATE,cw.ISSUPPLE
 	</sql>
 	<sql id="financialCol">
-		f.FINAPPID,f.FINAPPSUM,f.FINAPPDES,f.FINSUBJECTID cid1,f.FINSUBDETID bid1,f.APPLYUSER,
+		f.FINAPPID,f.FINAPPSUM,f.FINAPPDES,f.FINSUBJECTID
+		cid1,f.FINSUBDETID bid1,f.APPLYUSER,
 		f.APPROVEUSER,f.APPROVEVIEW,f.APPROPRIATIONUSER,f.APPROPRIATIONTIME,
-		f.FINSTATUS,f.CREATEUSER,f.CREATEDATE,f.UPDATEUSER,f.UPDATEDATE
+		f.FINSTATUS,f.CREATEUSER,f.CREATEDATE,f.UPDATEUSER,f.UPDATEDATE,f.SCHOOLNAME
 	</sql>
 	<sql id="sbCol">
 		sb.SUBJECTID bid2,sb.SUBJECTNAME
@@ -28,140 +30,189 @@
 		sls.SCHOOLID aid2,sls.SCHOOLNAME,sls.PROVINCE
 	</sql>
 	<sql id="sbdCol">
-		sbd.SUBJECTDETAILID cid2,sbd.SUBJECTDETAILNAME,sbd.DETAILTITLE
+		sbd.SUBJECTDETAILID
+		cid2,sbd.SUBJECTDETAILNAME,sbd.DETAILTITLE
 	</sql>
 	<sql id="sbdFinCol">
-		sbd.FINSUBDETAILID cid2,sbd.FINSUBDETAILNAME,sbd.FINSUBJECTID
+		sbd.FINSUBDETAILID
+		cid2,sbd.FINSUBDETAILNAME,sbd.FINSUBJECTID
 	</sql>
-	
-	
+
+
 	<sql id="waterCol">
-		<include refid="com.hotmarzz.oa.dao.FinanceDao.finCol"></include>,
-		<include refid="com.hotmarzz.oa.dao.FinanceDao.sbCol"></include>,
-		<include refid="com.hotmarzz.oa.dao.FinanceDao.slsCol"></include>,
+		<include refid="com.hotmarzz.oa.dao.FinanceDao.finCol"></include>
+		,
+		<include refid="com.hotmarzz.oa.dao.FinanceDao.sbCol"></include>
+		,
+		<include refid="com.hotmarzz.oa.dao.FinanceDao.slsCol"></include>
+		,
+		<include refid="com.hotmarzz.oa.dao.FinanceDao.sbdCol"></include>
+	</sql>
+	<sql id="waterCol1">
+		<include refid="com.hotmarzz.oa.dao.FinanceDao.finCol"></include>
+		,
+		<include refid="com.hotmarzz.oa.dao.FinanceDao.sbCol"></include>
+		,
 		<include refid="com.hotmarzz.oa.dao.FinanceDao.sbdCol"></include>
 	</sql>
 	<sql id="finAllCol">
-		<include refid="com.hotmarzz.oa.dao.FinanceDao.financialCol"></include>,
-		<include refid="com.hotmarzz.oa.dao.FinanceDao.sbFinCol"></include>,
+		<include refid="com.hotmarzz.oa.dao.FinanceDao.financialCol"></include>
+		,
+		<include refid="com.hotmarzz.oa.dao.FinanceDao.sbFinCol"></include>
+		,
 		<include refid="com.hotmarzz.oa.dao.FinanceDao.sbdFinCol"></include>
 	</sql>
-	
+
 	<select id="getSubsList" resultType="subject">
-		select subjectid,subjectname from o_subject
+		select subjectid,subjectname
+		from o_subject
 	</select>
-	
+
 	<select id="getFinSubsList" resultType="finsubject">
-		select finsubjectid,finsubjectname from o_finsubject
+		select
+		finsubjectid,finsubjectname from o_finsubject
 	</select>
-	
+
 	<select id="getSubDetailsList" parameterType="long" resultType="subjectDetail">
-		select 
-		<include refid="com.hotmarzz.oa.dao.FinanceDao.subDetailCol"/>
+		select
+		<include refid="com.hotmarzz.oa.dao.FinanceDao.subDetailCol" />
 		from o_subjectdetail where subjectid=#{subId}
 	</select>
-	
-	<select id="getFinSubDetailsList" parameterType="long" resultType="finsubjectDetail">
-		select 
-		<include refid="com.hotmarzz.oa.dao.FinanceDao.finSubDetailCol"/>
+
+	<select id="getFinSubDetailsList" parameterType="long"
+		resultType="finsubjectDetail">
+		select
+		<include refid="com.hotmarzz.oa.dao.FinanceDao.finSubDetailCol" />
 		from o_finsubdetail where finsubjectid=#{subId}
 	</select>
-	
+
 	<select id="getSumIncome" resultType="double">
-		select sum(watersum) from O_CAMPUSWATER 
-		where watertype=1 
-		and (select to_char(WATERDATE,'yyyy-mm') from dual)=#{0}
+		select sum(watersum) from
+		O_CAMPUSWATER
+		where watertype=1
+		and (select to_char(WATERDATE,'yyyy-mm')
+		from dual)=#{0}
 		and schoolid=#{1}
 	</select>
-	
+	<select id="getSumIncome1" resultType="double">
+		select sum(watersum) from
+		O_CAMPUSWATER
+		where watertype=1
+		and (select to_char(WATERDATE,'yyyy-mm')
+		from dual)=#{0}
+	</select>
+
 	<select id="getSumExpenditure" resultType="double">
-		select sum(watersum) from O_CAMPUSWATER 
-		where watertype=0 
-		and (select to_char(WATERDATE,'yyyy-mm') from dual)=#{0}
+		select sum(watersum)
+		from O_CAMPUSWATER
+		where watertype=0
+		and (select
+		to_char(WATERDATE,'yyyy-mm') from dual)=#{0}
 		and schoolid=#{1}
 	</select>
-	
+	<select id="getSumExpenditure1" resultType="double">
+		select sum(watersum)
+		from O_CAMPUSWATER
+		where watertype=0
+		and (select
+		to_char(WATERDATE,'yyyy-mm') from dual)=#{0}
+	</select>
+
 	<select id="getListPage" parameterType="baseQuery" resultMap="waterMap">
-		select 
-		<include refid="com.hotmarzz.oa.dao.FinanceDao.waterCol"/>
-		from o_campuswater cw 
-		join (select * from o_subject) sb on cw.subjectid=sb.subjectid
-		join (select * from o_schooldistrict) sls on cw.schoolid=sls.schoolid
-		join (select * from o_subjectdetail) sbd on cw.subjectdetailid=sbd.subjectdetailid
-		<include refid="com.hotmarzz.basic.dao.BaseDao.queryByConditions"/>
+		select
+		<include refid="com.hotmarzz.oa.dao.FinanceDao.waterCol" />
+		from o_campuswater cw
+		join (select * from o_subject) sb on
+		cw.subjectid=sb.subjectid
+		join (select
+		* from o_schooldistrict) sls on
+		cw.schoolid=sls.schoolid
+		join (select *
+		from o_subjectdetail) sbd on
+		cw.subjectdetailid=sbd.subjectdetailid
+		<include refid="com.hotmarzz.basic.dao.BaseDao.queryByConditions" />
 		<if test="startDate!=null">
 			and waterdate >=#{startDate}
 		</if>
 		<if test="endDate!=null">
 			and waterdate &lt;=#{endDate}
 		</if>
-		<include refid="com.hotmarzz.basic.dao.BaseDao.queryByOrders"/>
+		<include refid="com.hotmarzz.basic.dao.BaseDao.queryByOrders" />
 	</select>
+	
+	
+	
 	<resultMap type="com.hotmarzz.oa.pojo.Financial" id="finMap">
-		<id column="finappId" property="finappId"/>
-		<result column="finappSum" property="finappSum"/>
-		<result column="finappDes" property="finappDes"/>
-		<result column="applyUser" property="applyUser"/>
-		<result column="approveUser" property="approveUser"/>
-		<result column="approveView" property="approveView"/>
-		
-		<result column="appropriationUser" property="appropriationUser"/>
-		<result column="appropriationTime" property="appropriationTime"/>
-		<result column="finStatus" property="finStatus"/>
-		<result column="createUser" property="createUser"/>
-		<result column="createDate" property="createDate"/>
-		<result column="updateUser" property="updateUser"/>
-		<result column="updateDate" property="updateDate"/>
-		
+		<id column="finappId" property="finappId" />
+		<result column="finappSum" property="finappSum" />
+		<result column="finappDes" property="finappDes" />
+		<result column="applyUser" property="applyUser" />
+		<result column="approveUser" property="approveUser" />
+		<result column="approveView" property="approveView" />
+
+		<result column="appropriationUser" property="appropriationUser" />
+		<result column="appropriationTime" property="appropriationTime" />
+		<result column="finStatus" property="finStatus" />
+		<result column="createUser" property="createUser" />
+		<result column="createDate" property="createDate" />
+		<result column="updateUser" property="updateUser" />
+		<result column="updateDate" property="updateDate" />
+		<result column="schoolName" property="schoolName" />
 		<!-- 科目 -->
-		<association property="finSubjectId" column="bid1" javaType="com.hotmarzz.oa.pojo.FinSubject">
-			<id column="bid2" property="finSubjectId"/>
-			<result column="finSubjectName" property="finSubjectName"/>
+		<association property="finSubjectId" column="bid1"
+			javaType="com.hotmarzz.oa.pojo.FinSubject">
+			<id column="bid2" property="finSubjectId" />
+			<result column="finSubjectName" property="finSubjectName" />
 		</association>
-		
+
 		<!-- 科目明细 -->
-		<association property="finSubDetId" column="cid1" javaType="com.hotmarzz.oa.pojo.FinSubjectDetail">
-			<id column="cid2" property="finSubDetailId"/>
-			<result column="finSubDetailName" property="finSubDetailName"/>
-			<result column="FINSUBJECTID" property="finSubjectIdDto"/>
+		<association property="finSubDetId" column="cid1"
+			javaType="com.hotmarzz.oa.pojo.FinSubjectDetail">
+			<id column="cid2" property="finSubDetailId" />
+			<result column="finSubDetailName" property="finSubDetailName" />
+			<result column="FINSUBJECTID" property="finSubjectIdDto" />
 		</association>
 	</resultMap>
-	
+
 	<resultMap type="com.hotmarzz.oa.pojo.CampusWater" id="waterMap">
-		<id column="waterid" property="waterId"/>
-		<result column="waterType" property="waterType"/>
-		<result column="waterBanch" property="waterBanch"/>
-		<result column="waterSum" property="waterSum"/>
-		<result column="remark" property="remark"/>
-		<result column="waterDate" property="waterDate"/>
-		<result column="billPath" property="billPath"/>
-		<result column="brokerage" property="brokerage"/>
-		<result column="createUser" property="createUser"/>
-		<result column="createDate" property="createDate"/>
-		<result column="updateUser" property="updateUser"/>
-		<result column="updateDate" property="updateDate"/>
+		<id column="waterid" property="waterId" />
+		<result column="waterType" property="waterType" />
+		<result column="waterBanch" property="waterBanch" />
+		<result column="waterSum" property="waterSum" />
+		<result column="remark" property="remark" />
+		<result column="waterDate" property="waterDate" />
+		<result column="billPath" property="billPath" />
+		<result column="brokerage" property="brokerage" />
+		<result column="createUser" property="createUser" />
+		<result column="createDate" property="createDate" />
+		<result column="updateUser" property="updateUser" />
+		<result column="updateDate" property="updateDate" />
 		<!-- 校区 -->
-		<association property="schoolId" column="aid1" javaType="com.hotmarzz.oa.pojo.SchoolDistrict">
-			<id column="aid2" property="schoolId"/>
-			<result column="schoolName" property="schoolName"/>
-			<result column="province" property="province"/>
+		<association property="schoolId" column="aid1"
+			javaType="com.hotmarzz.oa.pojo.SchoolDistrict">
+			<id column="aid2" property="schoolId" />
+			<result column="schoolName" property="schoolName" />
+			<result column="province" property="province" />
 		</association>
 		<!-- 科目 -->
-		<association property="subId" column="bid1" javaType="com.hotmarzz.oa.pojo.Subject">
-			<id column="bid2" property="subjectId"/>
-			<result column="subjectName" property="subjectName"/>
+		<association property="subId" column="bid1"
+			javaType="com.hotmarzz.oa.pojo.Subject">
+			<id column="bid2" property="subjectId" />
+			<result column="subjectName" property="subjectName" />
 		</association>
 		<!-- 科目明细 -->
-		<association property="subDetailId" column="cid1" javaType="com.hotmarzz.oa.pojo.SubjectDetail">
-			<id column="cid2" property="subjectDetailId"/>
-			<result column="subjectDetailName" property="subjectDetailName"/>
-			<result column="detailTitle" property="detailTitle"/>
+		<association property="subDetailId" column="cid1"
+			javaType="com.hotmarzz.oa.pojo.SubjectDetail">
+			<id column="cid2" property="subjectDetailId" />
+			<result column="subjectDetailName" property="subjectDetailName" />
+			<result column="detailTitle" property="detailTitle" />
 		</association>
 	</resultMap>
-	
+
 	<select id="getCount" parameterType="baseQuery" resultType="int">
-		<include refid="com.hotmarzz.basic.dao.BaseDao.count"/> o_campuswater cw
-		<include refid="com.hotmarzz.basic.dao.BaseDao.queryByConditions"/>
+		<include refid="com.hotmarzz.basic.dao.BaseDao.count" />
+		o_campuswater cw
+		<include refid="com.hotmarzz.basic.dao.BaseDao.queryByConditions" />
 		<if test="startDate!=null">
 			and waterdate >=#{startDate}
 		</if>
@@ -169,70 +220,77 @@
 			and waterdate &lt;=#{endDate}
 		</if>
 	</select>
-	
+
 	<delete id="delete" parameterType="long">
-		delete from o_campuswater where waterid=#{fid}
+		delete from o_campuswater
+		where waterid=#{fid}
 	</delete>
-	
+
 	<delete id="deleteFin" parameterType="long">
-		delete from o_financial where FINAPPID=#{fid}
+		delete from o_financial
+		where FINAPPID=#{fid}
 	</delete>
-	
+
 	<insert id="add" parameterType="campuswaterdto">
 		<selectKey keyProperty="waterId" order="BEFORE" resultType="long">
 			select o_seq.nextval from dual
 		</selectKey>
 		insert into o_campuswater values(
-			#{waterId,jdbcType=NUMERIC},
-			#{schoolIdDto,jdbcType=NUMERIC},
-			#{subIdDto,jdbcType=NUMERIC},
-			#{subDetailIdDto,jdbcType=NUMERIC},
-			#{waterType,jdbcType=NUMERIC},
-			#{waterBanch,jdbcType=VARCHAR},
-			#{waterSum,jdbcType=NUMERIC},
-			<if test="remark !=null">
+		#{waterId,jdbcType=NUMERIC},
+		#{schoolIdDto,jdbcType=NUMERIC},
+		#{subIdDto,jdbcType=NUMERIC},
+		#{subDetailIdDto,jdbcType=NUMERIC},
+		#{waterType,jdbcType=NUMERIC},
+		#{waterBanch,jdbcType=VARCHAR},
+		#{waterSum,jdbcType=NUMERIC},
+		<if test="remark !=null">
 			#{remark,jdbcType=VARCHAR},
-			</if>
-			<if test="remark ==null">
-				null,
-			</if>
-			#{waterDate,jdbcType=DATE},
-			<if test="billPath !=null">
-			#{billPath,jdbcType=VARCHAR},
-			</if>
-			<if test="billPath ==null">
-				null,
-			</if>
-			
-			#{brokerage,jdbcType=VARCHAR},
-			
-			#{createUser,jdbcType=VARCHAR},
-			
-			sysdate,
-			
-			<if test="updateUser !=null">
-			#{updateUser,jdbcType=VARCHAR},
-			</if>
-			<if test="updateUser ==null">
-				null,
-			</if>
-			
+		</if>
+		<if test="remark ==null">
 			null,
-			
-			#{issupple,jdbcType=NUMERIC}
+		</if>
+		#{waterDate,jdbcType=DATE},
+		<if test="billPath !=null">
+			#{billPath,jdbcType=VARCHAR},
+		</if>
+		<if test="billPath ==null">
+			null,
+		</if>
+
+		#{brokerage,jdbcType=VARCHAR},
+
+		#{createUser,jdbcType=VARCHAR},
+
+		sysdate,
+
+		<if test="updateUser !=null">
+			#{updateUser,jdbcType=VARCHAR},
+		</if>
+		<if test="updateUser ==null">
+			null,
+		</if>
+
+		null,
+
+		#{issupple,jdbcType=NUMERIC}
 		)
 	</insert>
-	
+
 	<select id="getById" parameterType="long" resultMap="waterMap">
-		select 
-		<include refid="com.hotmarzz.oa.dao.FinanceDao.waterCol"/>
-		from o_campuswater cw 
-		join (select * from o_subject) sb on cw.subjectid=sb.subjectid
-		join (select * from o_schooldistrict) sls on cw.schoolid=sls.schoolid
-		join (select * from o_subjectdetail) sbd on cw.subjectdetailid=sbd.subjectdetailid
+		select
+		<include refid="com.hotmarzz.oa.dao.FinanceDao.waterCol" />
+		from o_campuswater cw
+		join (select * from o_subject) sb on
+		cw.subjectid=sb.subjectid
+		join (select
+		* from o_schooldistrict) sls on
+		cw.schoolid=sls.schoolid
+		join (select *
+		from o_subjectdetail) sbd on
+		cw.subjectdetailid=sbd.subjectdetailid
 		where cw.waterid=#{wid}
 	</select>
-	
+
 	<update id="update" parameterType="campuswaterdto">
 		update o_campuswater set
 		watertype=#{waterType},
@@ -242,9 +300,10 @@
 		issupple=#{issupple},
 		waterdate=#{waterDate},
 		remark=#{remark}
-		where waterid=#{waterId}
+		where
+		waterid=#{waterId}
 	</update>
-	
+
 	<update id="updateFin">
 		update o_financial set
 		finappSum=#{finappSum},
@@ -252,11 +311,13 @@
 		FINSUBDETID=#{finSubDetIdDto},
 		APPROVEUSER=#{approveUser},
 		finappDes=#{finappDes}
-		where finappId=#{finappId}
+		where
+		finappId=#{finappId}
 	</update>
 	<update id="updateSP">
 		update o_financial set
 		finStatus=#{finStatus},
+		approveUser=#{approveUser},
 		approveView=#{approveView}
 		where finappId=#{finappId}
 	</update>
@@ -265,115 +326,151 @@
 		finappSum=#{finappSum},
 		appropriationUser=#{appropriationUser},
 		finStatus='已拨款'
-		where finappId=#{finappId}
+		where
+		finappId=#{finappId}
 	</update>
-	
-	<select id="getCurrentYearWaterSum" resultType="double" parameterType="long">
+
+	<select id="getCurrentYearWaterSum" resultType="double"
+		parameterType="long">
 		select t2.myin-t1.myout from
-		(select case when sum(watersum)>0 then sum(watersum) else 0.0 end myout from o_campuswater where watertype=0 and schoolid=#{schoolId}) t1,
-		(select case when sum(watersum)>0 then sum(watersum) else 0.0 end myin from o_campuswater where watertype=1  and schoolid=#{schoolId}) t2
+		(select case when
+		sum(watersum)>0 then sum(watersum) else 0.0 end myout from
+		o_campuswater where watertype=0 and schoolid=#{schoolId}) t1,
+		(select
+		case when sum(watersum)>0 then sum(watersum) else 0.0 end myin from
+		o_campuswater where watertype=1 and schoolid=#{schoolId}) t2
 	</select>
-	
+	<select id="getCurrentYearWaterSum1" resultType="double">
+		select t2.myin-t1.myout from
+		(select case when
+		sum(watersum)>0 then sum(watersum) else 0.0 end myout from
+		o_campuswater where watertype=0) t1,
+		(select
+		case when sum(watersum)>0 then sum(watersum) else 0.0 end myin from
+		o_campuswater where watertype=1) t2
+	</select>
+
 	<insert id="addFin" parameterType="financial">
 		<selectKey keyProperty="finappId" order="BEFORE" resultType="long">
 			select o_seq.nextval from dual
 		</selectKey>
 		insert into o_financial values(
-			#{finappId,jdbcType=NUMERIC},
-			#{finappSum,jdbcType=NUMERIC},
-			#{finappDes,jdbcType=VARCHAR},
-			#{finSubjectIdDto,jdbcType=NUMERIC},
-			#{finSubDetIdDto,jdbcType=NUMERIC},
-			#{applyUser,jdbcType=VARCHAR},
-			#{approveUser,jdbcType=VARCHAR},
-			<if test="approveView !=null">
+		#{finappId,jdbcType=NUMERIC},
+		#{finappSum,jdbcType=NUMERIC},
+		#{finappDes,jdbcType=VARCHAR},
+		#{finSubjectIdDto,jdbcType=NUMERIC},
+		#{finSubDetIdDto,jdbcType=NUMERIC},
+		#{applyUser,jdbcType=VARCHAR},
+		#{approveUser,jdbcType=VARCHAR},
+		<if test="approveView !=null">
 			#{approveView,jdbcType=VARCHAR},
-			</if>
-			<if test="approveView ==null">
-				null,
-			</if>
-			
-			<if test="appropriationUser !=null">
+		</if>
+		<if test="approveView ==null">
+			null,
+		</if>
+
+		<if test="appropriationUser !=null">
 			#{appropriationUser,jdbcType=VARCHAR},
-			</if>
-			<if test="appropriationUser ==null">
-				null,
-			</if>
-			
-			<if test="appropriationTime !=null">
-				#{appropriationTime,jdbcType=DATE},
-			</if>
-			<if test="appropriationTime ==null">
-				SYSDATE,
-			</if>
-			
-			<if test="finStatus !=null">
+		</if>
+		<if test="appropriationUser ==null">
+			null,
+		</if>
+
+		<if test="appropriationTime !=null">
+			#{appropriationTime,jdbcType=DATE},
+		</if>
+		<if test="appropriationTime ==null">
+			SYSDATE,
+		</if>
+
+		<if test="finStatus !=null">
 			#{finStatus,jdbcType=VARCHAR},
-			</if>
-			<if test="finStatus ==null">
-				null,
-			</if>
-			
-			<if test="createUser !=null">
+		</if>
+		<if test="finStatus ==null">
+			null,
+		</if>
+
+		<if test="createUser !=null">
 			#{createUser,jdbcType=VARCHAR},
-			</if>
-			<if test="createUser ==null">
-				null,
-			</if>
-			<if test="createDate !=null">
-				#{createDate,jdbcType=DATE},
-			</if>
-			<if test="createDate ==null">
-				sysdate,
-			</if>
-			<if test="updateUser !=null">
+		</if>
+		<if test="createUser ==null">
+			null,
+		</if>
+		<if test="createDate !=null">
+			#{createDate,jdbcType=DATE},
+		</if>
+		<if test="createDate ==null">
+			sysdate,
+		</if>
+		<if test="updateUser !=null">
 			#{updateUser,jdbcType=VARCHAR},
-			</if>
-			<if test="updateUser ==null">
-				null,
-			</if>
+		</if>
+		<if test="updateUser ==null">
+			null,
+		</if>
+		null,
+		<if test="schoolName==null">
 			null
+		</if>
+		<if test="schoolName!=null">
+			#{schoolName,jdbcType=VARCHAR}
+		</if>
 		)
 	</insert>
-	
+
 	<select id="getCurrentBillPath" parameterType="long" resultType="string">
 		select billpath from o_campuswater where waterid=#{id}
 	</select>
-	
+
 	<update id="updateBillPath" parameterType="campuswater">
-		update o_campuswater set billpath=#{billPath} where waterid=#{waterId}
+		update o_campuswater
+		set billpath=#{billPath} where waterid=#{waterId}
 	</update>
-	
-	<select id="getFinsListPage" parameterType="baseQuery" resultMap="finMap">
-		select 
-		<include refid="com.hotmarzz.oa.dao.FinanceDao.finAllCol"/>
+
+	<select id="getFinsListPage" parameterType="baseQuery"
+		resultMap="finMap">
+		select
+		<include refid="com.hotmarzz.oa.dao.FinanceDao.finAllCol" />
 		from o_financial f
-		join (select * from o_finsubject) sb on f.FINSUBJECTID=sb.FINSUBJECTID
-		join (select * from o_finsubdetail) sbd on f.FINSUBDETID=sbd.FINSUBDETAILID
-		<include refid="com.hotmarzz.basic.dao.BaseDao.queryByConditions"/>
-		<include refid="com.hotmarzz.basic.dao.BaseDao.queryByOrders"/>
+		join (select * from o_finsubject) sb on
+		f.FINSUBJECTID=sb.FINSUBJECTID
+		join (select * from o_finsubdetail) sbd
+		on f.FINSUBDETID=sbd.FINSUBDETAILID
+		<include refid="com.hotmarzz.basic.dao.BaseDao.queryByConditions" />
+		<include refid="com.hotmarzz.basic.dao.BaseDao.queryByOrders" />
 	</select>
-	
+
 	<select id="getFinsCount" parameterType="baseQuery" resultType="int">
-		<include refid="com.hotmarzz.basic.dao.BaseDao.count"/> 
+		<include refid="com.hotmarzz.basic.dao.BaseDao.count" />
 		o_financial
-		<include refid="com.hotmarzz.basic.dao.BaseDao.queryByConditions"/>
+		<include refid="com.hotmarzz.basic.dao.BaseDao.queryByConditions" />
 	</select>
-	
+
 	<select id="getFinById" parameterType="long" resultMap="finMap">
 		select
-		<include refid="com.hotmarzz.oa.dao.FinanceDao.finAllCol"/>
+		<include refid="com.hotmarzz.oa.dao.FinanceDao.finAllCol" />
 		from o_financial f
-		join (select * from o_finsubject) sb on f.FINSUBJECTID=sb.FINSUBJECTID
-		join (select * from o_finsubdetail) sbd on f.FINSUBDETID=sbd.FINSUBDETAILID
+		join (select * from o_finsubject) sb on
+		f.FINSUBJECTID=sb.FINSUBJECTID
+		join (select * from o_finsubdetail) sbd
+		on f.FINSUBDETID=sbd.FINSUBDETAILID
 		where f.FINAPPID=#{wid}
 	</select>
-	
+
 	<select id="getFinEmps" parameterType="long" resultType="empdto2">
-		select empid,empname from o_emp where empid in(
-select empid from O_EMP_ROLE er join o_role r 
-on er.roleid=r.roleid
-and r.rolename='校区财务'
-) and schoolid=#{sid}
+		select
+		empid,empname from o_emp where empid in(
+		select empid from O_EMP_ROLE
+		er join o_role r
+		on er.roleid=r.roleid
+		and r.rolename='系统管理员'
+		) and
+		empname!='金民'
+		and empname!='超级管理员'
+	</select>
+
+	<select id="getAdmin" resultType="string">
+		select e.empname from o_emp e join o_emp_role r
+		on r.empid=e.empid and r.roleid=1 and e.empname=#{empname}
 	</select>
 </mapper>

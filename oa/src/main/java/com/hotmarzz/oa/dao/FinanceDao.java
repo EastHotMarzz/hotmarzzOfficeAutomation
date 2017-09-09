@@ -24,10 +24,13 @@ public interface FinanceDao {
 	List<SubjectDetail> getSubDetailsList(Long subId) throws Exception;
 	
 	Double getSumIncome(String formatDate,Long sid) throws Exception;
+	Double getSumIncome1(String formatDate) throws Exception;
 	
 	Double getSumExpenditure(String formatDate,Long sid) throws Exception;
+	Double getSumExpenditure1(String formatDate) throws Exception;
 	
 	List<CampusWater> getListPage(CampusWater cw) throws Exception;
+	List<CampusWater> getListPage1(CampusWater cw) throws Exception;
 	
 	int getCount(CampusWater cw) throws Exception;
 	
@@ -40,6 +43,7 @@ public interface FinanceDao {
 	void update(CampusWaterDto cwd) throws Exception;
 	
 	Double getCurrentYearWaterSum(Long schoolId) throws Exception;
+	Double getCurrentYearWaterSum1() throws Exception;
 	
 	List<FinSubject> getFinSubsList() throws Exception;
 	
@@ -66,4 +70,6 @@ public interface FinanceDao {
 	void updateBK(Financial fin) throws Exception;
 	
 	List<EmpDto2> getFinEmps(long sid) throws Exception;
+	
+	String getAdmin(String empname);
 }

@@ -264,6 +264,11 @@
 			<script src="<%=path%>/assets/js/custom/array-utils.js"></script>
 			<!-- inline scripts related to this page -->
 			<script type="text/javascript">
+			function ckAll(){
+				$(".ckbox").attr("checked","checked");
+				$(".ckbox").attr("disabled","disabled");
+			}
+			
 			function fuzhiCKB(){
 				var cks=$(".ckbox");
 				var str=$("#in_app").val();
@@ -276,7 +281,6 @@
 					}
 					
 				}
-				
 			}
 			
 			function addstr(){
@@ -316,6 +320,7 @@
 			}
 				jQuery(function($) {
 					fuzhiCKB();
+					ckAll();
 					
 					$("#alertDiv a").click(function(){
 						var alertDiv = $("#alertDiv");

@@ -23,6 +23,16 @@ public class Financial {
 	private Date createDate;
 	private String updateUser;
 	private Date updateDate;
+	//添加校区名属性
+	private String schoolName;
+	
+	
+	public String getSchoolName() {
+		return schoolName;
+	}
+	public void setSchoolName(String schoolName) {
+		this.schoolName = schoolName;
+	}
 	public Long getFinappId() {
 		return finappId;
 	}

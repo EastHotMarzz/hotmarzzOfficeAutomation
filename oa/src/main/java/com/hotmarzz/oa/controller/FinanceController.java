@@ -278,6 +278,7 @@ public class FinanceController {
 			bq.putCondition("finStatus", Expression.OP_EQ,
 					queryParams.get("finStatus"));
 		}
+		
 		BaseQuery bqResult = finBuzz.getFinsList(bq);
 		return JsonUtils.bean2Json(bqResult);
 	}
