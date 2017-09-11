@@ -1276,6 +1276,7 @@ INSERT INTO "HOTMARZZ"."O_ROLE" VALUES ('11', '后台助教', null, null, null, 
 INSERT INTO "HOTMARZZ"."O_ROLE" VALUES ('1', '系统管理员', null, null, null, null, null);
 INSERT INTO "HOTMARZZ"."O_ROLE" VALUES ('2', '校区行政', null, null, null, null, null);
 INSERT INTO "HOTMARZZ"."O_ROLE" VALUES ('3', '校区咨询师', null, null, null, null, null);
+INSERT INTO "HOTMARZZ"."O_ROLE" VALUES ('12', '财务审批', null, null, null, null, null);
 
 -- ----------------------------
 -- Indexes structure for table O_ROLE

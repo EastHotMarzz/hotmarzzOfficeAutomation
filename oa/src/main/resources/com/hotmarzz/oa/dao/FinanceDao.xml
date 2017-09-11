@@ -463,10 +463,8 @@
 		select empid from O_EMP_ROLE
 		er join o_role r
 		on er.roleid=r.roleid
-		and r.rolename='系统管理员'
-		) and
-		empname!='金民'
-		and empname!='超级管理员'
+		and r.rolename='财务审批'
+		) 
 	</select>
 
 	<select id="getAdmin" resultType="string">
