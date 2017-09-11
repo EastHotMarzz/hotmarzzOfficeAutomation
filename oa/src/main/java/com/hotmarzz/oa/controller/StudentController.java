@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hotmarzz.basic.dao.BaseQuery;
 import com.hotmarzz.basic.dao.Expression;
+import com.hotmarzz.basic.utils.DateUtils;
 import com.hotmarzz.basic.utils.JsonUtils;
 import com.hotmarzz.basic.utils.StringUtils;
 import com.hotmarzz.oa.anno.FormToken;
@@ -71,8 +72,24 @@ public class StudentController {
 		if (queryParams.containsKey("stuName")
 				&& StringUtils.isNotEmpty((String) queryParams.get("stuName"))) {
 			bq.putCondition("stuName", Expression.OP_LIKE,
-					"%" + queryParams.get("stuName") + "%");
+					"%" + ((String)queryParams.get("stuName")).trim() + "%");
 		}
+		if (queryParams.containsKey("phone")
+				&& StringUtils.isNotEmpty((String) queryParams.get("phone"))) {
+			bq.putCondition("phone", Expression.OP_LIKE,
+					"%" + ((String)queryParams.get("phone")).trim() + "%");
+		}
+		if (queryParams.containsKey("entranceTime")
+				&& StringUtils.isNotEmpty((String) queryParams.get("entranceTime"))) {
+			bq.putCondition("entranceTime", Expression.OP_GT,
+					DateUtils.parseSmallTime((String) queryParams.get("entranceTime")));
+		}
+		if (queryParams.containsKey("createUser")
+				&& StringUtils.isNotEmpty((String) queryParams.get("createUser"))) {
+			bq.putCondition("createUser", Expression.OP_LIKE,
+					"%" + ((String)queryParams.get("createUser")).trim() + "%");
+		}
+		bq.addOrders("createDate", "desc");
 		BaseQuery bqResult = stuBuzz.getList(bq);
 		return JsonUtils.bean2Json(bqResult);
 	}

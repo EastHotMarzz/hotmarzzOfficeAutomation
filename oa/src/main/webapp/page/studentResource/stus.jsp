@@ -126,13 +126,39 @@
 										role="form">
 										<div class="form-group">
 											<form:label path="queryParams[stuName]"
-												cssClass="col-sm-1 control-label no-padding-right">学员姓名</form:label>
+												cssClass="col-sm-2 col-md-2  control-label no-padding-right">学员姓名</form:label>
 
-											<div class="col-sm-3">
+											<div class="col-sm-4 col-md-4">
 												<form:input id="form-field-1" path="queryParams[stuName]"
-													placeholder="学员姓名" cssClass="col-xs-10 col-sm-5" />
+													placeholder="学员姓名" cssClass="col-xs-10 col-md-10  col-sm-10" />
+											</div>
+										
+											
+											<form:label path="queryParams[phone]"
+												cssClass="col-sm-2 col-md-2 control-label no-padding-right">手机号</form:label>
+
+											<div class="col-sm-4 col-md-4">
+												<form:input id="form-field-1" path="queryParams[phone]"
+													placeholder="手机号" cssClass="col-xs-10 col-md-10  col-sm-10" />
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<form:label path="queryParams[entranceTime]"
+												cssClass="col-sm-2 col-md-2 control-label no-padding-right">入学时间</form:label>
+
+											<div class="col-sm-4 col-md-4">
+												<form:input id="form-field-1" path="queryParams[entranceTime]"
+													placeholder="入学时间" cssClass="datepicker col-xs-10 col-md-10  col-sm-10" />
 											</div>
 											
+											<form:label path="queryParams[createUser]"
+												cssClass="col-sm-2 col-md-2 control-label no-padding-right">创建人</form:label>
+
+											<div class="col-sm-4 col-md-4">
+												<form:input id="form-field-1" path="queryParams[createUser]"
+													placeholder="创建人" cssClass="col-xs-10 col-md-10  col-sm-10" />
+											</div>
 											
 											<form:hidden id="current_page" path="pag.current_page" />
 											<form:hidden id="total_page" path="pag.total_page" />
@@ -282,12 +308,27 @@
 				if($(":input[name='queryParams[stuName]']")!=null&&$(":input[name='queryParams[stuName]']")!=undefined){
 					bq.queryParams.stuName = $(":input[name='queryParams[stuName]']").val();
 				}
+				if($(":input[name='queryParams[phone]']")!=null&&$(":input[name='queryParams[phone]']")!=undefined){
+					bq.queryParams.phone = $(":input[name='queryParams[phone]']").val();
+				}
+				if($(":input[name='queryParams[entranceTime]']")!=null&&$(":input[name='queryParams[entranceTime]']")!=undefined){
+					bq.queryParams.entranceTime = $(":input[name='queryParams[entranceTime]']").val();
+				}
+				if($(":input[name='queryParams[createUser]']")!=null&&$(":input[name='queryParams[createUser]']")!=undefined){
+					bq.queryParams.createUser = $(":input[name='queryParams[createUser]']").val();
+				}
 				return JSON.stringify(bq);
 			}
 
 			var writeParams = function(result) {
 				$(":input[name='queryParams[stuName]']").val(
 						result.queryParams.stuName);
+				$(":input[name='queryParams[phone]']").val(
+						result.queryParams.phone);
+				$(":input[name='queryParams[entranceTime]']").val(
+						result.queryParams.entranceTime);
+				$(":input[name='queryParams[createUser]']").val(
+						result.queryParams.createUser);
 				$(":input[name='pag.current_page']").val(
 						result.pag.current_page);
 				$(":input[name='pag.total_page']").val(result.pag.total_page);
@@ -627,9 +668,10 @@
 				autoclose : true,//选中之后自动隐藏日期选择框
 				clearBtn : true,//清除按钮
 				todayBtn : true,//今日按钮
-				format : "yyyy-mm-dd"
+				format : "yyyy-mm-dd",
+				todayHighlight : true
 			});
-
+			
 			$("#addButton").on("click", function() {
 				var addUrl = $(this).val();
 				$("#main").load(addUrl,initMain);

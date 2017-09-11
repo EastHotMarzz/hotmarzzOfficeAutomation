@@ -441,7 +441,7 @@
 						alertDiv.addClass("hidden");
 						alertDiv.find("a").next("span").remove();
 					})
-
+					
 					var listUrl = "stus.do";
 					var addOrUpdateUrl = "stu.do";
 					$("#submitBtn")

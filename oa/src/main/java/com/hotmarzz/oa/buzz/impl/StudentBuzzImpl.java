@@ -54,9 +54,13 @@ public class StudentBuzzImpl implements StudentBuzz {
 	}
 
 	@Override
-	public void update(Student stu) throws StudentLockException,Exception {
+	public void update(Student stu) throws StudentLockException,StudentRepeatException,Exception {
 		//检查不通过，抛出异常StudentLockException
 		checkLockPermission(stu.getStuId());
+		Student st = checkStuRepeat(stu);
+		if(st!=null&&!stu.getStuId().equals(st.getStuId())){
+			throw new StudentRepeatException(st.getLockUser());
+		}
 		stu.setLocked(0);
 		stu.setLockTime(new Date());
 		stu.setLockUser(((Emp)session.getAttribute(SessionUtils.LOGIN_EMP_KEY)).getEmpName());
@@ -100,6 +104,7 @@ public class StudentBuzzImpl implements StudentBuzz {
 	 * 20170703 
 	 */
 	private Student checkStuRepeat(Student stu) throws Exception {
+		stu.setPhone(stu.getPhone().trim());
 		Student s = stuDao.checkStuRepeat(stu);
 		return s;
 	}
