@@ -469,6 +469,6 @@
 
 	<select id="getAdmin" resultType="string">
 		select e.empname from o_emp e join o_emp_role r
-		on r.empid=e.empid and r.roleid=1 and e.empname=#{empname}
+		on r.empid=e.empid and r.roleid in (1,12) and e.empname=#{empname}
 	</select>
 </mapper>
