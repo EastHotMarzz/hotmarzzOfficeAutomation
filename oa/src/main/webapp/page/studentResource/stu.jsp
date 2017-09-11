@@ -280,6 +280,20 @@
 															</div>
 														</div>
 														
+														<div class="space-2"></div>
+
+														<div class="form-group">
+ 															<form:label path="remarks" 
+ 																cssClass="control-label col-xs-12 col-sm-3 no-padding-right">备注:</form:label> 
+															<div class="col-xs-12 col-sm-9">
+																<div class="clearfix">
+ 																	<form:textarea path="remarks" 
+ 																		cssClass="col-xs-12 col-sm-6" /> 
+ 																	<form:errors path="remarks" /> 
+																</div>
+															</div>
+														</div>
+														
 														<input type="hidden" name="formToken" value="${formToken}" />
 													</form:form>
 												</div>

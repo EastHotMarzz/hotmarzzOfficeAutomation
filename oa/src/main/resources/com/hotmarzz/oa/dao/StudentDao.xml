@@ -171,7 +171,8 @@
 		idnumber=#{idNumber,jdbcType=VARCHAR},
 		lockuser=#{lockUser,jdbcType=VARCHAR},
 		locktime=#{lockTime,jdbcType=TIMESTAMP},
-		locked=#{locked,jdbcType=NUMERIC}
+		locked=#{locked,jdbcType=NUMERIC},
+		remarks=#{remarks,jdbcType=VARCHAR}
 		where stuid=#{stuId,jdbcType=NUMERIC}
 	</update>
 	
