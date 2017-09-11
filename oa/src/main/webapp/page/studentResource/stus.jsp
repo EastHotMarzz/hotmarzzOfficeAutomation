@@ -253,6 +253,10 @@
 				"sstutyTable" : "表中数据为空",
 				"sLoadingRecords" : "载入中...",
 				"sInfoThousands" : ",",
+				"sScrollX": "100%",		//DataTables的宽 
+				"sScrollXInner": "110%", 
+				"bScrollCollapse": true, // 是否开启DataTables的高度自适应，当数据条数不够分页数据条数的时候，插件高度是否随数据条数而改变  
+				"bAutoWidth" : false, //是否自适应宽度
 				"oPaginate" : {
 					"sFirst" : "首页",
 					"sPrevious" : "上页",
@@ -355,6 +359,15 @@
 								{
 									data : "lockUser",
 									title : "锁定人"
+								},
+								{
+									data: "createUser",
+									title: "创建人"
+								},
+								{
+									data: "remarks",
+									width: "50px",
+									title: "备注"
 								},
 								{
 									title : "操作",
