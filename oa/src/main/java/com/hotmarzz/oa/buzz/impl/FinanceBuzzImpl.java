@@ -60,8 +60,8 @@ public class FinanceBuzzImpl implements FinanceBuzz {
 		Emp emp = (Emp) session.getAttribute(SessionUtils.LOGIN_EMP_KEY);
 		long sid = emp.getSchoolDistrict().getSchoolId();
 		// 判断权限
-		String str = finDao.getAdmin(emp.getEmpName());
-		if (str != null) {
+		String[] str = finDao.getAdmin(emp.getEmpName());
+		if (str.length!=0) {
 			return finDao.getSumIncome1(formatDate);
 		}
 
@@ -74,8 +74,8 @@ public class FinanceBuzzImpl implements FinanceBuzz {
 		long sid = emp.getSchoolDistrict().getSchoolId();
 
 		// 判断权限
-		String str = finDao.getAdmin(emp.getEmpName());
-		if (str != null) {
+		String[] str = finDao.getAdmin(emp.getEmpName());
+		if (str.length!=0) {
 			return finDao.getSumExpenditure1(formatDate);
 		}
 
@@ -87,8 +87,8 @@ public class FinanceBuzzImpl implements FinanceBuzz {
 		Emp emp = (Emp) session.getAttribute(SessionUtils.LOGIN_EMP_KEY);
 		List<CampusWater> us = null;
 		// 判断权限
-		String str = finDao.getAdmin(emp.getEmpName());
-		if (str == null) {
+		String[] str = finDao.getAdmin(emp.getEmpName());
+		if (str.length==0) {
 			cw.putCondition("cw.schoolid", Expression.OP_EQ, ((Emp) (session
 					.getAttribute(SessionUtils.LOGIN_EMP_KEY)))
 					.getSchoolDistrict().getSchoolId());
@@ -141,8 +141,8 @@ public class FinanceBuzzImpl implements FinanceBuzz {
 		schoolId = emp.getSchoolDistrict().getSchoolId();
 
 		// 判断权限
-		String str = finDao.getAdmin(emp.getEmpName());
-		if (str != null) {
+		String[] str = finDao.getAdmin(emp.getEmpName());
+		if (str.length!=0) {
 			return finDao.getCurrentYearWaterSum1();
 		}
 		return finDao.getCurrentYearWaterSum(schoolId);
@@ -195,8 +195,8 @@ public class FinanceBuzzImpl implements FinanceBuzz {
 	public BaseQuery getFinsList(BaseQuery bq) throws Exception {
 		Emp emp = (Emp) session.getAttribute(SessionUtils.LOGIN_EMP_KEY);
 		// 判断权限
-		String str = finDao.getAdmin(emp.getEmpName());
-		if (str == null) {
+		String[] str = finDao.getAdmin(emp.getEmpName());
+		if (str.length==0) {
 			bq.putCondition("schoolName", Expression.OP_EQ,
 					emp.getSchoolDistrict().getSchoolName());
 		}

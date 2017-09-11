@@ -71,5 +71,5 @@ public interface FinanceDao {
 	
 	List<EmpDto2> getFinEmps(long sid) throws Exception;
 	
-	String getAdmin(String empname);
+	String[] getAdmin(String empname);
 }
