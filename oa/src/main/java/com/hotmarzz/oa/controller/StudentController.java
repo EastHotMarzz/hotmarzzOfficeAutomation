@@ -89,6 +89,11 @@ public class StudentController {
 			bq.putCondition("createUser", Expression.OP_LIKE,
 					"%" + ((String)queryParams.get("createUser")).trim() + "%");
 		}
+		if (queryParams.containsKey("lockUser")
+				&& StringUtils.isNotEmpty((String) queryParams.get("lockUser"))) {
+			bq.putCondition("lockUser", Expression.OP_LIKE,
+					"%" + ((String)queryParams.get("lockUser")).trim() + "%");
+		}
 		bq.addOrders("createDate", "desc");
 		BaseQuery bqResult = stuBuzz.getList(bq);
 		return JsonUtils.bean2Json(bqResult);

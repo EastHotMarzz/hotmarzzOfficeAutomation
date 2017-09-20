@@ -163,6 +163,17 @@
 											<form:hidden id="current_page" path="pag.current_page" />
 											<form:hidden id="total_page" path="pag.total_page" />
 										</div>
+										
+										<div class="form-group">
+											<form:label path="queryParams[lockUser]"
+												cssClass="col-sm-2 col-md-2  control-label no-padding-right">锁定人</form:label>
+
+											<div class="col-sm-4 col-md-4">
+												<form:input id="form-field-1" path="queryParams[lockUser]"
+													placeholder="锁定人" cssClass="col-xs-10 col-md-10  col-sm-10" />
+											</div>
+										
+										</div>
 									</form:form>
 								</div>
 								<!-- /.widget-main -->
@@ -317,6 +328,9 @@
 				if($(":input[name='queryParams[createUser]']")!=null&&$(":input[name='queryParams[createUser]']")!=undefined){
 					bq.queryParams.createUser = $(":input[name='queryParams[createUser]']").val();
 				}
+				if($(":input[name='queryParams[lockUser]']")!=null&&$(":input[name='queryParams[lockUser]']")!=undefined){
+					bq.queryParams.lockUser = $(":input[name='queryParams[lockUser]']").val();
+				}
 				return JSON.stringify(bq);
 			}
 
@@ -329,6 +343,8 @@
 						result.queryParams.entranceTime);
 				$(":input[name='queryParams[createUser]']").val(
 						result.queryParams.createUser);
+				$(":input[name='queryParams[lockUser]']").val(
+						result.queryParams.lockUser);
 				$(":input[name='pag.current_page']").val(
 						result.pag.current_page);
 				$(":input[name='pag.total_page']").val(result.pag.total_page);
@@ -400,6 +416,17 @@
 								{
 									data : "lockUser",
 									title : "锁定人"
+								},
+								{
+									data : "lockTime",
+									title : "锁定时间",
+									render : function(data, type, full, meta) {
+										if(data==null){
+											return '';
+										}else{
+											return (new Date(data)).Format("yyyy-MM-dd hh:mm:ss");
+										}
+									}
 								},
 								{
 									data: "createUser",
