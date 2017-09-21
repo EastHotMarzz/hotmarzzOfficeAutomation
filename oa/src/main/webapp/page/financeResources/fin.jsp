@@ -264,9 +264,23 @@
 			<script src="<%=path%>/assets/js/custom/array-utils.js"></script>
 			<!-- inline scripts related to this page -->
 			<script type="text/javascript">
+			function ckIsNoOneChecked(){
+				var num=0;
+				var cks=$(".ckbox");
+				for(var i=0;i<cks.length;i++){
+					if(cks[i].checked){
+						num++;
+					}
+				}
+				if(num==0){
+					return false;
+				}
+				return true;
+			}
+			
 			function ckAll(){
-				$(".ckbox").attr("checked","checked");
-				$(".ckbox").attr("disabled","disabled");
+				$(".ckbox").attr("checked","checked");//全选
+// 				$(".ckbox").attr("disabled","disabled");
 			}
 			
 			function fuzhiCKB(){
@@ -333,6 +347,10 @@
 					$("#submitBtn")
 							.on("click",function(e) {
 								addstr();
+								if(!ckIsNoOneChecked()){
+									alert("请选择至少一个审批人！")
+									return;//没有任何审批人被选中
+								}
 										if($("#finappSum").val().trim()==""){
 											alert("请输入金额")
 											return false;
