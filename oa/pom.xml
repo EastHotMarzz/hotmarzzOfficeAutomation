@@ -220,7 +220,7 @@
 				<artifactId>tomcat7-maven-plugin</artifactId>
 				<version>2.2</version>
 				<configuration>
-					<url>http://localhost:8080/manager/text</url>
+					<url>http://localhost/manager/text</url>
 					<!--部署路径 root -->
 					<path>/</path>
 					<server>tomcat</server>
