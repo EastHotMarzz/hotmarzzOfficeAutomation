@@ -31,6 +31,7 @@ import com.hotmarzz.basic.dao.BaseQuery;
 import com.hotmarzz.basic.dao.Expression;
 import com.hotmarzz.basic.utils.JsonUtils;
 import com.hotmarzz.basic.utils.StringUtils;
+import com.hotmarzz.oa.anno.FormToken;
 import com.hotmarzz.oa.buzz.FinanceBuzz;
 import com.hotmarzz.oa.dto.CampusWaterDto;
 import com.hotmarzz.oa.dto.FinanceDto;
@@ -179,7 +180,8 @@ public class FinanceController {
 
 		return JsonUtils.bean2Json(result);
 	}
-
+	
+	@FormToken(save=true)
 	@RequestMapping(value = "water.do", method = RequestMethod.GET)
 	public String addFilling(Model model, HttpSession session) throws Exception {
 		CampusWaterDto cw = new CampusWaterDto();
@@ -190,7 +192,8 @@ public class FinanceController {
 		model.addAttribute("subDetails", finBuzz.getSubDetailsList(1l));
 		return "financeResources/water";
 	}
-
+	
+	@FormToken(remove=true)
 	@RequestMapping(value = "water.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String add(@RequestBody CampusWaterDto cw) throws Exception {
@@ -212,7 +215,7 @@ public class FinanceController {
 				finBuzz.getSubDetailsList(cwd.getSubIdDto()));
 		return "financeResources/water";
 	}
-
+	
 	@RequestMapping(value = "water.do", method = RequestMethod.PUT)
 	@ResponseBody
 	public String update(@RequestBody CampusWaterDto cwd) throws Exception {

@@ -227,6 +227,7 @@
 																</div>
 															</div>
 														</div>
+														<input type="hidden" name="formToken" value="${formToken}" />
 													</form:form>
 												</div>
 
@@ -397,6 +398,7 @@
 											method = "put";
 										}
 										var param = $("#fillForm").serializeJSON();
+										addOrUpdateUrl = addOrUpdateUrl+"?formToken="+param.formToken;
 										$.ajax({
 													"url" : addOrUpdateUrl,
 													"method" : method,
