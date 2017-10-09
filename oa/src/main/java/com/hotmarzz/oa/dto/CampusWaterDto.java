@@ -40,6 +40,8 @@ public class CampusWaterDto extends CampusWater{
 		this.setPag(cw.getPag());
 		this.setQueryList(cw.getQueryList());
 		this.setQueryParams(cw.getQueryParams());
+		this.setStartDate(cw.getStartDate());
+		this.setEndDate(cw.getEndDate());
 	}
 
 	private Long schoolIdDto;
@@ -66,7 +68,7 @@ public class CampusWaterDto extends CampusWater{
 	@Override
 	public String toString() {
 		return "CampusWaterDto [schoolIdDto=" + schoolIdDto + ", subIdDto="
-				+ subIdDto + ", subDetailIdDto=" + subDetailIdDto + "]";
+				+ subIdDto + ", subDetailIdDto=" + subDetailIdDto + " , startDate="+getStartDate()+"]";
 	}
 	
 }

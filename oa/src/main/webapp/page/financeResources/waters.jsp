@@ -127,7 +127,7 @@
 										cssClass="form-horizontal" role="form">
 										<div class="form-group">
 											<div
-												style="float: left; width: 200px; height: 30px; margin-left: 20px; margin-top: 5px">
+												style="float: left; width: 140px; height: 30px; margin-left: 20px; margin-top: 5px">
 												<span>类型：</span>
 												<form:radiobutton path="waterType" value="0" />
 												<label for="waterType1">支出</label>
@@ -135,19 +135,24 @@
 												<label for="waterType2">收入</label>
 											</div>
 											<div
-												style="float: left; width: 200px; height: 30px; margin-left: 20px">
+												style="float: left; width: 170px; height: 30px; margin-left: 20px">
 												<span>开始日期：</span>
 												<form:input path="startDate" cssClass="datepicker"
 													cssStyle="width:100px" />
 											</div>
 											<div
-												style="float: left; width: 200px; height: 30px; margin-left: 20px">
+												style="float: left; width: 170px; height: 30px; margin-left: 20px">
 												<span>结束日期：</span>
 												<form:input path="endDate" cssClass="datepicker"
 													cssStyle="width:100px" />
 											</div>
 											<div
-												style="float: left; width: 200px; height: 30px; margin-left: 20px">
+												style="float: left; width: 158px; height: 30px; margin-left: 20px">
+												<span>申请人：</span>
+												<form:input path="createUser" cssStyle="width:100px" />
+											</div>
+											<div
+												style="float: left; width: 150px; height: 30px; margin-left: 20px">
 												<span>科目：</span>
 												<form:select path="subId" onchange="change_sub()">
 													<form:option value="0" label="全部"></form:option>
@@ -156,7 +161,7 @@
 												</form:select>
 											</div>
 											<div
-												style="float: left; width: 200px; height: 30px; margin-left: 20px">
+												style="float: left; width: 150px; height: 30px; margin-left: 20px">
 												<span>明细科目：</span>
 												<form:select path="subDetailId">
 													<form:option value="0" label="全部"></form:option>
@@ -386,14 +391,21 @@
 				bq.queryParams.waterType = $('input:radio:checked').val();
 				//开始时间
 				if ($(":input[name='startDate']") != null
-						&& $(":input[name='startDate']") != undefined) {
-					bq.queryParams.startDate = $(":input[name='startDate']")
-							.val();
+						&& $(":input[name='startDate']") != undefined
+						) {
+					bq.queryParams.startDate = $(":input[name='startDate']").val();
 				}
 				//结束时间
 				if ($(":input[name='endDate']") != null
-						&& $(":input[name='endDate']") != undefined) {
+						&& $(":input[name='endDate']") != undefined
+						) {
 					bq.queryParams.endDate = $(":input[name='endDate']").val();
+				}
+				//创建人
+				if ($(":input[name='createUser']") != null
+						&& $(":input[name='createUser']") != undefined
+						) {
+					bq.queryParams.createUser = $(":input[name='createUser']").val();
 				}
 				//科目
 				bq.queryParams.subId = $("#subId").val();

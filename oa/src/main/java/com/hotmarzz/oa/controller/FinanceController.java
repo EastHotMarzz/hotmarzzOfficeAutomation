@@ -150,6 +150,13 @@ public class FinanceController {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			cw.setEndDate(sdf.parse((String) queryParams.get("endDate")));
 		}
+		
+		if (queryParams.containsKey("createUser")
+				&& StringUtils.isNotEmpty((String) queryParams.get("createUser"))) {
+			cw.putCondition("cw.createUser", Expression.OP_LIKE,
+						"%"+queryParams.get("createUser")+"%");
+		}
+		
 		if (queryParams.containsKey("subId")
 				&& StringUtils.isNotEmpty((String) queryParams.get("subId"))) {
 			if (!"0".equals((String) queryParams.get("subId"))) {

@@ -137,7 +137,7 @@
 		<if test="endDate!=null">
 			and waterdate &lt;=#{endDate}
 		</if>
-		<include refid="com.hotmarzz.basic.dao.BaseDao.queryByOrders" />
+		order by waterdate desc
 	</select>
 	
 	
