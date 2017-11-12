@@ -33,6 +33,7 @@ import com.hotmarzz.basic.utils.JsonUtils;
 import com.hotmarzz.basic.utils.StringUtils;
 import com.hotmarzz.oa.anno.FormToken;
 import com.hotmarzz.oa.buzz.FinanceBuzz;
+import com.hotmarzz.oa.buzz.SchoolBuzz;
 import com.hotmarzz.oa.dto.CampusWaterDto;
 import com.hotmarzz.oa.dto.FinanceDto;
 import com.hotmarzz.oa.pojo.CampusWater;
@@ -52,6 +53,7 @@ public class FinanceController {
 	private Logger logger = LoggerFactory.getLogger(FinanceController.class);
 
 	private FinanceBuzz finBuzz;
+	private SchoolBuzz schoolBuzz;
 
 	public FinanceBuzz getFinBuzz() {
 		return finBuzz;
@@ -60,6 +62,14 @@ public class FinanceController {
 	@Autowired
 	public void setFinBuzz(FinanceBuzz finBuzz) {
 		this.finBuzz = finBuzz;
+	}
+	
+	public SchoolBuzz getSchoolBuzz() {
+		return schoolBuzz;
+	}
+	@Autowired
+	public void setSchoolBuzz(SchoolBuzz schoolBuzz) {
+		this.schoolBuzz = schoolBuzz;
 	}
 
 	@RequestMapping(value = "fins.do", method = RequestMethod.GET)
@@ -109,6 +119,7 @@ public class FinanceController {
 		model.addAttribute("subs", finBuzz.getSubsList());
 		model.addAttribute("fin", fin);
 		model.addAttribute("cw", cw);
+		model.addAttribute("schs",schoolBuzz.getAll());
 		return "financeResources/waters";
 	}
 
@@ -172,6 +183,15 @@ public class FinanceController {
 						queryParams.get("subDetailId"));
 			}
 		}
+		if (queryParams.containsKey("schoolId")
+				&& StringUtils.isNotEmpty((String) queryParams
+						.get("schoolId"))) {
+			if (!"0".equals((String) queryParams.get("schoolId"))) {
+				cw.putCondition("cw.schoolId", Expression.OP_EQ,
+						queryParams.get("schoolId"));
+			}
+		}
+		cw.addOrders("waterdate", "desc");
 		CampusWater cwResult = finBuzz.getList(new CampusWaterDto(cw));
 		return JsonUtils.bean2Json(cwResult);
 	}

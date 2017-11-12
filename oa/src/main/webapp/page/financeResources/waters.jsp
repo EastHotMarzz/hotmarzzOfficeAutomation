@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -122,9 +123,99 @@
 							</div>
 
 							<div class="widget-body">
-								<div class="widget-main" style="height: 200px; width: 1100px">
+								<div class="widget-main"> <!-- style="height: 200px; width: 1100px" -->
 									<form:form id="searchForm" modelAttribute="cw" method="post"
 										cssClass="form-horizontal" role="form">
+
+										<div class="form-group">
+											<form:label path="waterType"
+												cssClass="col-sm-2 col-md-2  control-label no-padding-right">类型</form:label>
+
+											<div class="col-sm-4 col-md-4">
+												<form:radiobutton path="waterType" value="0" />
+												<label for="waterType">支出</label>
+												<form:radiobutton path="waterType" value="1" />
+												<label for="waterType">收入</label>
+											</div>
+										
+											
+											<form:label path="startDate"
+												cssClass="col-sm-2 col-md-2 control-label no-padding-right">开始日期：</form:label>
+
+											<div class="col-sm-4 col-md-4">
+												<form:input path="startDate"
+													cssClass="col-xs-10 col-md-10  col-sm-10 datepicker" />
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<form:label path="endDate"
+												cssClass="col-sm-2 col-md-2 control-label no-padding-right">结束日期：</form:label>
+
+											<div class="col-sm-4 col-md-4">
+												<form:input path="endDate"
+													cssClass="col-xs-10 col-md-10  col-sm-10 datepicker" />
+											</div>
+										
+											
+											<form:label path="createUser"
+												cssClass="col-sm-2 col-md-2 control-label no-padding-right">申请人：</form:label>
+
+											<div class="col-sm-4 col-md-4">
+												<form:input path="createUser"
+													cssClass="col-xs-10 col-md-10  col-sm-10" />
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<form:label path="subId"
+												cssClass="col-sm-2 col-md-2 control-label no-padding-right">科目：</form:label>
+
+											<div class="col-sm-4 col-md-4">
+												<form:select path="subId" onchange="change_sub()">
+													<form:option value="0" label="全部"></form:option>
+													<form:options items="${subs}" itemLabel="subjectName"
+														itemValue="subjectId" />
+												</form:select>
+											</div>
+										
+											
+											<form:label path="createUser"
+												cssClass="col-sm-2 col-md-2 control-label no-padding-right">科目明细：</form:label>
+
+											<div class="col-sm-4 col-md-4">
+												<form:select path="subDetailId">
+													<form:option value="0" label="全部"></form:option>
+													<form:options items="${subDetails}"
+														itemLabel="subjectDetailName" itemValue="subjectDetailId" />
+												</form:select>
+											</div>
+										</div>
+										
+										<div class="form-group">
+											
+											<c:forEach items="${sessionScope.login_emp.roles }" var="role">
+												<c:if test="${role.roleName == '系统管理员' || role.roleName == '财务审批' }">
+													<c:set var="showSchoolId" scope="page" value="true"/>
+												</c:if>
+											</c:forEach>
+											
+											<c:if test="${showSchoolId == 'true' }">
+												
+												<form:label path="schoolId"
+												cssClass="col-sm-2 col-md-2 control-label no-padding-right">所属校区：</form:label>
+	
+												<div class="col-sm-4 col-md-4">
+													<form:select path="schoolId">
+														<form:option value="0" label="全部"></form:option>
+														<form:options items="${schs}" itemLabel="schoolName"
+															itemValue="schoolId" />
+													</form:select>
+												</div>
+											</c:if>																						
+											
+										</div>
+										<!-- 
 										<div class="form-group">
 											<div
 												style="float: left; width: 140px; height: 30px; margin-left: 20px; margin-top: 5px">
@@ -169,6 +260,7 @@
 														itemLabel="subjectDetailName" itemValue="subjectDetailId" />
 												</form:select>
 											</div>
+											 -->
 											<div style="height: 60px;"></div>
 											<div style="width: 1100px; height: 30px; margin-left: 20px;">
 												<span class="sp1 well">本月收入：￥</span><span class="sp1 well">${fin.sumIncome }</span>
@@ -180,7 +272,8 @@
 													class="sp1 well">总结余：￥</span><span class="sp1 well"
 													style="color: green; font-weight: bold;">${fin.sumCount }</span>
 											</div>
-
+											
+											
 											<form:hidden id="current_page" path="pag.current_page" />
 											<form:hidden id="total_page" path="pag.total_page" />
 										</div>
@@ -411,7 +504,8 @@
 				bq.queryParams.subId = $("#subId").val();
 				//科目明细
 				bq.queryParams.subDetailId = $("#subDetailId").val();
-
+				//所属校区
+				bq.queryParams.schoolId = $("#schoolId").val();
 				return JSON.stringify(bq);
 			}
 
@@ -420,6 +514,7 @@
 				$(":input[name='pag.current_page']").val(
 						result.pag.current_page);
 				$(":input[name='pag.total_page']").val(result.pag.total_page);
+				$("#schoolId").val(result.queryParams.schoolId);
 			}
 
 			var tableColumn = [
