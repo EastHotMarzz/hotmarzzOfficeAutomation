@@ -13,7 +13,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 public class Student {
 	private Long stuId;
-	@NotEmpty(message="电话不能为空")
+	//@NotEmpty(message="电话不能为空")
 	private String phone;
 	@NotEmpty(message="姓名不能为空")
 	private String stuName;

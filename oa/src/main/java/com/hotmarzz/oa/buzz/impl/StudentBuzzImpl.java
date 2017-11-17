@@ -45,7 +45,7 @@ public class StudentBuzzImpl implements StudentBuzz {
 	public void add(Student stu) throws Exception {
 		Student st = checkStuRepeat(stu);
 		if(st!=null){
-			throw new StudentRepeatException(st.getLockUser());
+			throw new StudentRepeatException(st.getLocked(),st.getLockUser());
 		}
 		stu.setLocked(0);
 		stu.setLockTime(new Date());
@@ -55,11 +55,12 @@ public class StudentBuzzImpl implements StudentBuzz {
 
 	@Override
 	public void update(Student stu) throws StudentLockException,StudentRepeatException,Exception {
-		//检查不通过，抛出异常StudentLockException
+		//判断是否锁定，检查不通过，抛出异常StudentLockException
 		checkLockPermission(stu.getStuId());
+		//检查是否重复
 		Student st = checkStuRepeat(stu);
 		if(st!=null&&!stu.getStuId().equals(st.getStuId())){
-			throw new StudentRepeatException(st.getLockUser());
+			throw new StudentRepeatException();
 		}
 		stu.setLocked(0);
 		stu.setLockTime(new Date());
@@ -98,15 +99,19 @@ public class StudentBuzzImpl implements StudentBuzz {
 	
 	/*
 	 * check repeat stu
-	 * if repeat return lockUserName
 	 * norepeat return null
 	 * @qi.wang
 	 * 20170703 
 	 */
 	private Student checkStuRepeat(Student stu) throws Exception {
-		stu.setPhone(stu.getPhone().trim());
-		Student s = stuDao.checkStuRepeat(stu);
-		return s;
+		/*stu.setPhone(stu.getPhone().trim());*/
+		List<Student> stus = stuDao.checkStuRepeat(stu);
+		if(stus.size()>0){
+			return stus.get(0);
+		}else{
+			return null;
+		}
+		
 	}
 	
 	/**

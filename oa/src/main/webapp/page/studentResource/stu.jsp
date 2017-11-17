@@ -189,7 +189,7 @@
 															<div class="col-xs-12 col-sm-9">
 																<div class="clearfix">
 																	<form:input path="phone" cssClass="col-xs-12 col-sm-6" />
-																	<form:errors path="phone" />
+																	<%-- <form:errors path="phone" /> --%>
 																</div>
 															</div>
 														</div>

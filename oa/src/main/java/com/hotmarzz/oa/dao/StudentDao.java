@@ -51,7 +51,7 @@ public interface StudentDao {
 	 * @param stu
 	 * @return
 	 */
-	Student checkStuRepeat(Student stu);
+	List<Student> checkStuRepeat(Student stu);
 	/**
 	 * 为锁定时间早于指定时间的学生解锁
 	 * @param 

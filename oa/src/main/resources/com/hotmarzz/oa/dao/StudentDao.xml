@@ -180,7 +180,8 @@
 		select
 		<include refid="com.hotmarzz.oa.dao.StudentDao.stuCol"/>
 		from o_stu
-		where phone=#{phone,jdbcType=VARCHAR}
+		<!-- where phone=#{phone,jdbcType=VARCHAR} -->
+		where stuName = #{stuName,jdbcType=VARCHAR} and stuAge = #{stuAge,jdbcType=NUMERIC} and sex=#{sex,jdbcType=NUMERIC}
 	</select>
 	
 	<update id="unlockAllByLockTime" parameterType="date">
