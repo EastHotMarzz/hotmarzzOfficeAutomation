@@ -1,5 +1,7 @@
 package com.hotmarzz.oa.buzz;
 
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+
 import com.hotmarzz.basic.dao.BaseQuery;
 import com.hotmarzz.oa.pojo.Student;
 
@@ -35,4 +37,11 @@ public interface StudentBuzz {
 	 * @throws Exception
 	 */
 	void scheduleUpdateUnlockForStus() throws Exception;
+	
+	/**
+	 * 返回
+	 * @return
+	 * @throws Exception
+	 */
+	SXSSFWorkbook getAllExcelX() throws Exception;
 }

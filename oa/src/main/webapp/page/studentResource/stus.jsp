@@ -203,6 +203,11 @@
 												value="stu.do">
 												<i class="ace-icon fa fa-plus bigger-110 green"></i> 学员添加
 											</button>
+											<a id="addButton"
+												class="btn btn-sm btn-danger btn-white btn-round"
+												href="stusExcel.do">
+												<i class="ace-icon fa fa-file-excel-o bigger-110 red"></i> 导出信息
+											</a>
 											<div class="tableTools-container"></div>
 										</div>
 									</div>

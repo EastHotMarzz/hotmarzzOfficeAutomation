@@ -18,6 +18,12 @@
 		<include refid="com.hotmarzz.basic.dao.BaseDao.queryByOrders"/>
 	</select>
 	
+	<select id="getAll" resultType="student">
+		select 
+		<include refid="com.hotmarzz.oa.dao.StudentDao.stuCol"/>
+		 from o_stu
+	</select>
+	
 	<select id="getCount" parameterType="baseQuery" resultType="int">
 		<include refid="com.hotmarzz.basic.dao.BaseDao.count"/> o_stu 
 		<include refid="com.hotmarzz.basic.dao.BaseDao.queryByConditions"/>

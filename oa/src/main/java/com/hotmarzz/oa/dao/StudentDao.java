@@ -57,4 +57,9 @@ public interface StudentDao {
 	 * @param 
 	 */
 	void unlockAllByLockTime(Date lockTime) throws Exception;
+	
+	/*
+	 * 获取所有学员
+	 */
+	List<Student> getAll() throws Exception;
 }

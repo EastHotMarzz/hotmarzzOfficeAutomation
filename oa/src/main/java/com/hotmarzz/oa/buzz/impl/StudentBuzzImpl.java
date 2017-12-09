@@ -1,10 +1,14 @@
 package com.hotmarzz.oa.buzz.impl;
 
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +22,9 @@ import com.hotmarzz.oa.exception.StudentLockException;
 import com.hotmarzz.oa.exception.StudentRepeatException;
 import com.hotmarzz.oa.pojo.Emp;
 import com.hotmarzz.oa.pojo.Student;
+import com.hotmarzz.oa.utils.ExcelUtil;
 import com.hotmarzz.oa.utils.SessionUtils;
+
 
 @Service
 public class StudentBuzzImpl implements StudentBuzz {
@@ -134,6 +140,29 @@ public class StudentBuzzImpl implements StudentBuzz {
 		Date now = new Date();
 		Date before = new Date(now.getTime()-MILLI_SECOND_OF_UNLOCK_INTERVAL);
 		stuDao.unlockAllByLockTime(before);
+	}
+	@Override
+	public SXSSFWorkbook getAllExcelX() throws Exception {
+		Map<String,String> headMap = new LinkedHashMap<String,String>();
+        headMap.put("phone","手机号");
+        headMap.put("stuName","学员姓名");
+        headMap.put("idNumber","身份证号");
+        headMap.put("sex","性别");
+        headMap.put("stuAge","年龄");
+        headMap.put("entranceTime","入学时间");
+        headMap.put("graduation","毕业时间");
+        headMap.put("graSchool","毕业院校");
+        headMap.put("education","学历");
+        headMap.put("proFession","专业");
+        headMap.put("wskLevel","外语水平");
+        headMap.put("computerSkill","计算机等级");
+        headMap.put("qq","QQ");
+        headMap.put("email","邮箱");
+        headMap.put("contactPerson","联系人");
+        headMap.put("remarks","备注");
+		
+		List<Student> stus = stuDao.getAll();
+		return  ExcelUtil.exportExcelX("学员信息", headMap, stus, null, 0);
 	}
 	
 	

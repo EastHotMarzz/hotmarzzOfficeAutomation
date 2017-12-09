@@ -3,8 +3,10 @@ package com.hotmarzz.oa.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -189,6 +191,20 @@ public class StudentController {
 		result.put("msg", "修改成功");
 		return JsonUtils.bean2Json(result);
 	}
+	
+	@RequestMapping(value="/stusExcel.do",method=RequestMethod.GET)
+	public void exportAllForExcel(HttpServletResponse resp) throws Exception{
+		SXSSFWorkbook wb = stuBuzz.getAllExcelX();
+		if(wb!=null){
+			String fileName = "学员信息.xlsx";
+			resp.setHeader("Content-Disposition","attachment;fileName="+new String(fileName.getBytes(),"iso-8859-1"));
+			//excel的content type
+			resp.setHeader("Content-Type","application/msexcel;charset=UTF-8");
+			//不使用缓存
+			resp.setHeader("Cache-Control","no-cache");
+			wb.write(resp.getOutputStream());
+		}
+	}
 
 	// 学员重复添加异常
 	@ExceptionHandler(StudentRepeatException.class)
@@ -199,6 +215,8 @@ public class StudentController {
 		result.put(JSONConstrants.FLAG_EXCEPTION_MSG, exc.getMsg());
 		return JsonUtils.bean2Json(result);
 	}
+	
+	
 
 	
 	@ExceptionHandler(StudentLockException.class)
