@@ -223,9 +223,7 @@
 					<url>http://localhost/manager/text</url>
 					<!--部署路径 root -->
 					<path>/</path>
-					<server>tomcat</server>
-					<username>tomcat</username>
-					<password>123456</password>
+					<server>oa</server>
 				</configuration>
 			</plugin>
 		</plugins>
